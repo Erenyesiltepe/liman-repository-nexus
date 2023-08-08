@@ -38,5 +38,16 @@
     "search": {
       "placeholder": "Arama..."
     }
+  },
+  "navigation": {
+    "repositories": "Depolar"
+  },
+  "repository": {
+    "table": {
+      "name": "Ad",
+      "type": "Tip",
+      "format": "Format",
+      "url": "URL"
+    }
   }
 }

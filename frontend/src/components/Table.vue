@@ -216,7 +216,7 @@ const tableData = computed<IData[]>(() => {
   <n-data-table
     :columns="columns"
     :data="tableData"
-    :loading="!props.loading"
+    :loading="props.loading"
     :pagination="pagination"
     striped
     :single-line="false"

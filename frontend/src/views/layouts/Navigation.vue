@@ -110,17 +110,6 @@ watch(
         --n-item-color-active-collapsed: #00c0f3ff;
       "
     >
-      <div
-        role="menuitem"
-        class="n-menu-item"
-        @click="router.push({ name: 'license' })"
-      >
-        <div role="none" class="n-menu-item-content">
-          <div class="n-menu-item-content-header" role="none">
-            <i class="fa-solid fa-key"></i>
-          </div>
-        </div>
-      </div>
       <div role="menuitem" class="n-menu-item" @click="emits('fullscreen')">
         <div role="none" class="n-menu-item-content">
           <div class="n-menu-item-content-header" role="none">

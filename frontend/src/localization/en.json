@@ -38,5 +38,16 @@
     "search": {
       "placeholder": "Search in..."
     }
+  },
+  "navigation": {
+    "repositories": "Repositories"
+  },
+  "repository": {
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "format": "Format",
+      "url": "URL"
+    }
   }
 }
