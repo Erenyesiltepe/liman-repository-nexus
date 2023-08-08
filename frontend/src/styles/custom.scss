@@ -1,0 +1,54 @@
+#app {
+  margin: 0px -15px;
+}
+
+*,
+*:focus,
+*:hover,
+*:active {
+  outline: none !important;
+}
+
+.n-menu.n-menu--horizontal .n-menu-item-content {
+  padding: 0 12px !important;
+}
+
+.n-menu-item-content--selected {
+  border-bottom-color: #fff !important;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+pre {
+  margin: 0;
+  padding: 0;
+}
+
+.n-data-table-sorter {
+  vertical-align: 0 !important;
+}
+
+.n-radio-group .n-radio-group__splitor {
+  vertical-align: middle;
+  margin-top: -20px;
+}
+
+.n-radio-button {
+  font-weight: 400 !important;
+}
+
+.n-descriptions-table-header {
+  font-weight: 600 !important;
+}
+
+.n-descriptions-header {
+  font-weight: 600 !important;
+}

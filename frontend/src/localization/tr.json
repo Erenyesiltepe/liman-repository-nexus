@@ -1,0 +1,42 @@
+{
+  "repo": "REPO",
+  "common": {
+    "table": {
+      "actions": "İşlemler"
+    },
+    "success": "Başarılı",
+    "error": "Hata",
+    "warning": "Uyarı",
+    "refresh": "Yenile",
+    "are_you_sure": "Emin misiniz?",
+    "yes": "Evet",
+    "no": "Hayır",
+    "check_the_fields": "Devam etmek için eksik alanları kontrol ediniz.",
+    "ok": "TAMAM",
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "save": "Kaydet",
+    "leftp": "(",
+    "rightp": ")",
+    "dash": "-",
+    "pdf": "PDF",
+    "csv": "CSV",
+    "upload": {
+      "header_text": "Yüklemek için bu alana dosyanızı sürükleyebilirsiniz",
+      "sub_text": "Gizli bilgilerinizi yüklemediğinize emin olun. Örnek olarak, şifreler, kredi kartı numaraları, sosyal güvenlik numaraları, vb."
+    }
+  },
+  "filter": {
+    "risk_level": "Risk Seviyesi"
+  },
+  "table": {
+    "filter": {
+      "placeholder": "Arama...",
+      "clear": "Temizle",
+      "apply": "Uygula"
+    },
+    "search": {
+      "placeholder": "Arama..."
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "repo": "REPO",
+  "common": {
+    "table": {
+      "actions": "Actions"
+    },
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "refresh": "Refresh",
+    "are_you_sure": "Are you sure?",
+    "yes": "Yes",
+    "no": "No",
+    "check_the_fields": "Check the missing fields to continue.",
+    "ok": "OK",
+    "prev": "Previous",
+    "next": "Next",
+    "save": "Save",
+    "leftp": "(",
+    "rightp": ")",
+    "dash": "-",
+    "pdf": "PDF",
+    "csv": "CSV",
+    "upload": {
+      "header_text": "Drag and drop your file into this area to upload",
+      "sub_text": "Make sure you don't upload any sensitive information. For example, passwords, credit card numbers, social security numbers, etc."
+    }
+  },
+  "filter": {
+    "risk_level": "Risk Level"
+  },
+  "table": {
+    "filter": {
+      "placeholder": "Search in...",
+      "clear": "Clear",
+      "apply": "Apply"
+    },
+    "search": {
+      "placeholder": "Search in..."
+    }
+  }
+}
