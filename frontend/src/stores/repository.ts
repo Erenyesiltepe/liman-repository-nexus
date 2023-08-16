@@ -7,20 +7,22 @@ export const useRepositoryStore = defineStore({
   id: "repository",
   state: () => ({
     repositories: [] as IRepository[],
+    client_url: "",
   }),
   getters: {
     get: (state) => state.repositories,
+    getClientUrl: (state) => state.client_url,
   },
   actions: {
     async fetch() {
       return http
-        .get(`/service/rest/v1/repositories`)
+        .get(`repositories`)
         .then((res) => {
           if (res.status == 200) {
             this.repositories = res.data
           } else {
             window.$notification.error({
-              duration: 7000,
+              duration: 4000,
               title: i18n.t("common.error"),
               content: i18n.t("repository.get.messages.error"),
             })
@@ -28,11 +30,33 @@ export const useRepositoryStore = defineStore({
         })
         .catch((err) => {
           console.error(err)
-
           window.$notification.error({
-            duration: 7000,
+            duration: 4000,
             title: i18n.t("common.error"),
             content: i18n.t("repository.get.messages.error"),
+          })
+        })
+    },
+    async fetchClientUrl(id: string) {
+      return http
+        .get(`repositories/client_url/${id}`)
+        .then((res) => {
+          if (res.status == 200) {
+            this.client_url = res.data
+          } else {
+            window.$notification.error({
+              duration: 4000,
+              title: i18n.t("common.error"),
+              content: i18n.t("repository.get_client_url.messages.error"),
+            })
+          }
+        })
+        .catch((err) => {
+          console.error(err)
+          window.$notification.error({
+            duration: 4000,
+            title: i18n.t("common.error"),
+            content: i18n.t("repository.get_client_url.messages.error"),
           })
         })
     },

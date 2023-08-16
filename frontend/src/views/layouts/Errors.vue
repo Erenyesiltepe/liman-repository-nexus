@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n"
+
+const { t } = useI18n()
 const props = defineProps<{
   error: any
   stack: any
@@ -18,7 +21,8 @@ const reload = () => {
 
     <center>
       <n-button type="primary" @click="reload()"
-        ><i class="fa-solid fa-sync mr-2"></i> Refresh</n-button
+        ><i class="fa-solid fa-sync mr-2"></i>
+        {{ t("common.refresh") }}</n-button
       >
     </center>
 

@@ -1,19 +1,18 @@
 {
-  "repo": "REPO",
+  "repo": "Repository Management",
   "common": {
-    "table": {
-      "actions": "Actions"
-    },
-    "success": "Success",
+    "success": "Successful",
     "error": "Error",
     "warning": "Warning",
     "refresh": "Refresh",
     "are_you_sure": "Are you sure?",
     "yes": "Yes",
     "no": "No",
+    "copy": "Copy",
+    "copied": "Copied to clipboard",
     "check_the_fields": "Check the missing fields to continue.",
     "ok": "OK",
-    "prev": "Previous",
+    "prev": "Former",
     "next": "Next",
     "save": "Save",
     "leftp": "(",
@@ -22,21 +21,18 @@
     "pdf": "PDF",
     "csv": "CSV",
     "upload": {
-      "header_text": "Drag and drop your file into this area to upload",
-      "sub_text": "Make sure you don't upload any sensitive information. For example, passwords, credit card numbers, social security numbers, etc."
+      "header_text": "You can drag your file to this area to upload.",
+      "sub_text": "Make sure you don't upload your confidential information. "
     }
-  },
-  "filter": {
-    "risk_level": "Risk Level"
   },
   "table": {
     "filter": {
-      "placeholder": "Search in...",
-      "clear": "Clear",
+      "placeholder": "Call...",
+      "clear": "Clean",
       "apply": "Apply"
     },
     "search": {
-      "placeholder": "Search in..."
+      "placeholder": "Call..."
     }
   },
   "navigation": {
@@ -45,9 +41,23 @@
   "repository": {
     "table": {
       "name": "Name",
+      "path": "Path",
       "type": "Type",
       "format": "Format",
+      "status": "Status",
+      "status_active": "Active",
+      "status_inactive": "Passive",
       "url": "URL"
+    },
+    "get": {
+      "messages": {
+        "error": "An error occurred while retrieving repository information."
+      }
+    },
+    "get_client_url": {
+      "messages": {
+        "error": "An error occurred while retrieving repository client URL."
+      }
     }
   }
 }

@@ -1,9 +1,6 @@
 {
-  "repo": "REPO",
+  "repo": "Depo Yönetimi",
   "common": {
-    "table": {
-      "actions": "İşlemler"
-    },
     "success": "Başarılı",
     "error": "Hata",
     "warning": "Uyarı",
@@ -11,6 +8,8 @@
     "are_you_sure": "Emin misiniz?",
     "yes": "Evet",
     "no": "Hayır",
+    "copy": "Kopyala",
+    "copied": "Panoya kopyalandı",
     "check_the_fields": "Devam etmek için eksik alanları kontrol ediniz.",
     "ok": "TAMAM",
     "prev": "Önceki",
@@ -25,9 +24,6 @@
       "header_text": "Yüklemek için bu alana dosyanızı sürükleyebilirsiniz",
       "sub_text": "Gizli bilgilerinizi yüklemediğinize emin olun. Örnek olarak, şifreler, kredi kartı numaraları, sosyal güvenlik numaraları, vb."
     }
-  },
-  "filter": {
-    "risk_level": "Risk Seviyesi"
   },
   "table": {
     "filter": {
@@ -45,9 +41,23 @@
   "repository": {
     "table": {
       "name": "Ad",
+      "path": "Path",
       "type": "Tip",
       "format": "Format",
+      "status": "Durum",
+      "status_active": "Aktif",
+      "status_inactive": "Pasif",
       "url": "URL"
+    },
+    "get": {
+      "messages": {
+        "error": "Depo listesi getirilirken bir hata oluştu."
+      }
+    },
+    "get_client_url": {
+      "messages": {
+        "error": "Depo URL'i getirilirken bir hata oluştu."
+      }
     }
   }
 }

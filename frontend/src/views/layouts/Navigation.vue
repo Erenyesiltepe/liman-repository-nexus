@@ -50,8 +50,7 @@ watch(
     inverted
   >
     <n-button text @click="router.push({ name: 'dashboard' })">
-      <n-h5 style="margin-right: 25px; font-weight: bold; color: #ffffff">
-        <i class="fa-solid fa-box-archive fa-lg mr-2" />
+      <n-h5 style="margin-right: 25px; color: #ffffff">
         {{ t("repo") }}
       </n-h5>
     </n-button>

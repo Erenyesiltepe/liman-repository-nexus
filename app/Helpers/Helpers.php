@@ -4,9 +4,27 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
 if (!function_exists('getUrl')) {
-	function getUrl($endpoint = "")
+	function getUrl($endpoint = "", $type = "repository")
 	{
-		return "http://" . server()->ip_address . "/$endpoint";
+
+		if ($type == "repository") {
+			$tunnel = openTunnel(
+				server()->ip_address,
+				'/opt/repository-server/repository-server.sock',
+				extensionDb("username"),
+				extensionDb("password")
+			);
+
+			if ($tunnel == "0") {
+				return abort(__("Cannot initialize socket connection."), 201);
+			}
+			
+			return "http://127.0.0.1:$tunnel/$endpoint";
+		}
+
+		if($type == "nexus") {
+			return "http://" . server()->ip_address . "/$endpoint";
+		}
 	}
 }
 
@@ -16,10 +34,6 @@ if (!function_exists('getDefaults')) {
 		return [
 			'headers' => [
 				'Content-Type' => 'application/json'
-			],
-			'auth' => [
-				extensionDb('nexusUsername'),
-				extensionDb('nexusPassword')
 			],
 			'verify' => false
 		];

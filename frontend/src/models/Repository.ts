@@ -1,19 +1,16 @@
 export interface IRepository {
-  name: string
-  format: string
-  type: string
+  id: string
+  created_at: string
+  updated_at: string
+  deleted_at: any
+  path: string
   url: string
-  attributes: Attributes
+  repository_name: string
+  repository_type: string
+  status: boolean
+  format: string
+  distribution: string
+  component: string
+  package_count: number
+  size: number
 }
-
-export interface Attributes {
-  additionalProp1: AdditionalProp1
-  additionalProp2: AdditionalProp2
-  additionalProp3: AdditionalProp3
-}
-
-export interface AdditionalProp1 {}
-
-export interface AdditionalProp2 {}
-
-export interface AdditionalProp3 {}

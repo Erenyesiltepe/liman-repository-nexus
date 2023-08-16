@@ -2,23 +2,23 @@
   "name": "Repo",
   "publisher": "HAVELSAN A.\u015e.",
   "version": "DEVELOPMENT",
-  "version_code": 6,
+  "version_code": 10,
   "database": [
     {
-      "variable": "nexusUsername",
+      "variable": "username",
       "type": "text",
-      "name": "Nexus Username",
+      "name": "Kullan\u0131c\u0131 Ad\u0131",
       "required": true,
       "global": true,
-      "writable": false
+      "writable": true
     },
     {
-      "variable": "nexusPassword",
+      "variable": "password",
       "type": "password",
-      "name": "Nexus Password",
+      "name": "Parola",
       "required": true,
       "global": true,
-      "writable": false
+      "writable": true
     }
   ],
   "widgets": [],
@@ -31,9 +31,10 @@
   "require_key": "false",
   "dependencies": null,
   "sslPorts": null,
-  "display_name": "Repo",
+  "display_name": "Depo Y\u00f6netimi",
   "functions": [],
   "vite": true,
   "skeleton": true,
-  "preload": true
+  "preload": true,
+  "verification": "verify"
 }
