@@ -67,7 +67,7 @@ watch(currentTab, (value) => {
         {{ t("repository.details") }}
       </template>
 
-      <n-thing class="ml-3 mr-3 mb-2" style="width: 50%">
+      <n-thing class="ml-3 mr-3 mb-2" style="width: 40%">
         <template #avatar>
           <n-avatar>
             <i class="fa-solid fa-database" />
@@ -83,14 +83,14 @@ watch(currentTab, (value) => {
               <i class="fa-solid fa-external-link"></i
             ></a>
           </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.type')">
-            {{ props.data.repository_type }}
-          </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.format')">
-            {{ props.data.format }}
+          <n-descriptions-item :label="t('repository.table.distribution')">
+            {{ props.data.distribution }}
           </n-descriptions-item>
           <n-descriptions-item :label="t('repository.table.component')">
             {{ props.data.component }}
+          </n-descriptions-item>
+          <n-descriptions-item :label="t('repository.table.format')">
+            {{ props.data.format }}
           </n-descriptions-item>
           <n-descriptions-item :label="t('repository.table.size')">
             {{ formatBytes(props.data.size) }}
@@ -100,8 +100,12 @@ watch(currentTab, (value) => {
               props.data.package_count
             }}</n-button>
           </n-descriptions-item>
+
           <n-descriptions-item :label="t('repository.table.updated_at')">
             {{ formatDate(props.data.updated_at) }}
+          </n-descriptions-item>
+          <n-descriptions-item :label="t('repository.table.type')">
+            {{ props.data.repository_type }}
           </n-descriptions-item>
         </n-descriptions>
       </n-thing>

@@ -44,7 +44,7 @@
       "name": "Depo İsmi",
       "path": "Path",
       "distribution": "Dağıtım",
-      "component": "Component",
+      "component": "Bileşen",
       "type": "Tip",
       "format": "Format",
       "status": "Durum",
@@ -66,8 +66,11 @@
     "create": {
       "title": "Depo Oluştur",
       "helpers": {
-        "name": "Depo için benzersiz bir tanımlayıcı",
-        "distribution": "bionic, focal, vb."
+        "name": "depo-focal",
+        "path": "/storage/blob-focal",
+        "url": "http://archive.ubuntu.com/ubuntu",
+        "distribution": "bionic, focal, vb.",
+        "component": "main, restricted, universe, multiverse vb."
       },
       "validation": {
         "name": "Depo ismi gereklidir."

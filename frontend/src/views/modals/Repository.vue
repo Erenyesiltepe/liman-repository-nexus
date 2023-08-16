@@ -57,11 +57,21 @@ const create = () => {
           <n-input v-model:value="values.repository_name" />
         </n-form-item>
 
-        <n-form-item :label="t('repository.table.path')" path="path">
+        <n-form-item path="path">
+          <template #label>
+            {{ t("repository.table.path") }}
+            <small class="ml-2">{{
+              t("repository.create.helpers.path")
+            }}</small>
+          </template>
           <n-input v-model:value="values.path" />
         </n-form-item>
 
-        <n-form-item :label="t('repository.table.url')" path="url">
+        <n-form-item path="url">
+          <template #label>
+            {{ t("repository.table.url") }}
+            <small class="ml-2">{{ t("repository.create.helpers.url") }}</small>
+          </template>
           <n-input v-model:value="values.url" />
         </n-form-item>
 
@@ -75,7 +85,13 @@ const create = () => {
           <n-input v-model:value="values.distribution" />
         </n-form-item>
 
-        <n-form-item :label="t('repository.table.component')" path="component">
+        <n-form-item path="component">
+          <template #label>
+            {{ t("repository.table.component") }}
+            <small class="ml-2">{{
+              t("repository.create.helpers.component")
+            }}</small>
+          </template>
           <n-input v-model:value="values.component" />
         </n-form-item>
       </n-form>
