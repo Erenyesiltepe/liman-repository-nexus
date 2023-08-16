@@ -214,11 +214,11 @@ const tableData = computed<IData[]>(() => {
   </n-space>
 
   <n-data-table
+    :row-key="(rowData: IData) => rowData.id"
     :columns="columns"
     :data="tableData"
     :loading="props.loading"
     :pagination="pagination"
-    striped
     :single-line="false"
     size="small"
   />

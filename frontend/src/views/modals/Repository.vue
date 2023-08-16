@@ -3,7 +3,7 @@ import { ref } from "vue"
 import type { FormInst } from "naive-ui"
 import useEmitter from "@/utils/emitter"
 import { useRepositoryStore } from "@/stores/repository.js"
-import type { IRepository } from "@/models/Repository"
+import type { ICreateRepository } from "@/models/Repository"
 import { useI18n } from "vue-i18n"
 
 const store = useRepositoryStore()
@@ -12,13 +12,13 @@ const { t } = useI18n()
 const show = ref(false)
 const formRef = ref<FormInst | null>(null)
 
-const values = ref<IRepository>({
+const values = ref<ICreateRepository>({
   path: "",
   repository_name: "",
   url: "",
   distribution: "",
   component: "",
-  repository_type: "",
+  repository_type: "mirror",
 })
 
 const rules = {
@@ -77,10 +77,6 @@ const create = () => {
 
         <n-form-item :label="t('repository.table.component')" path="component">
           <n-input v-model:value="values.component" />
-        </n-form-item>
-
-        <n-form-item :label="t('repository.table.type')" path="repository_type">
-          <n-input v-model:value="values.repository_type" />
         </n-form-item>
       </n-form>
       <template #footer>

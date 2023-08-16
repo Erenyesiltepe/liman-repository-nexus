@@ -8,9 +8,12 @@ import { NButton } from "naive-ui"
 import useEmitter from "@/utils/emitter"
 import URLModal from "@/views/modals/URL.vue"
 import RepositoryModal from "@/views/modals/Repository.vue"
+import RepositoryDetails from "@/components/RepositoryDetails.vue"
+import { useSyncStore } from "@/stores/sync"
 
 const { t } = useI18n()
 const store = useRepositoryStore()
+const syncStore = useSyncStore()
 const emitter = useEmitter()
 const loading = ref(true)
 
@@ -20,7 +23,14 @@ onMounted(() => {
   })
 })
 
-const columns = ref([
+const columns = ref<any>([
+  {
+    key: "actions",
+    type: "expand",
+    renderExpand: (row: IRepository) => {
+      return h(RepositoryDetails, { data: row })
+    },
+  },
   {
     title: t("repository.table.name"),
     key: "repository_name",
@@ -78,6 +88,22 @@ const columns = ref([
           default: () => [
             h("i", { class: ["mr-2", "fa-solid fa-copy"] }),
             t("common.copy"),
+          ],
+        }
+      )
+    },
+  },
+  {
+    key: "actions",
+    width: 100,
+    render: (row: IRepository) => {
+      return h(
+        NButton,
+        { size: "small", onClick: () => syncStore.manuelSync(row.id) },
+        {
+          default: () => [
+            h("i", { class: ["mr-2", "fa-solid fa-repeat"] }),
+            t("repository.table.sync"),
           ],
         }
       )
