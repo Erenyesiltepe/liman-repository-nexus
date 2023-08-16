@@ -7,6 +7,7 @@ import type { IRepository } from "@/models/Repository"
 import { NButton } from "naive-ui"
 import useEmitter from "@/utils/emitter"
 import URLModal from "@/views/modals/URL.vue"
+import RepositoryModal from "@/views/modals/Repository.vue"
 
 const { t } = useI18n()
 const store = useRepositoryStore()
@@ -59,15 +60,15 @@ const columns = ref([
             ],
           }),
           row.status
-            ? t("repository.table.status_active")
-            : t("repository.table.status_inactive"),
+            ? t("repository.table.online")
+            : t("repository.table.offline"),
         ],
       })
     },
   },
   {
-    title: t("repository.table.url"),
-    key: "url",
+    title: t("repository.table.client_url"),
+    key: "client_url",
     width: 100,
     render: (row: IRepository) => {
       return h(
@@ -87,7 +88,14 @@ const columns = ref([
 
 <template>
   <n-card>
-    <Table :loading="loading" :data="store.get" :columns="columns" />
+    <Table :loading="loading" :data="store.get" :columns="columns">
+      <template #buttons>
+        <n-button @click="emitter.emit('showRepositoryModal')"
+          ><i class="fas fa-plus"
+        /></n-button>
+      </template>
+    </Table>
   </n-card>
   <URLModal />
+  <RepositoryModal />
 </template>

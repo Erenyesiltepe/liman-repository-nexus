@@ -42,11 +42,13 @@
     "table": {
       "name": "Name",
       "path": "Path",
+      "distribution": "Distribution",
+      "component": "Component",
       "type": "Type",
       "format": "Format",
       "status": "Status",
-      "status_active": "Active",
-      "status_inactive": "Passive",
+      "online": "Active",
+      "offline": "Inactive",
       "url": "URL"
     },
     "get": {

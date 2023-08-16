@@ -23,7 +23,8 @@
     "upload": {
       "header_text": "Yüklemek için bu alana dosyanızı sürükleyebilirsiniz",
       "sub_text": "Gizli bilgilerinizi yüklemediğinize emin olun. Örnek olarak, şifreler, kredi kartı numaraları, sosyal güvenlik numaraları, vb."
-    }
+    },
+    "create": "Oluştur"
   },
   "table": {
     "filter": {
@@ -40,18 +41,35 @@
   },
   "repository": {
     "table": {
-      "name": "Ad",
+      "name": "Depo İsmi",
       "path": "Path",
+      "distribution": "Dağıtım",
+      "component": "Bileşen",
       "type": "Tip",
       "format": "Format",
       "status": "Durum",
-      "status_active": "Aktif",
-      "status_inactive": "Pasif",
+      "online": "Aktif",
+      "offline": "Pasif",
+      "client_url": "Client URL",
       "url": "URL"
     },
     "get": {
       "messages": {
         "error": "Depo listesi getirilirken bir hata oluştu."
+      }
+    },
+    "create": {
+      "title": "Depo Oluştur",
+      "helpers": {
+        "name": "Depo için benzersiz bir tanımlayıcı",
+        "distribution": "bionic, focal, vb."
+      },
+      "validation": {
+        "name": "Depo ismi gereklidir."
+      },
+      "messages": {
+        "success": "Depo başarıyla oluşturuldu.",
+        "error": "Depo oluşturulurken bir hata oluştu."
       }
     },
     "get_client_url": {

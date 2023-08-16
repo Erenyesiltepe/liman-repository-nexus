@@ -22,7 +22,7 @@ export const useRepositoryStore = defineStore({
             this.repositories = res.data
           } else {
             window.$notification.error({
-              duration: 4000,
+              duration: 3000,
               title: i18n.t("common.error"),
               content: i18n.t("repository.get.messages.error"),
             })
@@ -31,9 +31,39 @@ export const useRepositoryStore = defineStore({
         .catch((err) => {
           console.error(err)
           window.$notification.error({
-            duration: 4000,
+            duration: 3000,
             title: i18n.t("common.error"),
             content: i18n.t("repository.get.messages.error"),
+          })
+        })
+    },
+    async create(data: any) {
+      return http
+        .post(`repositories`, {
+          data: JSON.stringify(data),
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            window.$notification.success({
+              duration: 3000,
+              title: i18n.t("common.success"),
+              content: i18n.t("repository.create.messages.success"),
+            })
+            this.fetch()
+          } else {
+            window.$notification.error({
+              duration: 3000,
+              title: i18n.t("common.error"),
+              content: i18n.t("repository.create.messages.error"),
+            })
+          }
+        })
+        .catch((err) => {
+          console.error(err)
+          window.$notification.error({
+            duration: 3000,
+            title: i18n.t("common.error"),
+            content: i18n.t("repository.create.messages.error"),
           })
         })
     },
@@ -45,7 +75,7 @@ export const useRepositoryStore = defineStore({
             this.client_url = res.data
           } else {
             window.$notification.error({
-              duration: 4000,
+              duration: 3000,
               title: i18n.t("common.error"),
               content: i18n.t("repository.get_client_url.messages.error"),
             })
@@ -54,7 +84,7 @@ export const useRepositoryStore = defineStore({
         .catch((err) => {
           console.error(err)
           window.$notification.error({
-            duration: 4000,
+            duration: 3000,
             title: i18n.t("common.error"),
             content: i18n.t("repository.get_client_url.messages.error"),
           })
