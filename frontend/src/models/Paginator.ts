@@ -1,8 +1,6 @@
-import type { IData } from "./Data"
-
-export interface IPaginator {
+export interface IPaginator<RecordType> {
   current_page: number
-  records: IData[]
+  records: RecordType[]
   total_pages: number
   total_records: number
 }

@@ -28,6 +28,11 @@ const menuOptions: MenuOption[] = [
     icon: () => h("i", { class: "fa-solid fa-database fa-xs" }),
     key: "repositories",
   },
+  {
+    label: () => h(RouterLink, { to: "/sync" }, t("navigation.sync")),
+    icon: () => h("i", { class: "fa-solid fa-repeat fa-xs" }),
+    key: "sync",
+  },
 ]
 
 const route = useRoute()

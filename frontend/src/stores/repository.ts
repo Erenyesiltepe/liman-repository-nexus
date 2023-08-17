@@ -1,4 +1,7 @@
-import type { IRepository, IPackage } from "@/models/Repository"
+import type { IPaginator } from "@/models/Paginator"
+import type { IFilter } from "@/models/Filter"
+import type { ISync } from "@/models/Sync"
+import type { IPackage } from "@/models/Repository"
 import http from "@/utils/http-common"
 import { i18n } from "@/utils/i18n"
 import { defineStore } from "pinia"
@@ -6,7 +9,8 @@ import { defineStore } from "pinia"
 export const useRepositoryStore = defineStore({
   id: "repository",
   state: () => ({
-    repositories: [] as IRepository[],
+    filter: {} as IFilter,
+    repositories: {} as IPaginator<ISync>,
     client_url: "",
     packages: [] as IPackage[],
   }),
@@ -16,9 +20,16 @@ export const useRepositoryStore = defineStore({
     getPackages: (state) => state.packages,
   },
   actions: {
-    async fetch() {
+    async fetch(payload: IFilter = {} as IFilter) {
+      let q = payload
+      if (Object.keys(payload).length < 1) {
+        q = this.filter
+      } else {
+        this.filter = q
+      }
+      const query = new URLSearchParams(q as Record<string, string>).toString()
       return http
-        .get(`repositories`)
+        .get(`repositories/?${query}`)
         .then((res) => {
           if (res.status == 200) {
             this.repositories = res.data

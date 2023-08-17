@@ -37,7 +37,8 @@
     }
   },
   "navigation": {
-    "repositories": "Depolar"
+    "repositories": "Depolar",
+    "sync": "Senkronizasyonlar"
   },
   "repository": {
     "table": {
@@ -72,9 +73,6 @@
         "distribution": "bionic, focal, vb.",
         "component": "main, restricted, universe, multiverse vb."
       },
-      "validation": {
-        "name": "Depo ismi gereklidir."
-      },
       "messages": {
         "success": "Depo başarıyla oluşturuldu.",
         "error": "Depo oluşturulurken bir hata oluştu."
@@ -84,6 +82,9 @@
       "messages": {
         "error": "Depo URL'i getirilirken bir hata oluştu."
       }
+    },
+    "select": {
+      "helper": "Depo seçiniz"
     }
   },
   "package": {
@@ -94,6 +95,22 @@
     }
   },
   "sync": {
+    "table": {
+      "repository_name": "Depo İsmi",
+      "interval": "Sıklık",
+      "run_time": "Çalışma Zamanı",
+      "is_active": "Aktif",
+      "is_one_time": "Tek Seferlik",
+      "latest_sync_status": "Son Senkronizasyon Durumu",
+      "latest_sync_start_time": "Son Senkronizasyon Zamanı"
+    },
+    "create": {
+      "title": "Senkronizasyon Oluştur",
+      "messages": {
+        "success": "Senkronizasyon başarıyla oluşturuldu.",
+        "error": "Senkronizasyon oluşturulurken bir hata oluştu."
+      }
+    },
     "get": {
       "messages": {
         "error": "Senkronizasyon listesi getirilirken bir hata oluştu."

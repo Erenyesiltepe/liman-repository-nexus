@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { h, onMounted, ref } from "vue"
+import { h, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRepositoryStore } from "@/stores/repository"
-import Table from "@/components/Table.vue"
+import AsyncStore from "@/components/Table/AsyncStore.vue"
 import type { IRepository } from "@/models/Repository"
 import { NButton } from "naive-ui"
 import useEmitter from "@/utils/emitter"
@@ -15,13 +15,6 @@ const { t } = useI18n()
 const store = useRepositoryStore()
 const syncStore = useSyncStore()
 const emitter = useEmitter()
-const loading = ref(true)
-
-onMounted(() => {
-  store.fetch().then(() => {
-    loading.value = false
-  })
-})
 
 const columns = ref<any>([
   {
@@ -114,13 +107,13 @@ const columns = ref<any>([
 
 <template>
   <n-card>
-    <Table :loading="loading" :data="store.get" :columns="columns">
+    <AsyncStore :dispatcher="store.fetch" :data="store.get" :columns="columns">
       <template #buttons>
         <n-button @click="emitter.emit('showRepositoryModal')"
           ><i class="fas fa-plus"
         /></n-button>
       </template>
-    </Table>
+    </AsyncStore>
   </n-card>
   <URLModal />
   <RepositoryModal />

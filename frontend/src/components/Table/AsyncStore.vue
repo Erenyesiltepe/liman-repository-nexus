@@ -12,7 +12,7 @@ import { useRoute } from "vue-router"
 
 export interface Props {
   dispatcher: (payload?: IFilter) => Promise<any>
-  data: IPaginator
+  data: IPaginator<any>
   columns: any[]
   pageSize?: number
   title?: string

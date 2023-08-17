@@ -24,7 +24,28 @@ const values = ref<ICreateRepository>({
 const rules = {
   repository_name: {
     required: true,
-    message: t("repository.create.validation.name"),
+    message: "",
+    trigger: ["input"],
+  },
+  path: {
+    required: true,
+    message: "",
+    trigger: ["input"],
+  },
+  url: {
+    required: true,
+    message: "",
+    trigger: ["input"],
+  },
+  distribution: {
+    required: true,
+    message: "",
+    trigger: ["input"],
+  },
+  component: {
+    required: true,
+    message: "",
+    trigger: ["input"],
   },
 }
 

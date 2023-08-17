@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router"
 
 // Imports
 import Repositories from "@/views/pages/Repositories.vue"
+import Sync from "@/views/pages/Sync.vue"
 import Errors from "@/views/layouts/Errors.vue"
 
 const router = createRouter({
@@ -12,7 +13,11 @@ const router = createRouter({
       name: "repositories",
       component: Repositories,
     },
-
+    {
+      path: "/sync",
+      name: "sync",
+      component: Sync,
+    },
     {
       path: "/error",
       name: "error",
