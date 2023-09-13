@@ -80,6 +80,12 @@
         "error": "An error occurred while creating the repository."
       }
     },
+    "delete": {
+      "messages": {
+        "success": "Repository deleted successfully.",
+        "error": "An error occurred while deleting the repository."
+      }
+    },
     "get_client_url": {
       "messages": {
         "error": "An error occurred while retrieving repository client URL."
@@ -127,6 +133,13 @@
       "messages": {
         "success": "Sync started successfully.",
         "error": "An error occurred while starting the sync."
+      }
+    },
+    "update": {
+      "title": "Edit Synchronization",
+      "messages": {
+        "success": "Synchronization updated successfully.",
+        "error": "An error occurred while updating the synchronization."
       }
     },
     "delete": {

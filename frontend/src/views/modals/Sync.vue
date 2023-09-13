@@ -13,6 +13,7 @@ const emitter = useEmitter()
 const { t } = useI18n()
 const show = ref(false)
 const formRef = ref<FormInst | null>(null)
+const id = ref()
 
 // TRUE means UPDATE
 // FALSE means CREATE
@@ -47,7 +48,8 @@ const rules = {
 emitter.on("showSyncModal", (data: ISync) => {
   if (!isUndefined(data)) {
     mode.value = true
-    values.value = data
+    values.value = { ...data }
+    id.value = data.id
   } else {
     mode.value = false
   }
@@ -57,9 +59,15 @@ emitter.on("showSyncModal", (data: ISync) => {
 const create = () => {
   formRef.value?.validate((errors) => {
     if (!errors) {
-      store.create(values.value).then(() => {
-        show.value = false
-      })
+      if (mode.value) {
+        store.update(values.value, id.value).then(() => {
+          show.value = false
+        })
+      } else {
+        store.create(values.value).then(() => {
+          show.value = false
+        })
+      }
     }
   })
 }
@@ -67,7 +75,9 @@ const create = () => {
 
 <template>
   <n-drawer v-model:show="show" :width="502">
-    <n-drawer-content :title="t('sync.create.title')">
+    <n-drawer-content
+      :title="!mode ? t('sync.create.title') : t('sync.update.title')"
+    >
       <n-form ref="formRef" :rules="rules" :model="values">
         <n-form-item
           :label="t('sync.table.repository_name')"
@@ -104,7 +114,7 @@ const create = () => {
       <template #footer>
         <n-space justify="end">
           <n-button type="primary" @click="create()"
-            >{{ t("common.create") }}
+            >{{ !mode ? t("common.create") : t("common.edit") }}
           </n-button>
         </n-space>
       </template>

@@ -80,6 +80,12 @@
         "error": "Depo oluşturulurken bir hata oluştu."
       }
     },
+    "delete": {
+      "messages": {
+        "success": "Depo başarıyla silindi.",
+        "error": "Depo silinirken bir hata oluştu."
+      }
+    },
     "get_client_url": {
       "messages": {
         "error": "Depo URL'i getirilirken bir hata oluştu."
@@ -127,6 +133,13 @@
       "messages": {
         "success": "Senkronizasyon başarıyla başlatıldı.",
         "error": "Senkronizasyon başlatılırken bir hata oluştu."
+      }
+    },
+    "update": {
+      "title": "Senkronizasyonu Düzenle",
+      "messages": {
+        "success": "Senkronizasyon başarıyla güncellendi.",
+        "error": "Senkronizasyon güncellenirken bir hata oluştu."
       }
     },
     "delete": {
