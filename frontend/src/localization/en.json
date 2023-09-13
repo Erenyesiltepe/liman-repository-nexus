@@ -80,6 +80,13 @@
         "error": "An error occurred while creating the repository."
       }
     },
+    "update": {
+      "title": "Edit Repository",
+      "messages": {
+        "success": "Repository updated successfully.",
+        "error": "An error occurred while updating the repository."
+      }
+    },
     "delete": {
       "messages": {
         "success": "Repository deleted successfully.",

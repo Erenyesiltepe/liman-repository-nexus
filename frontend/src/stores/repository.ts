@@ -50,6 +50,29 @@ export const useRepositoryStore = defineStore({
           })
         })
     },
+
+    async update(data: any, id: string) {
+      return http
+        .patch(`repositories/${id}`, {
+          data: JSON.stringify(data),
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            window.$notification.success({
+              duration: 3000,
+              title: i18n.t("common.success"),
+              content: i18n.t("repository.update.messages.success"),
+            })
+            this.fetch()
+          } else {
+            window.$notification.error({
+              duration: 3000,
+              title: i18n.t("common.error"),
+              content: i18n.t("repository.update.messages.error"),
+            })
+          }
+        })
+    },
     async create(data: any) {
       return http
         .post(`repositories`, {
@@ -125,6 +148,32 @@ export const useRepositoryStore = defineStore({
             content: i18n.t("repository.get_packages.messages.error"),
           })
         })
+    },
+    async delete(id: number) {
+      window.$dialog.warning({
+        title: i18n.t("common.warning"),
+        content: i18n.t("common.are_you_sure"),
+        positiveText: i18n.t("common.yes"),
+        negativeText: i18n.t("common.no"),
+        onPositiveClick: () => {
+          return http.delete(`repositories/${id}`).then((res) => {
+            if (res.status == 200) {
+              window.$notification.success({
+                title: i18n.t("common.success"),
+                content: i18n.t("repository.delete.messages.success"),
+                duration: 3000,
+              })
+              this.fetch()
+            } else {
+              window.$notification.error({
+                duration: 4000,
+                title: i18n.t("common.error"),
+                content: i18n.t("repository.delete.messages.error"),
+              })
+            }
+          })
+        },
+      })
     },
   },
 })

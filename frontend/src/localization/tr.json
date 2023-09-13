@@ -86,6 +86,13 @@
         "error": "Depo silinirken bir hata oluştu."
       }
     },
+    "update": {
+      "title": "Depoyu Düzenle",
+      "messages": {
+        "success": "Depo başarıyla güncellendi.",
+        "error": "Depo güncellenirken bir hata oluştu."
+      }
+    },
     "get_client_url": {
       "messages": {
         "error": "Depo URL'i getirilirken bir hata oluştu."

@@ -10,6 +10,8 @@ import URLModal from "@/views/modals/URL.vue"
 import RepositoryModal from "@/views/modals/Repository.vue"
 import RepositoryDetails from "@/components/RepositoryDetails.vue"
 import { useSyncStore } from "@/stores/sync"
+import DropdownMenu from "@/components/Table/DropdownMenu.vue"
+import { renderIcon } from "@/utils/render-icon"
 
 const { t } = useI18n()
 const store = useRepositoryStore()
@@ -100,6 +102,37 @@ const columns = ref<any>([
           ],
         }
       )
+    },
+  },
+  {
+    title: "",
+    key: "actions",
+    width: 40,
+    render: (row: any) => {
+      return h(DropdownMenu, {
+        options: [
+          {
+            label: t("common.edit"),
+            key: "edit",
+            icon: renderIcon("fas fa-pen-to-square"),
+            props: {
+              onClick: () => {
+                emitter.emit("showRepositoryModal", row)
+              },
+            },
+          },
+          {
+            label: t("common.delete"),
+            key: "delete",
+            icon: renderIcon("fas fa-trash-can"),
+            props: {
+              onClick: () => {
+                store.delete(row.id)
+              },
+            },
+          },
+        ],
+      })
     },
   },
 ])

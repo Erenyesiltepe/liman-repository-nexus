@@ -48,7 +48,12 @@ const rules = {
 emitter.on("showSyncModal", (data: ISync) => {
   if (!isUndefined(data)) {
     mode.value = true
-    values.value = { ...data }
+    values.value = {
+      repository_id: data.repository_id,
+      run_time: data.run_time,
+      interval: data.interval,
+      is_one_time: data.is_one_time,
+    }
     id.value = data.id
   } else {
     mode.value = false
@@ -56,7 +61,7 @@ emitter.on("showSyncModal", (data: ISync) => {
   show.value = true
 })
 
-const create = () => {
+const submit = () => {
   formRef.value?.validate((errors) => {
     if (!errors) {
       if (mode.value) {
@@ -113,7 +118,7 @@ const create = () => {
       </n-form>
       <template #footer>
         <n-space justify="end">
-          <n-button type="primary" @click="create()"
+          <n-button type="primary" @click="submit()"
             >{{ !mode ? t("common.create") : t("common.edit") }}
           </n-button>
         </n-space>
