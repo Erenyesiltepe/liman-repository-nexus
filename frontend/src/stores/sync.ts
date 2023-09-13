@@ -76,7 +76,44 @@ export const useSyncStore = defineStore({
           })
         })
     },
-    async manuelSync(id: string) {
+    async delete(id: number) {
+      window.$dialog.warning({
+        title: i18n.t("common.warning"),
+        content: i18n.t("common.are_you_sure"),
+        positiveText: i18n.t("common.yes"),
+        negativeText: i18n.t("common.no"),
+        onPositiveClick: () => {
+          return http
+            .delete(`syncs/${id}`)
+            .then((res) => {
+              if (res.status == 200) {
+                window.$notification.success({
+                  title: i18n.t("common.success"),
+                  content: i18n.t("sync.delete.messages.success"),
+                  duration: 5000,
+                })
+                this.fetch()
+              } else {
+                window.$notification.error({
+                  duration: 7000,
+                  title: i18n.t("common.error"),
+                  content: i18n.t("sync.delete.messages.error"),
+                })
+              }
+            })
+            .catch((err) => {
+              console.error(err)
+
+              window.$notification.error({
+                duration: 7000,
+                title: i18n.t("common.error"),
+                content: i18n.t("sync.delete.messages.error"),
+              })
+            })
+        },
+      })
+    },
+    async manualSync(id: string) {
       return http
         .post(`syncs/${id}`)
         .then((res) => {
@@ -84,13 +121,13 @@ export const useSyncStore = defineStore({
             window.$notification.success({
               duration: 3000,
               title: i18n.t("common.success"),
-              content: i18n.t("sync.manuel.messages.success"),
+              content: i18n.t("sync.manual.messages.success"),
             })
           } else {
             window.$notification.error({
               duration: 3000,
               title: i18n.t("common.error"),
-              content: i18n.t("sync.manuel.messages.error"),
+              content: i18n.t("sync.manual.messages.error"),
             })
           }
         })
@@ -99,7 +136,7 @@ export const useSyncStore = defineStore({
           window.$notification.error({
             duration: 3000,
             title: i18n.t("common.error"),
-            content: i18n.t("sync.manuel.messages.error"),
+            content: i18n.t("sync.manual.messages.error"),
           })
         })
     },

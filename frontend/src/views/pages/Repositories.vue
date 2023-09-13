@@ -92,7 +92,7 @@ const columns = ref<any>([
     render: (row: IRepository) => {
       return h(
         NButton,
-        { size: "small", onClick: () => syncStore.manuelSync(row.id) },
+        { size: "small", onClick: () => syncStore.manualSync(row.id) },
         {
           default: () => [
             h("i", { class: ["mr-2", "fa-solid fa-repeat"] }),

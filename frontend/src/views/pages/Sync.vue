@@ -8,6 +8,9 @@ import useEmitter from "@/utils/emitter"
 import SyncModal from "@/views/modals/Sync.vue"
 import { formatDate, formatTimeObject } from "@/utils/format-date"
 import { intervalToDuration } from "date-fns"
+import { NButton } from "naive-ui"
+import DropdownMenu from "@/components/Table/DropdownMenu.vue"
+import { renderIcon } from "@/utils/render-icon"
 
 const { t } = useI18n()
 const store = useSyncStore()
@@ -21,14 +24,14 @@ const columns = ref<any>([
     filterable: true,
   },
   {
-    title: t("sync.table.interval"),
-    key: "interval",
+    title: t("sync.table.run_time"),
+    key: "run_time",
     sorter: "default",
     filterable: true,
   },
   {
-    title: t("sync.table.run_time"),
-    key: "run_time",
+    title: t("sync.table.interval"),
+    key: "interval",
     sorter: "default",
     filterable: true,
   },
@@ -95,6 +98,37 @@ const columns = ref<any>([
             duration
           )})`
         : ""
+    },
+  },
+  {
+    title: "",
+    key: "actions",
+    width: 40,
+    render: (row: any) => {
+      return h(DropdownMenu, {
+        options: [
+          {
+            label: t("common.edit"),
+            key: "edit",
+            icon: renderIcon("fas fa-pen-to-square"),
+            props: {
+              onClick: () => {
+                emitter.emit("showSyncModal", row)
+              },
+            },
+          },
+          {
+            label: t("common.delete"),
+            key: "delete",
+            icon: renderIcon("fas fa-trash-can"),
+            props: {
+              onClick: () => {
+                store.delete(row.id)
+              },
+            },
+          },
+        ],
+      })
     },
   },
 ])

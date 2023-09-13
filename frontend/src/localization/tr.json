@@ -5,7 +5,7 @@
     "error": "Hata",
     "warning": "Uyarı",
     "refresh": "Yenile",
-    "are_you_sure": "Emin misiniz?",
+    "are_you_sure": "Bu işlemi gerçekleştirmek istediğinize emin misiniz?",
     "yes": "Evet",
     "no": "Hayır",
     "copy": "Kopyala",
@@ -24,6 +24,8 @@
       "header_text": "Yüklemek için bu alana dosyanızı sürükleyebilirsiniz",
       "sub_text": "Gizli bilgilerinizi yüklemediğinize emin olun. Örnek olarak, şifreler, kredi kartı numaraları, sosyal güvenlik numaraları, vb."
     },
+    "edit": "Düzenle",
+    "delete": "Sil",
     "create": "Oluştur"
   },
   "table": {
@@ -83,6 +85,11 @@
         "error": "Depo URL'i getirilirken bir hata oluştu."
       }
     },
+    "get_packages": {
+      "messages": {
+        "error": "Depo paketleri getirilirken bir hata oluştu."
+      }
+    },
     "select": {
       "helper": "Depo seçiniz"
     }
@@ -116,10 +123,16 @@
         "error": "Senkronizasyon listesi getirilirken bir hata oluştu."
       }
     },
-    "manuel": {
+    "manual": {
       "messages": {
         "success": "Senkronizasyon başarıyla başlatıldı.",
         "error": "Senkronizasyon başlatılırken bir hata oluştu."
+      }
+    },
+    "delete": {
+      "messages": {
+        "success": "Senkronizasyon başarıyla silindi.",
+        "error": "Senkronizasyon silinirken bir hata oluştu."
       }
     }
   }

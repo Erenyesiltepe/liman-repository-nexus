@@ -23,7 +23,10 @@
     "upload": {
       "header_text": "You can drag your file to this area to upload.",
       "sub_text": "Make sure you don't upload your confidential information. "
-    }
+    },
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create"
   },
   "table": {
     "filter": {
@@ -36,7 +39,8 @@
     }
   },
   "navigation": {
-    "repositories": "Repositories"
+    "repositories": "Repositories",
+    "sync": "Synchronizations"
   },
   "repository": {
     "table": {
@@ -49,16 +53,86 @@
       "status": "Status",
       "online": "Active",
       "offline": "Inactive",
+      "package_count": "Package Count",
+      "size": "Size",
+      "client_url": "Client URL",
+      "sync": "Synchronize",
+      "updated_at": "Updated At",
       "url": "URL"
     },
+    "details": "Details",
     "get": {
       "messages": {
         "error": "An error occurred while retrieving repository information."
       }
     },
+    "create": {
+      "title": "Create Repository",
+      "helpers": {
+        "name": "repository-focal",
+        "path": "/storage/blob-focal",
+        "url": "http://archive.ubuntu.com/ubuntu",
+        "distribution": "bionic, focal, etc.",
+        "component": "main, restricted, universe, multiverse, etc."
+      },
+      "messages": {
+        "success": "Repository created successfully.",
+        "error": "An error occurred while creating the repository."
+      }
+    },
     "get_client_url": {
       "messages": {
         "error": "An error occurred while retrieving repository client URL."
+      }
+    },
+    "get_packages": {
+      "messages": {
+        "error": "An error occurred while fetching repository packages."
+      }
+    },
+    "select": {
+      "helper": "Select a repository"
+    }
+  },
+  "package": {
+    "table": {
+      "title": "Packages",
+      "name": "Package Name",
+      "size": "Size"
+    }
+  },
+  "sync": {
+    "table": {
+      "repository_name": "Repository Name",
+      "interval": "Interval",
+      "run_time": "Run Time",
+      "is_active": "Active",
+      "is_one_time": "One-Time",
+      "latest_sync_status": "Latest Sync Status",
+      "latest_sync_start_time": "Latest Sync Time"
+    },
+    "create": {
+      "title": "Create Sync",
+      "messages": {
+        "success": "Sync created successfully.",
+        "error": "An error occurred while creating the sync."
+      }
+    },
+    "get": {
+      "messages": {
+        "error": "An error occurred while fetching the sync list."
+      }
+    },
+    "manual": {
+      "messages": {
+        "success": "Sync started successfully.",
+        "error": "An error occurred while starting the sync."
+      }
+    },
+    "delete": {
+      "messages": {
+        "success": "Sync deleted successfully.",
+        "error": "An error occurred while deleting the sync."
       }
     }
   }

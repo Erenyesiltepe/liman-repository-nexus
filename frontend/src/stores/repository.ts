@@ -113,7 +113,7 @@ export const useRepositoryStore = defineStore({
             window.$notification.error({
               duration: 3000,
               title: i18n.t("common.error"),
-              content: i18n.t("repository.get_package.messages.error"),
+              content: i18n.t("repository.get_packages.messages.error"),
             })
           }
         })
@@ -122,7 +122,7 @@ export const useRepositoryStore = defineStore({
           window.$notification.error({
             duration: 3000,
             title: i18n.t("common.error"),
-            content: i18n.t("repository.get_package.messages.error"),
+            content: i18n.t("repository.get_packages.messages.error"),
           })
         })
     },

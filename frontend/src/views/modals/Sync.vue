@@ -3,15 +3,20 @@ import { ref } from "vue"
 import type { FormInst } from "naive-ui"
 import useEmitter from "@/utils/emitter"
 import { useSyncStore } from "@/stores/sync.js"
-import type { ICreateSync } from "@/models/Sync"
+import type { ICreateSync, ISync } from "@/models/Sync"
 import { useI18n } from "vue-i18n"
 import RepositorySelect from "@/components/Select/RepositorySelect.vue"
+import { isUndefined } from "lodash"
 
 const store = useSyncStore()
 const emitter = useEmitter()
 const { t } = useI18n()
 const show = ref(false)
 const formRef = ref<FormInst | null>(null)
+
+// TRUE means UPDATE
+// FALSE means CREATE
+const mode = ref(false)
 
 const values = ref<ICreateSync>({
   repository_id: null,
@@ -39,7 +44,13 @@ const rules = {
   },
 }
 
-emitter.on("showSyncModal", () => {
+emitter.on("showSyncModal", (data: ISync) => {
+  if (!isUndefined(data)) {
+    mode.value = true
+    values.value = data
+  } else {
+    mode.value = false
+  }
   show.value = true
 })
 
@@ -73,11 +84,21 @@ const create = () => {
         </n-form-item>
 
         <n-form-item :label="t('sync.table.interval')" path="interval">
-          <n-input-number v-model:value="values.interval"></n-input-number>
+          <n-input-number
+            v-model:value="values.interval"
+            :disabled="values.is_one_time"
+          ></n-input-number>
         </n-form-item>
 
         <n-form-item :label="t('sync.table.is_one_time')" path="is_one_time">
-          <n-switch v-model:value="values.is_one_time"></n-switch>
+          <n-switch
+            v-model:value="values.is_one_time"
+            @update:value="
+              (value: boolean) => {
+                if(value) values.interval = 1
+              }
+            "
+          ></n-switch>
         </n-form-item>
       </n-form>
       <template #footer>
