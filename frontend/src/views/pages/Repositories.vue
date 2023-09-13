@@ -9,13 +9,11 @@ import useEmitter from "@/utils/emitter"
 import URLModal from "@/views/modals/URL.vue"
 import RepositoryModal from "@/views/modals/Repository.vue"
 import RepositoryDetails from "@/components/RepositoryDetails.vue"
-import { useSyncStore } from "@/stores/sync"
 import DropdownMenu from "@/components/Table/DropdownMenu.vue"
 import { renderIcon } from "@/utils/render-icon"
 
 const { t } = useI18n()
 const store = useRepositoryStore()
-const syncStore = useSyncStore()
 const emitter = useEmitter()
 
 const columns = ref<any>([
@@ -89,22 +87,6 @@ const columns = ref<any>([
     },
   },
   {
-    key: "actions",
-    width: 100,
-    render: (row: IRepository) => {
-      return h(
-        NButton,
-        { size: "small", onClick: () => syncStore.manualSync(row.id) },
-        {
-          default: () => [
-            h("i", { class: ["mr-2", "fa-solid fa-repeat"] }),
-            t("repository.table.sync"),
-          ],
-        }
-      )
-    },
-  },
-  {
     title: "",
     key: "actions",
     width: 40,
@@ -118,6 +100,18 @@ const columns = ref<any>([
             props: {
               onClick: () => {
                 emitter.emit("showRepositoryModal", row)
+              },
+            },
+          },
+          {
+            label: row.status ? t("common.toggle-off") : t("common.toggle-on"),
+            key: "toggle",
+            icon: row.status
+              ? renderIcon("fas fa-toggle-off")
+              : renderIcon("fas fa-toggle-on"),
+            props: {
+              onClick: () => {
+                store.toggle(row.id)
               },
             },
           },

@@ -26,7 +26,9 @@
     },
     "edit": "Edit",
     "delete": "Delete",
-    "create": "Create"
+    "create": "Create",
+    "toggle-on": "Activate",
+    "toggle-off": "Deactivate"
   },
   "table": {
     "filter": {

@@ -26,7 +26,9 @@
     },
     "edit": "Düzenle",
     "delete": "Sil",
-    "create": "Oluştur"
+    "create": "Oluştur",
+    "toggle-on": "Aktif Et",
+    "toggle-off": "Pasif Et"
   },
   "table": {
     "filter": {

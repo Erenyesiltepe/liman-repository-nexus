@@ -50,7 +50,6 @@ export const useRepositoryStore = defineStore({
           })
         })
     },
-
     async update(data: any, id: string) {
       return http
         .patch(`repositories/${id}`, {
@@ -102,6 +101,24 @@ export const useRepositoryStore = defineStore({
             content: i18n.t("repository.create.messages.error"),
           })
         })
+    },
+    async toggle(id: string) {
+      return http.post(`repositories/toggle/${id}`).then((res) => {
+        if (res.status === 200) {
+          window.$notification.success({
+            duration: 3000,
+            title: i18n.t("common.success"),
+            content: i18n.t("repository.update.messages.success"),
+          })
+          this.fetch()
+        } else {
+          window.$notification.error({
+            duration: 3000,
+            title: i18n.t("common.error"),
+            content: res.data.message,
+          })
+        }
+      })
     },
     async fetchClientUrl(id: string) {
       return http
