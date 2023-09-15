@@ -59,7 +59,7 @@ const columns = ref<any>([
               "mr-2",
               "fa-solid",
               row.status ? "fa-check" : "fa-times",
-              row.status ? "text-success" : "text-error",
+              row.status ? "text-success" : "text-danger",
             ],
           }),
           row.status

@@ -76,9 +76,21 @@ const columns = ref<any>([
     key: "latest_sync_status",
     sorter: "default",
     filterable: true,
+    width: 280,
     render: (row: ISync) => {
-      return h("center", null, {
-        default: () => row.latest_sync_status,
+      return h("span", null, {
+        default: () => [
+          h("i", {
+            class: [
+              "mr-2",
+              "fa-solid",
+              row.latest_sync_status == "success"
+                ? "fa-check text-success"
+                : "fa-triangle-exclamation text-danger",
+            ],
+          }),
+          row.latest_sync_status,
+        ],
       })
     },
   },
