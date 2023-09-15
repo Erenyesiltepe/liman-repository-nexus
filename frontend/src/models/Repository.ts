@@ -13,6 +13,7 @@ export interface IRepository {
   component: string
   package_count: number
   size: number
+  public_key: string
 }
 
 export interface ICreateRepository {
@@ -22,6 +23,7 @@ export interface ICreateRepository {
   distribution: string
   component: string
   repository_type: string
+  public_key: string
 }
 
 export interface IPackage {

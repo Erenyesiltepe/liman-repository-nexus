@@ -57,6 +57,15 @@ watch(currentTab, (value) => {
     })
   }
 })
+
+const copy = () => {
+  navigator.clipboard.writeText(props.data.public_key)
+  window.$notification.success({
+    duration: 3000,
+    title: t("common.success"),
+    content: t("common.copied"),
+  })
+}
 </script>
 
 <template>
@@ -66,52 +75,70 @@ watch(currentTab, (value) => {
         <i class="fa-solid fa-info mr-2"></i>
         {{ t("repository.details") }}
       </template>
+      <n-grid :cols="2">
+        <n-gi>
+          <n-thing class="ml-3 mr-3 mb-2">
+            <template #avatar>
+              <n-avatar>
+                <i class="fa-solid fa-database" />
+              </n-avatar>
+            </template>
+            <template #header> {{ props.data.repository_name }} </template>
+            <template #description> {{ props.data.path }} </template>
 
-      <n-thing class="ml-3 mr-3 mb-2" style="width: 40%">
-        <template #avatar>
-          <n-avatar>
-            <i class="fa-solid fa-database" />
-          </n-avatar>
-        </template>
-        <template #header> {{ props.data.repository_name }} </template>
-        <template #description> {{ props.data.path }} </template>
+            <n-descriptions :column="3">
+              <n-descriptions-item :label="t('repository.table.url')">
+                {{ props.data.url }}
+                <a :href="props.data.url" target="_blank" class="ml-2">
+                  <i class="fa-solid fa-external-link"></i
+                ></a>
+              </n-descriptions-item>
+              <n-descriptions-item :label="t('repository.table.distribution')">
+                {{ props.data.distribution }}
+              </n-descriptions-item>
+              <n-descriptions-item :label="t('repository.table.component')">
+                {{ props.data.component }}
+              </n-descriptions-item>
+              <n-descriptions-item :label="t('repository.table.format')">
+                {{ props.data.format }}
+              </n-descriptions-item>
+              <n-descriptions-item :label="t('repository.table.size')">
+                {{ formatBytes(props.data.size) }}
+              </n-descriptions-item>
+              <n-descriptions-item :label="t('repository.table.package_count')">
+                <n-button text @click="currentTab = 'packages'">{{
+                  props.data.package_count
+                }}</n-button>
+              </n-descriptions-item>
 
-        <n-descriptions :column="3">
-          <n-descriptions-item :label="t('repository.table.url')">
-            {{ props.data.url }}
-            <a :href="props.data.url" target="_blank" class="ml-2">
-              <i class="fa-solid fa-external-link"></i
-            ></a>
-          </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.distribution')">
-            {{ props.data.distribution }}
-          </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.component')">
-            {{ props.data.component }}
-          </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.format')">
-            {{ props.data.format }}
-          </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.size')">
-            {{ formatBytes(props.data.size) }}
-          </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.package_count')">
-            <n-button text @click="currentTab = 'packages'">{{
-              props.data.package_count
-            }}</n-button>
-          </n-descriptions-item>
-
-          <n-descriptions-item :label="t('repository.table.updated_at')">
-            {{ formatDate(props.data.updated_at) }}
-          </n-descriptions-item>
-          <n-descriptions-item :label="t('repository.table.type')">
-            {{ props.data.repository_type }}
-          </n-descriptions-item>
-        </n-descriptions>
-      </n-thing>
+              <n-descriptions-item :label="t('repository.table.updated_at')">
+                {{ formatDate(props.data.updated_at) }}
+              </n-descriptions-item>
+              <n-descriptions-item :label="t('repository.table.type')">
+                {{ props.data.repository_type }}
+              </n-descriptions-item>
+            </n-descriptions>
+          </n-thing>
+        </n-gi>
+        <n-gi>
+          <n-thing class="ml-3 mr-3 mb-2" v-if="props.data.public_key">
+            <template #avatar>
+              <n-avatar>
+                <i class="fa-solid fa-key" />
+              </n-avatar>
+            </template>
+            <template #header>
+              {{ t("repository.table.public_key") }}
+            </template>
+            <n-button @click="copy"
+              ><i class="fas fa-copy mr-2" />{{ t("common.copy") }}</n-button
+            >
+          </n-thing>
+        </n-gi>
+      </n-grid>
     </n-tab-pane>
 
-    <n-tab-pane name="packages">
+    <n-tab-pane name="packages" :disabled="props.data.package_count == 0">
       <template #tab>
         <i class="fa-solid fa-box-open mr-2"></i>
         {{ t("package.table.title") }}

@@ -25,6 +25,7 @@ const values = ref<ICreateRepository>({
   distribution: "",
   component: "",
   repository_type: "mirror",
+  public_key: "",
 })
 
 const rules = {
@@ -141,6 +142,17 @@ const submit = () => {
             }}</small>
           </template>
           <n-input v-model:value="values.component" />
+        </n-form-item>
+
+        <n-form-item path="public_key">
+          <template #label>
+            {{ t("repository.table.public_key") }}
+          </template>
+          <n-input
+            type="textarea"
+            v-model:value="values.public_key"
+            placeholder="Public Key"
+          />
         </n-form-item>
       </n-form>
       <template #footer>

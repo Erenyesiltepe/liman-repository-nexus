@@ -60,7 +60,8 @@
       "client_url": "Client URL",
       "sync": "Synchronize",
       "updated_at": "Updated At",
-      "url": "URL"
+      "url": "URL",
+      "public_key": "Public Key"
     },
     "details": "Details",
     "get": {
