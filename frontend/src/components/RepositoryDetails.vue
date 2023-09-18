@@ -43,7 +43,7 @@ function formatBytes(bytes: number, decimals = 2) {
 
   const k = 1024
   const dm = decimals < 0 ? 0 : decimals
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
+  const sizes = ["B", "KB", "MB", "GB", "TB"]
 
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
@@ -85,39 +85,70 @@ const copy = () => {
             </template>
             <template #header> {{ props.data.repository_name }} </template>
             <template #description> {{ props.data.path }} </template>
-
-            <n-descriptions :column="3">
-              <n-descriptions-item :label="t('repository.table.url')">
-                {{ props.data.url }}
-                <a :href="props.data.url" target="_blank" class="ml-2">
-                  <i class="fa-solid fa-external-link"></i
-                ></a>
-              </n-descriptions-item>
-              <n-descriptions-item :label="t('repository.table.distribution')">
-                {{ props.data.distribution }}
-              </n-descriptions-item>
-              <n-descriptions-item :label="t('repository.table.component')">
-                {{ props.data.component }}
-              </n-descriptions-item>
-              <n-descriptions-item :label="t('repository.table.format')">
-                {{ props.data.format }}
-              </n-descriptions-item>
-              <n-descriptions-item :label="t('repository.table.size')">
-                {{ formatBytes(props.data.size) }}
-              </n-descriptions-item>
-              <n-descriptions-item :label="t('repository.table.package_count')">
-                <n-button text @click="currentTab = 'packages'">{{
-                  props.data.package_count
-                }}</n-button>
-              </n-descriptions-item>
-
-              <n-descriptions-item :label="t('repository.table.updated_at')">
-                {{ formatDate(props.data.updated_at) }}
-              </n-descriptions-item>
-              <n-descriptions-item :label="t('repository.table.type')">
-                {{ props.data.repository_type }}
-              </n-descriptions-item>
-            </n-descriptions>
+            <n-grid :cols="3" x-gap="40">
+              <n-gi>
+                <n-descriptions label-placement="top" :column="1">
+                  <n-descriptions-item :label="t('repository.table.url')">
+                    {{ props.data.url }}
+                    <a :href="props.data.url" target="_blank" class="ml-2">
+                      <i class="fa-solid fa-external-link"></i
+                    ></a>
+                  </n-descriptions-item>
+                  <n-descriptions-item :label="t('repository.table.format')">
+                    {{ props.data.format }}
+                  </n-descriptions-item>
+                  <n-descriptions-item :label="t('repository.table.type')">
+                    {{ props.data.repository_type }}
+                  </n-descriptions-item>
+                </n-descriptions>
+              </n-gi>
+              <n-gi>
+                <n-descriptions label-placement="top" :column="1">
+                  <n-descriptions-item
+                    :label="t('repository.table.distribution')"
+                  >
+                    {{ props.data.distribution }}
+                  </n-descriptions-item>
+                  <n-descriptions-item
+                    :label="t('repository.table.package_count')"
+                  >
+                    <n-button text @click="currentTab = 'packages'">{{
+                      props.data.package_count
+                    }}</n-button>
+                  </n-descriptions-item>
+                  <n-descriptions-item :label="t('repository.table.size')">
+                    {{
+                      `${formatBytes(props.data.size)} / ${formatBytes(
+                        props.data.size + props.data.available_size
+                      )}`
+                    }}
+                    <n-progress
+                      type="line"
+                      style="width: 350px"
+                      :percentage="
+                        Math.round(
+                          (props.data.size /
+                            (props.data.available_size + props.data.size)) *
+                            100
+                        )
+                      "
+                    />
+                  </n-descriptions-item>
+                </n-descriptions>
+              </n-gi>
+              <n-gi>
+                <n-descriptions label-placement="top" :column="1">
+                  <n-descriptions-item :label="t('repository.table.component')">
+                    {{ props.data.component }}
+                  </n-descriptions-item>
+                  <n-descriptions-item
+                    :label="t('repository.table.updated_at')"
+                  >
+                    {{ formatDate(props.data.updated_at) }}
+                  </n-descriptions-item>
+                </n-descriptions>
+              </n-gi>
+            </n-grid>
           </n-thing>
         </n-gi>
         <n-gi>

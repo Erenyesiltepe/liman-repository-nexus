@@ -13,6 +13,7 @@ export interface IRepository {
   component: string
   package_count: number
   size: number
+  available_size: number
   public_key: string
 }
 
