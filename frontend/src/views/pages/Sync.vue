@@ -86,7 +86,9 @@ const columns = ref<any>([
               "fa-solid",
               row.latest_sync_status == "success"
                 ? "fa-check text-success"
-                : "fa-triangle-exclamation text-danger",
+                : row.latest_sync_status == "fail"
+                ? "fa-triangle-exclamation text-danger"
+                : "",
             ],
           }),
           row.latest_sync_status,

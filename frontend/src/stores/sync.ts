@@ -63,7 +63,7 @@ export const useSyncStore = defineStore({
             window.$notification.error({
               duration: 3000,
               title: i18n.t("common.error"),
-              content: i18n.t("sync.create.messages.error"),
+              content: res.data.message,
             })
           }
         })
@@ -93,7 +93,7 @@ export const useSyncStore = defineStore({
             window.$notification.error({
               duration: 3000,
               title: i18n.t("common.error"),
-              content: i18n.t("sync.update.messages.error"),
+              content: res.data.message,
             })
           }
         })
