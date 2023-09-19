@@ -46,7 +46,6 @@ const columns = ref<any>([
               "mr-2",
               "fa-solid",
               row.is_active ? "fa-check" : "fa-times",
-              row.is_active ? "text-success" : "text-error",
             ],
           }),
         ],
@@ -64,7 +63,6 @@ const columns = ref<any>([
               "mr-2",
               "fa-solid",
               row.is_one_time ? "fa-check" : "fa-times",
-              row.is_one_time ? "text-success" : "text-error",
             ],
           }),
         ],
@@ -91,7 +89,7 @@ const columns = ref<any>([
                 : "",
             ],
           }),
-          row.latest_sync_status,
+          `${row.latest_sync_status} ${row.latest_error_message}`,
         ],
       })
     },
@@ -107,11 +105,14 @@ const columns = ref<any>([
         start: new Date(row.latest_sync_start_time),
       })
 
-      return row.latest_sync_start_time
-        ? `${formatDate(row.latest_sync_start_time)} (${formatTimeObject(
-            duration
-          )})`
-        : ""
+      return (
+        (row.latest_sync_start_time
+          ? formatDate(row.latest_sync_start_time)
+          : "") +
+        (row.latest_sync_status && formatTimeObject(duration)
+          ? ` (${formatTimeObject(duration)})`
+          : "")
+      )
     },
   },
   {

@@ -16,6 +16,7 @@ export interface ISync {
   latest_sync_start_time: number
   latest_sync_end_time: number
   latest_sync_status: string
+  latest_error_message: string
 }
 
 export interface ICreateSync {
