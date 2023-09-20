@@ -100,7 +100,10 @@ const submit = () => {
                 t("repository.create.helpers.name")
               }}</small>
             </template>
-            <n-input v-model:value="values.repository_name" />
+            <n-input
+              @keydown.space="(event: Event) => event.preventDefault()"
+              v-model:value="values.repository_name"
+            />
           </n-form-item>
 
           <n-form-item path="path">
@@ -110,7 +113,10 @@ const submit = () => {
                 t("repository.create.helpers.path")
               }}</small>
             </template>
-            <n-input v-model:value="values.path" />
+            <n-input
+              @keydown.space="(event: Event) => event.preventDefault()"
+              v-model:value="values.path"
+            />
           </n-form-item>
 
           <n-form-item path="url">
@@ -120,7 +126,10 @@ const submit = () => {
                 t("repository.create.helpers.url")
               }}</small>
             </template>
-            <n-input v-model:value="values.url" />
+            <n-input
+              @keydown.space="(event: Event) => event.preventDefault()"
+              v-model:value="values.url"
+            />
           </n-form-item>
 
           <n-form-item path="distribution">
@@ -130,7 +139,10 @@ const submit = () => {
                 t("repository.create.helpers.distribution")
               }}</small>
             </template>
-            <n-input v-model:value="values.distribution" />
+            <n-input
+              @keydown.space="(event: Event) => event.preventDefault()"
+              v-model:value="values.distribution"
+            />
           </n-form-item>
         </div>
 
@@ -141,7 +153,10 @@ const submit = () => {
               t("repository.create.helpers.component")
             }}</small>
           </template>
-          <n-input v-model:value="values.component" />
+          <n-input
+            @keydown.space="(event: Event) => event.preventDefault()"
+            v-model:value="values.component"
+          />
         </n-form-item>
 
         <n-form-item path="public_key">
