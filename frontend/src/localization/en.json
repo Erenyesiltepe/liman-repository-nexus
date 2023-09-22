@@ -42,7 +42,8 @@
   },
   "navigation": {
     "repositories": "Repositories",
-    "sync": "Synchronizations"
+    "sync": "Synchronizations",
+    "keys": "Keys"
   },
   "repository": {
     "table": {
@@ -156,6 +157,37 @@
       "messages": {
         "success": "Sync deleted successfully.",
         "error": "An error occurred while deleting the sync."
+      }
+    }
+  },
+  "key": {
+    "table": {
+      "name": "Key Name",
+      "content": "Content"
+    },
+    "create": {
+      "title": "Create Key",
+      "messages": {
+        "success": "Key created successfully.",
+        "error": "An error occurred while creating the key."
+      }
+    },
+    "get": {
+      "messages": {
+        "error": "An error occurred while fetching keys."
+      }
+    },
+    "update": {
+      "title": "Edit Key",
+      "messages": {
+        "success": "Key updated successfully.",
+        "error": "An error occurred while updating the key."
+      }
+    },
+    "delete": {
+      "messages": {
+        "success": "Key deleted successfully.",
+        "error": "An error occurred while deleting the key."
       }
     }
   }

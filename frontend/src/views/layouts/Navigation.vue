@@ -33,6 +33,11 @@ const menuOptions: MenuOption[] = [
     icon: () => h("i", { class: "fa-solid fa-repeat fa-xs" }),
     key: "sync",
   },
+  {
+    label: () => h(RouterLink, { to: "/keys" }, t("navigation.keys")),
+    icon: () => h("i", { class: "fa-solid fa-key fa-xs" }),
+    key: "keys",
+  },
 ]
 
 const route = useRoute()

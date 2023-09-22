@@ -42,11 +42,12 @@
   },
   "navigation": {
     "repositories": "Depolar",
-    "sync": "Senkronizasyonlar"
+    "sync": "Senkronizasyonlar",
+    "keys": "Anahtarlar"
   },
   "repository": {
     "table": {
-      "name": "Depo İsmi",
+      "name": "Depo Adı",
       "path": "Path",
       "distribution": "Dağıtım",
       "component": "Bileşen",
@@ -113,13 +114,13 @@
   "package": {
     "table": {
       "title": "Paketler",
-      "name": "Paket İsmi",
+      "name": "Paket Adı",
       "size": "Boyut"
     }
   },
   "sync": {
     "table": {
-      "repository_name": "Depo İsmi",
+      "repository_name": "Depo Adı",
       "interval": "Sıklık",
       "run_time": "Çalışma Zamanı",
       "is_active": "Aktif",
@@ -156,6 +157,37 @@
       "messages": {
         "success": "Senkronizasyon başarıyla silindi.",
         "error": "Senkronizasyon silinirken bir hata oluştu."
+      }
+    }
+  },
+  "key": {
+    "table": {
+      "name": "Anahtar Adı",
+      "content": "İçerik"
+    },
+    "create": {
+      "title": "Anahtar Oluştur",
+      "messages": {
+        "success": "Anahtar başarıyla oluşturuldu.",
+        "error": "Anahtar oluşturulurken bir hata oluştu."
+      }
+    },
+    "get": {
+      "messages": {
+        "error": "Anahtarlar getirilirken bir hata oluştu."
+      }
+    },
+    "update": {
+      "title": "Anahtarı Düzenle",
+      "messages": {
+        "success": "Anahtar başarıyla güncellendi.",
+        "error": "Anahtar güncellenirken bir hata oluştu."
+      }
+    },
+    "delete": {
+      "messages": {
+        "success": "Anahtar başarıyla silindi.",
+        "error": "Anahtar silinirken bir hata oluştu."
       }
     }
   }
