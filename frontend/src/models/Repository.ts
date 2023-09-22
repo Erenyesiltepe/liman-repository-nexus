@@ -1,3 +1,5 @@
+import type { IKey } from "@/models/Key"
+
 export interface IRepository {
   id: string
   created_at: number
@@ -14,7 +16,8 @@ export interface IRepository {
   package_count: number
   size: number
   available_size: number
-  public_key: string
+  key: IKey
+  key_id: string | null
 }
 
 export interface ICreateRepository {
@@ -24,7 +27,7 @@ export interface ICreateRepository {
   distribution: string
   component: string
   repository_type: string
-  public_key: string
+  key_id: string | null
 }
 
 export interface IPackage {

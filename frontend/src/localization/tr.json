@@ -62,7 +62,7 @@
       "client_url": "Client URL",
       "sync": "Senkronize Et",
       "url": "URL",
-      "public_key": "Public Key"
+      "key": "Anahtar"
     },
     "details": "Detaylar",
     "get": {
@@ -161,6 +161,9 @@
     }
   },
   "key": {
+    "select": {
+      "helper": "Bir anahtar seçiniz."
+    },
     "table": {
       "name": "Anahtar Adı",
       "content": "Anahtar İçeriği",

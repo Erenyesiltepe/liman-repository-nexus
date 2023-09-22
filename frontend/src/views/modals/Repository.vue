@@ -3,6 +3,7 @@ import { ref } from "vue"
 import type { FormInst } from "naive-ui"
 import useEmitter from "@/utils/emitter"
 import { useRepositoryStore } from "@/stores/repository.js"
+import KeySelect from "@/components/Select/KeySelect.vue"
 import type { ICreateRepository, IRepository } from "@/models/Repository"
 import { useI18n } from "vue-i18n"
 import { isUndefined } from "lodash"
@@ -25,7 +26,7 @@ const values = ref<ICreateRepository>({
   distribution: "",
   component: "",
   repository_type: "mirror",
-  public_key: "",
+  key_id: null,
 })
 
 const rules = {
@@ -159,15 +160,11 @@ const submit = () => {
           />
         </n-form-item>
 
-        <n-form-item path="public_key">
+        <n-form-item path="key">
           <template #label>
-            {{ t("repository.table.public_key") }}
+            {{ t("repository.table.key") }}
           </template>
-          <n-input
-            type="textarea"
-            v-model:value="values.public_key"
-            placeholder="Public Key"
-          />
+          <KeySelect v-model:key_id="values.key_id" />
         </n-form-item>
       </n-form>
       <template #footer>

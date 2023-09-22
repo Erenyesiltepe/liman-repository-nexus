@@ -62,7 +62,7 @@
       "sync": "Synchronize",
       "updated_at": "Updated At",
       "url": "URL",
-      "public_key": "Public Key"
+      "key": "Key"
     },
     "details": "Details",
     "get": {
@@ -161,6 +161,9 @@
     }
   },
   "key": {
+    "select": {
+      "helper": "Please select a key."
+    },
     "table": {
       "name": "Key Name",
       "content": "Key Content",

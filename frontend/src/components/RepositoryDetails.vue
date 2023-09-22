@@ -4,10 +4,12 @@ import { useI18n } from "vue-i18n"
 import Table from "@/components/Table.vue"
 import type { IRepository } from "@/models/Repository"
 import { useRepositoryStore } from "@/stores/repository"
+import { useKeyStore } from "@/stores/key"
 import { formatDate } from "@/utils/format-date"
 
 const { t } = useI18n()
 const store = useRepositoryStore()
+const keyStore = useKeyStore()
 const loading = ref(true)
 const currentTab = ref("details")
 
@@ -59,11 +61,13 @@ watch(currentTab, (value) => {
 })
 
 const copy = () => {
-  navigator.clipboard.writeText(props.data.public_key)
-  window.$notification.success({
-    duration: 3000,
-    title: t("common.success"),
-    content: t("common.copied"),
+  keyStore.fetchContent(props.data.key_id as string).then(() => {
+    navigator.clipboard.writeText(keyStore.getContent)
+    window.$notification.success({
+      duration: 3000,
+      title: t("common.success"),
+      content: t("common.copied"),
+    })
   })
 }
 </script>
@@ -152,15 +156,16 @@ const copy = () => {
           </n-thing>
         </n-gi>
         <n-gi>
-          <n-thing class="ml-3 mr-3 mb-2" v-if="props.data.public_key">
+          <n-thing class="ml-3 mr-3 mb-2" v-if="props.data.key_id">
             <template #avatar>
               <n-avatar>
                 <i class="fa-solid fa-key" />
               </n-avatar>
             </template>
             <template #header>
-              {{ t("repository.table.public_key") }}
+              {{ t("repository.table.key") }}
             </template>
+            <template #description> {{ props.data.key.name }} </template>
             <n-button @click="copy"
               ><i class="fas fa-copy mr-2" />{{ t("common.copy") }}</n-button
             >
