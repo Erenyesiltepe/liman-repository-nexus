@@ -163,7 +163,8 @@
   "key": {
     "table": {
       "name": "Key Name",
-      "content": "Content"
+      "content": "Key Content",
+      "view_content": "View Content"
     },
     "create": {
       "title": "Create Key",
@@ -175,6 +176,11 @@
     "get": {
       "messages": {
         "error": "An error occurred while fetching keys."
+      }
+    },
+    "get_content": {
+      "messages": {
+        "error": "An error occurred while fetching key content."
       }
     },
     "update": {

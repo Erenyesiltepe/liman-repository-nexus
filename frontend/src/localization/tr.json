@@ -163,7 +163,8 @@
   "key": {
     "table": {
       "name": "Anahtar Adı",
-      "content": "İçerik"
+      "content": "Anahtar İçeriği",
+      "view_content": "İçeriği Görüntüle"
     },
     "create": {
       "title": "Anahtar Oluştur",
@@ -175,6 +176,11 @@
     "get": {
       "messages": {
         "error": "Anahtarlar getirilirken bir hata oluştu."
+      }
+    },
+    "get_content": {
+      "messages": {
+        "error": "Anahtar içerği getirilirken bir hata oluştu."
       }
     },
     "update": {

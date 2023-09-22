@@ -77,7 +77,7 @@ const submit = () => {
           <n-input v-model:value="values.name"></n-input>
         </n-form-item>
         <n-form-item :label="t('key.table.content')" path="content">
-          <n-input v-model:value="values.content"></n-input>
+          <n-input type="textarea" v-model:value="values.content"></n-input>
         </n-form-item>
       </n-form>
       <template #footer>

@@ -320,7 +320,7 @@ const selectedKeys = computed({
     </template>
 
     <div class="table-right-side">
-      <n-space class="items-center">
+      <n-space class="items-center" size="small">
         <slot name="buttons"></slot>
 
         <n-input

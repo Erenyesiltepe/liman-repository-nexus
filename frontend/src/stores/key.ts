@@ -10,9 +10,11 @@ export const useKeyStore = defineStore({
   state: () => ({
     filter: {} as IFilter,
     keys: {} as IPaginator<IKey>,
+    key_content: "",
   }),
   getters: {
     get: (state) => state.keys,
+    getContent: (state) => state.key_content,
   },
   actions: {
     async fetch(payload: IFilter = {} as IFilter) {
@@ -134,6 +136,28 @@ export const useKeyStore = defineStore({
             })
         },
       })
+    },
+    async fetchContent(id: string) {
+      return http
+        .get(`keys/${id}/content`)
+        .then((res) => {
+          if (res.status == 200) {
+            this.key_content = res.data
+          } else {
+            window.$notification.error({
+              duration: 3000,
+              title: i18n.t("common.error"),
+              content: i18n.t("key.get_content.messages.error"),
+            })
+          }
+        })
+        .catch(() => {
+          window.$notification.error({
+            duration: 3000,
+            title: i18n.t("common.error"),
+            content: i18n.t("key.get_content.messages.error"),
+          })
+        })
     },
   },
 })

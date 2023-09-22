@@ -13,17 +13,12 @@ import { renderIcon } from "@/utils/render-icon"
 const { t } = useI18n()
 const store = useKeyStore()
 const emitter = useEmitter()
+const show = ref(false)
 
 const columns = ref<any>([
   {
     title: t("key.table.name"),
     key: "name",
-    sorter: "default",
-    filterable: true,
-  },
-  {
-    title: t("key.table.content"),
-    key: "content",
     sorter: "default",
     filterable: true,
   },
@@ -34,6 +29,18 @@ const columns = ref<any>([
     render: (row: IKey) => {
       return h(DropdownMenu, {
         options: [
+          {
+            label: t("key.table.view_content"),
+            key: "view",
+            icon: renderIcon("fas fa-eye"),
+            props: {
+              onClick: () => {
+                store.fetchContent(row.id).then(() => {
+                  show.value = true
+                })
+              },
+            },
+          },
           {
             label: t("common.edit"),
             key: "edit",
@@ -71,5 +78,20 @@ const columns = ref<any>([
       </template>
     </AsyncStore>
   </n-card>
+  <n-modal v-model:show="show">
+    <n-card
+      style="width: 400px"
+      :title="t('key.table.content')"
+      :bordered="false"
+      role="dialog"
+      aria-modal="true"
+      :segmented="{
+        content: true,
+        footer: 'soft',
+      }"
+    >
+      {{ store.getContent }}
+    </n-card>
+  </n-modal>
   <KeyModal />
 </template>
