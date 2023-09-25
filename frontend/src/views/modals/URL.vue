@@ -27,13 +27,22 @@ const copy = () => {
 
 <template>
   <n-modal v-model:show="show">
-    <n-card style="width: 600px" :title="t('common.copy')">
+    <n-card style="width: 600px" :title="t('repository.table.client_url')">
       <n-input-group>
-        <n-input readonly v-model:value="store.getClientUrl" />
-        <n-button ghost @click="copy">
-          <i class="fa-solid fa-copy"></i>
-        </n-button>
+        <n-input
+          type="textarea"
+          readonly
+          v-model:value="store.getClientUrl"
+          :rows="7"
+        />
       </n-input-group>
+      <template #footer>
+        <n-space justify="end">
+          <n-button ghost @click="copy">
+            <i class="fa-solid fa-copy mr-2"></i>{{ t("common.copy") }}
+          </n-button>
+        </n-space>
+      </template>
     </n-card>
   </n-modal>
 </template>
