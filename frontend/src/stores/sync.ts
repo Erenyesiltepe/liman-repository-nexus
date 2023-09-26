@@ -162,5 +162,23 @@ export const useSyncStore = defineStore({
           })
         })
     },
+    async stop(id: string) {
+      return http.patch(`syncs/${id}/stop`).then((res) => {
+        if (res.status === 200) {
+          window.$notification.success({
+            duration: 3000,
+            title: i18n.t("common.success"),
+            content: i18n.t("sync.stop.messages.success"),
+          })
+          this.fetch()
+        } else {
+          window.$notification.error({
+            duration: 3000,
+            title: i18n.t("common.error"),
+            content: res.data.message,
+          })
+        }
+      })
+    },
   },
 })

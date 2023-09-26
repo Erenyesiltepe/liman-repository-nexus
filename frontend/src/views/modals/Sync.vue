@@ -19,12 +19,14 @@ const id = ref()
 // FALSE means CREATE
 const mode = ref(false)
 
-const values = ref<ICreateSync>({
+const defaultValues = ref<ICreateSync>({
   repository_id: null,
   run_time: "",
   interval: 1,
   is_one_time: false,
 })
+
+const values = ref()
 
 const rules = {
   repository_id: {
@@ -57,6 +59,7 @@ emitter.on("showSyncModal", (data: ISync) => {
     id.value = data.id
   } else {
     mode.value = false
+    values.value = defaultValues.value
   }
   show.value = true
 })

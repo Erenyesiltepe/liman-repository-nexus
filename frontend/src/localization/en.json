@@ -28,7 +28,8 @@
     "delete": "Delete",
     "create": "Create",
     "toggle-on": "Activate",
-    "toggle-off": "Deactivate"
+    "toggle-off": "Deactivate",
+    "stop": "Stop"
   },
   "table": {
     "filter": {
@@ -157,6 +158,11 @@
       "messages": {
         "success": "Sync deleted successfully.",
         "error": "An error occurred while deleting the sync."
+      }
+    },
+    "stop": {
+      "messages": {
+        "success": "Sync stopped successfully."
       }
     }
   },

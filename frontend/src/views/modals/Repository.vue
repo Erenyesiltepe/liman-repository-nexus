@@ -19,7 +19,7 @@ const id = ref()
 // FALSE means CREATE
 const mode = ref(false)
 
-const values = ref<ICreateRepository>({
+const defaultValues = ref<ICreateRepository>({
   path: "",
   repository_name: "",
   url: "",
@@ -27,7 +27,10 @@ const values = ref<ICreateRepository>({
   component: "",
   repository_type: "mirror",
   key_id: null,
+  format: "deb",
 })
+
+const values = ref()
 
 const rules = {
   repository_name: {
@@ -64,6 +67,7 @@ emitter.on("showRepositoryModal", (data: IRepository) => {
     id.value = data.id
   } else {
     mode.value = false
+    values.value = defaultValues.value
   }
   show.value = true
 })
@@ -133,7 +137,20 @@ const submit = () => {
             />
           </n-form-item>
 
-          <n-form-item path="distribution">
+          <n-form-item
+            v-if="!mode"
+            :label="t('repository.table.format')"
+            path="format"
+          >
+            <n-radio-group v-model:value="values.format">
+              <n-space>
+                <n-radio value="deb" label="APT" />
+                <n-radio value="rpm" label="RPM" />
+              </n-space>
+            </n-radio-group>
+          </n-form-item>
+
+          <n-form-item path="distribution" v-if="values.format == 'deb'">
             <template #label>
               {{ t("repository.table.distribution") }}
               <small class="ml-2">{{
@@ -147,7 +164,7 @@ const submit = () => {
           </n-form-item>
         </div>
 
-        <n-form-item path="component">
+        <n-form-item path="component" v-if="values.format == 'deb'">
           <template #label>
             {{ t("repository.table.component") }}
             <small class="ml-2">{{

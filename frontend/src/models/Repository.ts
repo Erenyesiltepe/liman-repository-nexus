@@ -10,7 +10,7 @@ export interface IRepository {
   repository_name: string
   repository_type: string
   status: boolean
-  format: string
+  format: "deb" | "rpm"
   distribution: string
   component: string
   package_count: number
@@ -28,6 +28,7 @@ export interface ICreateRepository {
   component: string
   repository_type: string
   key_id: string | null
+  format: "deb" | "rpm"
 }
 
 export interface IPackage {

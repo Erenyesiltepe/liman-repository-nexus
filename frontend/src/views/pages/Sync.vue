@@ -45,7 +45,7 @@ const columns = ref<any>([
             class: [
               "mr-2",
               "fa-solid",
-              row.is_active ? "fa-check" : "fa-times",
+              row.is_active ? "fa-spinner fa-spin" : "fa-minus",
             ],
           }),
         ],
@@ -105,14 +105,14 @@ const columns = ref<any>([
         start: new Date(row.latest_sync_start_time),
       })
 
-      return (
-        (row.latest_sync_start_time
-          ? formatDate(row.latest_sync_start_time)
-          : "") +
-        (row.latest_sync_status && formatTimeObject(duration)
-          ? ` (${formatTimeObject(duration)})`
-          : "")
-      )
+      return row.latest_sync_status !== "fail"
+        ? (row.latest_sync_start_time
+            ? formatDate(row.latest_sync_start_time)
+            : "") +
+            (row.latest_sync_status && formatTimeObject(duration)
+              ? ` (${formatTimeObject(duration)})`
+              : "")
+        : formatDate(row.latest_error_sync)
     },
   },
   {
@@ -122,6 +122,17 @@ const columns = ref<any>([
     render: (row: any) => {
       return h(DropdownMenu, {
         options: [
+          {
+            disabled: !row.is_active,
+            label: t("common.stop"),
+            key: "stop",
+            icon: renderIcon("fas fa-circle-stop"),
+            props: {
+              onClick: () => {
+                store.stop(row.id)
+              },
+            },
+          },
           {
             label: t("common.edit"),
             key: "edit",

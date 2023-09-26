@@ -28,7 +28,8 @@
     "delete": "Sil",
     "create": "Oluştur",
     "toggle-on": "Aktif Et",
-    "toggle-off": "Pasif Et"
+    "toggle-off": "Pasif Et",
+    "stop": "Durdur"
   },
   "table": {
     "filter": {
@@ -157,6 +158,11 @@
       "messages": {
         "success": "Senkronizasyon başarıyla silindi.",
         "error": "Senkronizasyon silinirken bir hata oluştu."
+      }
+    },
+    "stop": {
+      "messages": {
+        "success": "Senkronizasyon başarıyla durduruldu."
       }
     }
   },
