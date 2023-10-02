@@ -163,7 +163,7 @@ export const useSyncStore = defineStore({
         })
     },
     async stop(id: string) {
-      return http.patch(`syncs/${id}/stop`).then((res) => {
+      return http.post(`syncs/${id}/stop`).then((res) => {
         if (res.status === 200) {
           window.$notification.success({
             duration: 3000,
