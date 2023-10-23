@@ -16,6 +16,10 @@ const { t } = useI18n()
 const store = useSyncStore()
 const emitter = useEmitter()
 
+emitter.on("refresh:page", () => {
+  store.fetch()
+})
+
 const columns = ref<any>([
   {
     title: t("sync.table.repository_name"),
