@@ -34,12 +34,12 @@ function findTimeDiff(list: any) {
     dateObject.setHours(hours)
     dateObject.setMinutes(minutes)
     dateObject.setSeconds(0)
+    const targetDate = dateObject.getTime()
 
     const nowDate = new Date()
     nowDate.setSeconds(0)
-    const targetDate = dateObject.getTime()
 
-    const timeDiff = targetDate - nowDate.getTime() + 100000
+    const timeDiff = targetDate - nowDate.getTime()
     console.log("timediff" + timeDiff)
     return timeDiff
   }
