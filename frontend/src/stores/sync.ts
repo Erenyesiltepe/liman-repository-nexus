@@ -5,9 +5,50 @@ import http from "@/utils/http-common"
 import { i18n } from "@/utils/i18n"
 import { defineStore } from "pinia"
 
+function findClosestDate(list: any) {
+  const closest = ref()
+  for (const [i, element] of list.records.entries()) {
+    if (element.latest_sync_status == "" && closest.value == undefined) {
+      closest.value = element.run_time
+    }
+    if (
+      closest.value != undefined &&
+      i != list.length - 1 &&
+      element.latest_sync_status == ""
+    ) {
+      if (element.run_time.localeCompare(closest.value) == -1) {
+        closest.value = element.run_time
+      }
+    }
+  }
+  return closest.value
+}
+
+function findTimeDiff(list: any) {
+  const dateStr = findClosestDate(list)
+  if (dateStr == undefined) {
+    return -1
+  } else {
+    const [hours, minutes] = dateStr.split(":").map(Number)
+    const dateObject = new Date()
+    dateObject.setHours(hours)
+    dateObject.setMinutes(minutes)
+    dateObject.setSeconds(0)
+
+    const nowDate = new Date()
+    nowDate.setSeconds(0)
+    const targetDate = dateObject.getTime()
+
+    const timeDiff = targetDate - nowDate.getTime() + 100000
+    console.log("timediff" + timeDiff)
+    return timeDiff
+  }
+}
+
 export const useSyncStore = defineStore({
   id: "sync",
   state: () => ({
+    emitter: useEmitter(),
     filter: {} as IFilter,
     syncs: {} as IPaginator<IRepository>,
   }),
@@ -28,6 +69,14 @@ export const useSyncStore = defineStore({
         .then((res) => {
           if (res.status == 200) {
             this.syncs = res.data
+            const timediff = findTimeDiff(this.syncs)
+            console.log("main" + timediff)
+            if (timediff > 0) {
+              setTimeout(() => {
+                console.log("should be refreshed")
+                this.emitter.emit("refresh:page")
+              }, timediff + 500)
+            }
           } else {
             window.$notification.error({
               duration: 3000,
