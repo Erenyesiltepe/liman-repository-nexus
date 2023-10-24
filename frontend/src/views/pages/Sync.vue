@@ -18,12 +18,10 @@ const emitter = useEmitter()
 const interval = ref()
 
 function timerSet() {
-  console.log("in watch")
   interval.value = setInterval(() => {
-    console.log("in interval")
     const enableRefresh = store.get.records.find(({ latest_sync_status }) => !latest_sync_status)
     enableRefresh != undefined ? store.fetch({}) : clearInterval(interval.value)
-  }, 1000)
+  }, 10000)
 }
 
 emitter.on("triggerTimer", () => { timerSet() })
