@@ -9,6 +9,7 @@ import Errors from "./Errors.vue"
 
 const store = useGlobalStore()
 const status = window.$user_status()
+const show = ref(true)
 
 onBeforeMount(() => {
   if (localStorage.getItem("fullscreen") == "true") {
@@ -36,13 +37,10 @@ const errorCapture = (error: any) => {
 <template>
   <div :class="{ full_screen: store.getFullscreen }">
     <AppProvider>
-      <Navigation
-        v-bind:style="status !== '1' ? { 'margin-top': '-24px' } : {}"
-        @fullscreen="toggleFullscreen"
-      />
+      <Navigation v-bind:style="status !== '1' ? { 'margin-top': '-24px' } : {}" @fullscreen="toggleFullscreen" />
       <RouterView v-slot="{ Component }">
         <Transition v-auto-animate>
-          <div style="padding: 20px; width: 100%; margin-top: -142px">
+          <div style="padding: 20px; width: 100%; margin-top: -142px" v-show="show">
             <VErrorBoundary stop-propagation @error-captured="errorCapture">
               <template #boundary="{ hasError }">
                 <div v-if="hasError">
