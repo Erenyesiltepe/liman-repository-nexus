@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, ref } from "vue"
+import { h, ref, watch } from "vue"
 import { useI18n } from "vue-i18n"
 import { useSyncStore } from "@/stores/sync"
 import AsyncStore from "@/components/Table/AsyncStore.vue"
@@ -16,16 +16,22 @@ const { t } = useI18n()
 const store = useSyncStore()
 const emitter = useEmitter()
 
-store.fetch({})
-const interval = setInterval(() => {
-  const enableRefresh = store.get.records.find(({ latest_sync_status }) => !latest_sync_status)
-  if (enableRefresh != undefined) {
-    store.fetch({})
-  }
-  else {
-    clearInterval(interval)
-  }
-}, 10000)
+function timerSet() {
+  console.log("in watch")
+  const interval = setInterval(() => {
+    console.log("in interval")
+    const enableRefresh = store.get.records.find(({ latest_sync_status }) => !latest_sync_status)
+    if (enableRefresh != undefined)
+      store.fetch({})
+    else {
+      clearInterval(interval)
+      console.log("interval cleared")
+    }
+  }, 10000)
+}
+
+timerSet()
+emitter.on("triggerTimer", () => { timerSet() })
 
 const columns = ref<any>([
   {

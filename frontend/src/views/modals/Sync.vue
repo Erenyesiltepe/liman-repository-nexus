@@ -76,6 +76,7 @@ const submit = () => {
           show.value = false
         })
       }
+      emitter.emit("triggerTimer")
     }
   })
 }
@@ -83,46 +84,30 @@ const submit = () => {
 
 <template>
   <n-drawer v-model:show="show" :width="502">
-    <n-drawer-content
-      :title="!mode ? t('sync.create.title') : t('sync.update.title')"
-    >
+    <n-drawer-content :title="!mode ? t('sync.create.title') : t('sync.update.title')">
       <n-form ref="formRef" :rules="rules" :model="values">
-        <n-form-item
-          :label="t('sync.table.repository_name')"
-          path="repository_id"
-        >
+        <n-form-item :label="t('sync.table.repository_name')" path="repository_id">
           <RepositorySelect v-model:repository="values.repository_id" />
         </n-form-item>
 
         <n-form-item :label="t('sync.table.run_time')" path="run_time">
-          <n-input
-            v-model:value="values.run_time"
-            placeholder="09:00"
-          ></n-input>
+          <n-input v-model:value="values.run_time" placeholder="09:00"></n-input>
         </n-form-item>
 
         <n-form-item :label="t('sync.table.interval')" path="interval">
-          <n-input-number
-            v-model:value="values.interval"
-            :disabled="values.is_one_time"
-          ></n-input-number>
+          <n-input-number v-model:value="values.interval" :disabled="values.is_one_time"></n-input-number>
         </n-form-item>
 
         <n-form-item :label="t('sync.table.is_one_time')" path="is_one_time">
-          <n-switch
-            v-model:value="values.is_one_time"
-            @update:value="
-              (value: boolean) => {
-                if(value) values.interval = 1
-              }
-            "
-          ></n-switch>
+          <n-switch v-model:value="values.is_one_time" @update:value="(value: boolean) => {
+              if (value) values.interval = 1
+            }
+            "></n-switch>
         </n-form-item>
       </n-form>
       <template #footer>
         <n-space justify="end">
-          <n-button type="primary" @click="submit()"
-            >{{ !mode ? t("common.create") : t("common.edit") }}
+          <n-button type="primary" @click="submit()">{{ !mode ? t("common.create") : t("common.edit") }}
           </n-button>
         </n-space>
       </template>
