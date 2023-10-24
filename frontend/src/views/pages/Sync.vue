@@ -16,6 +16,17 @@ const { t } = useI18n()
 const store = useSyncStore()
 const emitter = useEmitter()
 
+store.fetch({})
+const interval = setInterval(() => {
+  const enableRefresh = store.get.records.find(({ latest_sync_status }) => !latest_sync_status)
+  if (enableRefresh != undefined) {
+    store.fetch({})
+  }
+  else {
+    clearInterval(interval)
+  }
+}, 10000)
+
 const columns = ref<any>([
   {
     title: t("sync.table.repository_name"),
@@ -85,8 +96,8 @@ const columns = ref<any>([
               row.latest_sync_status == "success"
                 ? "fa-check text-success"
                 : row.latest_sync_status == "fail"
-                ? "fa-triangle-exclamation text-danger"
-                : "",
+                  ? "fa-triangle-exclamation text-danger"
+                  : "",
             ],
           }),
           `${row.latest_sync_status} ${row.latest_error_message}`,
@@ -107,11 +118,11 @@ const columns = ref<any>([
 
       return row.latest_sync_status !== "fail"
         ? (row.latest_sync_start_time
-            ? formatDate(row.latest_sync_start_time)
-            : "") +
-            (row.latest_sync_status && formatTimeObject(duration)
-              ? ` (${formatTimeObject(duration)})`
-              : "")
+          ? formatDate(row.latest_sync_start_time)
+          : "") +
+        (row.latest_sync_status && formatTimeObject(duration)
+          ? ` (${formatTimeObject(duration)})`
+          : "")
         : formatDate(row.latest_error_sync)
     },
   },
@@ -164,9 +175,7 @@ const columns = ref<any>([
   <n-card>
     <AsyncStore :dispatcher="store.fetch" :data="store.get" :columns="columns">
       <template #buttons>
-        <n-button @click="emitter.emit('showSyncModal')"
-          ><i class="fas fa-plus"
-        /></n-button>
+        <n-button @click="emitter.emit('showSyncModal')"><i class="fas fa-plus" /></n-button>
       </template>
     </AsyncStore>
   </n-card>

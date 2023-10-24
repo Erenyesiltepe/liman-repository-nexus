@@ -18,6 +18,7 @@ export interface IRepository {
   available_size: number
   key: IKey
   key_id: string | null
+  latest_sync_status: string
 }
 
 export interface ICreateRepository {
