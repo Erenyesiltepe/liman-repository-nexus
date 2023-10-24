@@ -5,6 +5,15 @@ import http from "@/utils/http-common"
 import { i18n } from "@/utils/i18n"
 import { defineStore } from "pinia"
 
+function checkData(data: any) {
+  for (const element of data.records) {
+    if (element.latest_sync_status == "") {
+      return true
+    }
+  }
+  return false
+}
+
 export const useSyncStore = defineStore({
   id: "sync",
   state: () => ({
@@ -28,6 +37,11 @@ export const useSyncStore = defineStore({
         .then((res) => {
           if (res.status == 200) {
             this.syncs = res.data
+            if (checkData(this.syncs)) {
+              setTimeout(() => {
+                this.fetch()
+              }, 10000)
+            }
           } else {
             window.$notification.error({
               duration: 3000,
