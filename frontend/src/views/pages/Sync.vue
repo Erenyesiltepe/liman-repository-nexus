@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, ref, watch } from "vue"
+import { h, ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useSyncStore } from "@/stores/sync"
 import AsyncStore from "@/components/Table/AsyncStore.vue"
