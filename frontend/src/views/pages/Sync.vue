@@ -135,7 +135,7 @@ const columns = ref<any>([
       return h(DropdownMenu, {
         options: [
           {
-            disabled: !row.is_active,
+            disabled: row.latest_sync_status != "",
             label: t("common.stop"),
             key: "stop",
             icon: renderIcon("fas fa-circle-stop"),

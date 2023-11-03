@@ -23,7 +23,7 @@ if (!function_exists('getUrl')) {
 		}
 
 		if($type == "nexus") {
-			return "http://" . server()->ip_address . "/$endpoint";
+			return "http://" . server()->ip_address . ":8081/$endpoint";
 		}
 	}
 }

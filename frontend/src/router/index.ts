@@ -4,6 +4,7 @@ import { createRouter, createWebHashHistory } from "vue-router"
 import Repositories from "@/views/pages/Repositories.vue"
 import Sync from "@/views/pages/Sync.vue"
 import Keys from "@/views/pages/Keys.vue"
+import NexusTest from "@/views/pages/NexusTest.vue"
 import Errors from "@/views/layouts/Errors.vue"
 
 const router = createRouter({
@@ -18,6 +19,11 @@ const router = createRouter({
       path: "/sync",
       name: "sync",
       component: Sync,
+    },
+    {
+      path: "/nexus",
+      name: "nexus",
+      component: NexusTest,
     },
     {
       path: "/keys",

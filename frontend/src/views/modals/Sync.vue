@@ -100,8 +100,8 @@ const submit = () => {
 
         <n-form-item :label="t('sync.table.is_one_time')" path="is_one_time">
           <n-switch v-model:value="values.is_one_time" @update:value="(value: boolean) => {
-              if (value) values.interval = 1
-            }
+            if (value) values.interval = 1
+          }
             "></n-switch>
         </n-form-item>
       </n-form>

@@ -46,6 +46,7 @@ class RequestController
         $endpoint = request("endpoint");
         $data = json_decode(request("data") ? request("data") : "[]", true);
         $type = request("type");
+        //dd(getUrl($endpoint, "nexus"));
 
         $request = getResponse(
             function ($client) use ($type, $endpoint, $data) {
@@ -55,8 +56,8 @@ class RequestController
             },
             [
                 'auth' => [
-                    extensionDb('nexusUsername'),
-                    extensionDb('nexusPassword')
+                    extensionDb('admin'),
+                    extensionDb('password...')
                 ],
             ]
         );
@@ -64,3 +65,4 @@ class RequestController
         return respond($request);
     }
 }
+//getUrl($endpoint, "nexus")
