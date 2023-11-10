@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
-
+use GuzzleHttp\Client;
 class RequestController
 {
     public function request($endpoint, $data, $type)
@@ -46,18 +45,19 @@ class RequestController
         $endpoint = request("endpoint");
         $data = json_decode(request("data") ? request("data") : "[]", true);
         $type = request("type");
-        //dd(getUrl($endpoint, "nexus"));
-
         $request = getResponse(
             function ($client) use ($type, $endpoint, $data) {
                 return $client->request(strtoupper($type), getUrl($endpoint, "nexus"), count($data) ? [
-                    'json' => $data
+                    'json' => $data,
+                    "headers" => [
+                        "Content-Type" => "application/json",
+                      ],
                 ] : []);
             },
             [
                 'auth' => [
-                    extensionDb('admin'),
-                    extensionDb('password...')
+                    'admin',
+                    'password...'
                 ],
             ]
         );
@@ -65,4 +65,3 @@ class RequestController
         return respond($request);
     }
 }
-//getUrl($endpoint, "nexus")

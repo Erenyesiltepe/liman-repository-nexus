@@ -1,18 +1,30 @@
 <script setup lang="ts">
 import { useNexusStore } from "@/stores/nexus"
-import { ref } from "vue"
+import { ref, h, reactive } from "vue"
+import { NButton } from "naive-ui"
 import Table from "@/components/Table.vue"
-//import { useI18n } from 'vue-i18n'
-//const { t } = useI18n()
+import Nexus from "@/views/modals/Nexus.vue"
+import useEmitter from "@/utils/emitter"
+import RepoDetail from "@/views/modals/RepoDetail.vue"
+import type { IData } from "@/models/Data"
 
+const emitter = useEmitter()
 const store = useNexusStore()
 const loading = ref(false)
+const selected = ref("Choose package")
 
-store.fetchRepositories()
-const test = ref(store.getRepositories)
-console.log(test.value[0])
+store.fetchRepositories("", "").then(() => {
+  console.log(store.getRepositories)
+})
 
-const columns = ref([
+const columns = reactive([
+  {
+    title: "#",
+    type: "expand",
+    renderExpand: (row: IData) => {
+      return h(RepoDetail, { data: row })
+    },
+  },
   {
     title: "Name",
     key: "name",
@@ -31,9 +43,65 @@ const columns = ref([
     title: "Url",
     key: "url",
   },
+  {
+    title: "Operations",
+    render(row: IData) {
+      return h(
+        NButton,
+        {
+          onClick: () => {
+            store.deleteRepository(row.name)
+          },
+        },
+        [h("i", { class: "fa-solid fa-trash" })]
+      )
+    },
+  },
+])
+
+function select(key: string) {
+  console.log(key)
+  const filter = key.split("/")
+  console.log(filter)
+  store.fetchRepositories(filter[0], filter[1])
+  selected.value = filter[0] + " " + filter[1]
+}
+
+const options = ref([
+  {
+    label: "apt hosted",
+    key: "apt/hosted",
+  },
+  {
+    label: "yum hosted",
+    key: "yum/hosted",
+  },
+  {
+    label: "apt proxy",
+    key: "apt/proxy",
+  },
+  {
+    label: "yum proxy",
+    key: "yum/proxy",
+  },
+  {
+    label: "docker proxy",
+    key: "docker/proxy",
+  },
 ])
 </script>
 <template>
-  <Table :columns="columns" :data="store.getRepositories" :loading="loading">
-  </Table>
+  <n-card>
+    <Nexus />
+    <Table :columns="columns" :data="store.getRepositories" :loading="loading">
+      <template #buttons>
+        <n-dropdown trigger="click" :options="options" @select="select">
+          <n-button>{{ selected }}</n-button>
+        </n-dropdown>
+        <n-button @click="emitter.emit('showNexusModal', true)"
+          ><i class="fas fa-plus"
+        /></n-button>
+      </template>
+    </Table>
+  </n-card>
 </template>

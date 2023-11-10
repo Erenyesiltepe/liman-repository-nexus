@@ -214,7 +214,7 @@ const tableData = computed<IData[]>(() => {
   </n-space>
 
   <n-data-table
-    :row-key="(rowData: IData) => rowData.id"
+    :row-key="(rowData: IData) => rowData.name"
     :columns="columns"
     :data="tableData"
     :loading="props.loading"

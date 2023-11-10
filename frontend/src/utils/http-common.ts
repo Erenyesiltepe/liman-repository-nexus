@@ -33,7 +33,8 @@ export class HttpClient {
 
   async post(url: string, data?: IData) {
     window.$loadingBar.start()
-
+    console.log("in axios post")
+    console.log(data)
     return this.axiosClient.post("", {
       type: "post",
       endpoint: url,
@@ -88,6 +89,18 @@ export class HttpClient {
         responseType: "blob",
       }
     )
+  }
+
+  async php(url: string, data?: IData) {
+    window.$loadingBar.start()
+
+    const a = new AxiosClient({}).apiClient
+
+    return a.post("", {
+      ...data,
+      lmntargetFunction: url,
+      type: "post",
+    })
   }
 }
 
