@@ -30,6 +30,10 @@ const options = ref([
     label: "docker proxy",
     key: "docker/proxy",
   },
+  {
+    label: "docker hosted",
+    key: "docker/hosted",
+  },
 ])
 
 const blobs = ref([{ label: "default", key: "default" }])

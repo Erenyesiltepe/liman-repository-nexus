@@ -76,6 +76,17 @@ const yumproxy = {
   },
 }
 
+const dockerhosted = {
+  ...hosted,
+  docker: {
+    v1Enabled: true,
+    forceBasicAuth: true,
+    httpPort: 8082,
+    httpsPort: 8083,
+    subdomain: "docker-a",
+  },
+}
+
 const dockerproxy = {
   ...proxy,
   routingRule: "string",
@@ -103,4 +114,5 @@ export const optionTypes = {
   apthosted: apthosted,
   aptproxy: aptproxy,
   dockerproxy: dockerproxy,
+  dockerhosted: dockerhosted,
 }

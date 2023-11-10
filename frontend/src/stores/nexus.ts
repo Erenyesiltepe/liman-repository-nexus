@@ -58,6 +58,8 @@ export const useNexusStore = defineStore({
       else if (type == "apt/proxy") config.value = optionTypes["aptproxy"]
       else if (type == "yum/hosted") config.value = optionTypes["yumhosted"]
       else if (type == "yum/proxy") config.value = optionTypes["yumproxy"]
+      else if (type == "docker/hosted")
+        config.value = optionTypes["dockerhosted"]
       else config.value = optionTypes["dockerproxy"]
 
       config.value.name = data.name
