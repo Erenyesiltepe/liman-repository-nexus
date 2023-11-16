@@ -53,9 +53,8 @@ const create = () => {
   })
 }
 
-emitter.on("showNexusModal", (condition: boolean) => {
-  show.value = condition
-  console.log("show modal " + condition)
+emitter.on("showNexusModal", () => {
+  show.value = true
 })
 </script>
 <template>

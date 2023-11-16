@@ -50,7 +50,17 @@ const columns = reactive([
         NButton,
         {
           onClick: () => {
-            store.deleteRepository(row.name)
+            window.$dialog.warning({
+              title: "Confirm",
+              content: "Are you sure?",
+              positiveText: "Delete",
+              negativeText: "Cancel",
+              onPositiveClick: () => {
+                store.deleteRepository(row.name).then(() => {
+                  window.$message.success("Repo is deleted")
+                })
+              },
+            })
           },
         },
         [h("i", { class: "fa-solid fa-trash" })]
@@ -60,14 +70,21 @@ const columns = reactive([
 ])
 
 function select(key: string) {
-  console.log(key)
-  const filter = key.split("/")
-  console.log(filter)
-  store.fetchRepositories(filter[0], filter[1])
-  selected.value = filter[0] + " " + filter[1]
+  if (key == "") {
+    store.fetchRepositories("", "")
+    selected.value = "All"
+  } else {
+    const filter = key.split("/")
+    store.fetchRepositories(filter[0], filter[1])
+    selected.value = filter[0] + " " + filter[1]
+  }
 }
 
 const options = ref([
+  {
+    label: "all",
+    key: "",
+  },
   {
     label: "apt hosted",
     key: "apt/hosted",
@@ -102,7 +119,7 @@ const options = ref([
         <n-dropdown trigger="click" :options="options" @select="select">
           <n-button>{{ selected }}</n-button>
         </n-dropdown>
-        <n-button @click="emitter.emit('showNexusModal', true)"
+        <n-button @click="emitter.emit('showNexusModal')"
           ><i class="fas fa-plus"
         /></n-button>
       </template>

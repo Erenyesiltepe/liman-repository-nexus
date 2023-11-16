@@ -43,6 +43,11 @@ const menuOptions: MenuOption[] = [
     icon: () => h("i", { class: "fa-solid fa-key fa-xs" }),
     key: "nexus",
   },
+  {
+    label: () => h(RouterLink, { to: "/ldap" }, "ldap"),
+    icon: () => h("i", { class: "fa-solid fa-key fa-xs" }),
+    key: "ldap",
+  },
 ]
 
 const route = useRoute()
@@ -59,14 +64,26 @@ watch(
 </script>
 
 <template>
-  <n-layout-header bordered style="padding: 0 20px; padding-bottom: 120px" inverted>
+  <n-layout-header
+    bordered
+    style="padding: 0 20px; padding-bottom: 120px"
+    inverted
+  >
     <n-button text @click="router.push({ name: 'dashboard' })">
       <n-h5 style="margin-right: 25px; color: #ffffff">
         {{ t("repo") }}
       </n-h5>
     </n-button>
-    <n-menu v-model:value="activeKey" mode="horizontal" :options="menuOptions" inverted />
-    <div role="menubar" class="n-menu n-menu--horizontal float-right" style="
+    <n-menu
+      v-model:value="activeKey"
+      mode="horizontal"
+      :options="menuOptions"
+      inverted
+    />
+    <div
+      role="menubar"
+      class="n-menu n-menu--horizontal float-right"
+      style="
         --n-divider-color: rgb(239, 239, 245);
         --n-bezier: cubic-bezier(0.4, 0, 0.2, 1);
         --n-font-size: 15px;
@@ -110,7 +127,8 @@ watch(
         --n-item-color-active: #00c0f3ff;
         --n-item-color-active-hover: #00c0f3ff;
         --n-item-color-active-collapsed: #00c0f3ff;
-      ">
+      "
+    >
       <div role="menuitem" class="n-menu-item" @click="emits('fullscreen')">
         <div role="none" class="n-menu-item-content">
           <div class="n-menu-item-content-header" role="none">
@@ -121,7 +139,9 @@ watch(
       <div role="menuitem" class="n-menu-item">
         <div role="none" class="n-menu-item-content">
           <div class="n-menu-item-content-header" role="none">
-            <a :href="`/ayarlar/${extension_id}/${server_id}`"><i class="fa-solid fa-screwdriver-wrench"></i></a>
+            <a :href="`/ayarlar/${extension_id}/${server_id}`"
+              ><i class="fa-solid fa-screwdriver-wrench"></i
+            ></a>
           </div>
         </div>
       </div>
