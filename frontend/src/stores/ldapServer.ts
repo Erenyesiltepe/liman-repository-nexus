@@ -1,4 +1,3 @@
-//import type { IRepository } from "@/models/Repository"
 import { HttpClient } from "@/utils/http-common"
 import { defineStore } from "pinia"
 import { ref } from "vue"
@@ -19,13 +18,13 @@ export const useLdapServerStore = defineStore({
     async fetchLdapOn() {
       return http.get(`service/rest/v1/security/realms/active`).then((res) => {
         if (res.status == 200) {
+          this.ldapOn = false
           for (const elem of res.data) {
             if (elem === "LdapRealm") {
               this.ldapOn = true
               break
             }
           }
-          console.log(this.ldapOn)
         } else {
           window.$notification.error({
             duration: 7000,
@@ -56,7 +55,6 @@ export const useLdapServerStore = defineStore({
     },
     async fetchServers() {
       return http.get(`service/rest/v1/security/ldap`).then((res) => {
-        console.log(res)
         if (res.status == 200) {
           this.servers = res.data
         } else {
@@ -68,19 +66,43 @@ export const useLdapServerStore = defineStore({
         }
       })
     },
-    async createServer(data: any, type: string) {
-      return http.post(`service/rest/v1/security/ldap`).then((res) => {
-        console.log(res)
-        if (res.status == 200) {
-          this.servers = res.data
-        } else {
-          window.$notification.error({
-            duration: 7000,
-            title: "server fetch error",
-            content: "server fetch error",
-          })
-        }
-      })
+    async createServer(data: any) {
+      console.log("in test")
+      console.log(data)
+      return http
+        .post(`service/rest/v1/security/ldap`, {
+          data: JSON.stringify(data),
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.fetchServers()
+          } else {
+            window.$notification.error({
+              duration: 7000,
+              title: "server crate error",
+              content: "server create error",
+            })
+          }
+        })
+    },
+    async updateServer(data: any) {
+      console.log("in test")
+      console.log(data)
+      return http
+        .put(`service/rest/v1/security/ldap/${data.name}`, {
+          data: JSON.stringify(data),
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.fetchServers()
+          } else {
+            window.$notification.error({
+              duration: 7000,
+              title: "server update error",
+              content: "server update error",
+            })
+          }
+        })
     },
   },
 })

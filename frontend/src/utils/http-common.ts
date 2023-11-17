@@ -33,8 +33,7 @@ export class HttpClient {
 
   async post(url: string, data?: IData) {
     window.$loadingBar.start()
-    console.log("in axios post")
-    console.log(data)
+
     return this.axiosClient.post("", {
       type: "post",
       endpoint: url,

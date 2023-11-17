@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue"
+import { ref, onMounted, h } from "vue"
 import Table from "@/components/Table.vue"
 import { useLdapServerStore } from "@/stores/ldapServer"
 import useEmitter from "@/utils/emitter"
 import LdapServer from "@/views/modals/LdapServer.vue"
+import { NButton } from "naive-ui"
 
 const emitter = useEmitter()
 const store = useLdapServerStore()
@@ -19,13 +20,10 @@ function handleupdate(value: boolean) {
 }
 
 const loading = ref(true)
-const data = ref()
+
 onMounted(() => {
   store.fetchLdapOn().then(() => {
-    ldapActive.value = store.getLdapOn
-    console.log(ldapActive.value)
     store.fetchServers().then(() => {
-      data.value = store.getServers
       loading.value = false
     })
   })
@@ -48,6 +46,24 @@ const columns = ref([
     title: "Port",
     key: "port",
   },
+  {
+    title: "#",
+    render: (row: any) => {
+      return h(
+        NButton,
+        {
+          onClick: () => {
+            const { order, ...rest } = row
+            emitter.emit("showLdapServerModal", {
+              type: "edit",
+              data: rest,
+            })
+          },
+        },
+        [h("i", { class: "fa-regular fa-pen-to-square" })]
+      )
+    },
+  },
 ])
 </script>
 <template>
@@ -55,7 +71,7 @@ const columns = ref([
   <n-space vertical>
     <n-card>
       <n-switch
-        :value="ldapActive"
+        :value="store.getLdapOn"
         @update:value="handleupdate"
         :loading="loadActive"
       >
@@ -64,9 +80,10 @@ const columns = ref([
       </n-switch></n-card
     >
     <n-card>
-      <Table :columns="columns" :loading="loading" :data="data">
+      <Table :columns="columns" :loading="loading" :data="store.getServers">
         <template #buttons>
-          <n-button @click="emitter.emit('showLdapServerModal')"
+          <n-button
+            @click="emitter.emit('showLdapServerModal', { type: 'create' })"
             ><i class="fas fa-plus"
           /></n-button>
         </template>

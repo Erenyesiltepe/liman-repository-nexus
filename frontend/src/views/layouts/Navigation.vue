@@ -48,6 +48,11 @@ const menuOptions: MenuOption[] = [
     icon: () => h("i", { class: "fa-solid fa-key fa-xs" }),
     key: "ldap",
   },
+  {
+    label: () => h(RouterLink, { to: "/users" }, "users"),
+    icon: () => h("i", { class: "fa-solid fa-key fa-xs" }),
+    key: "users",
+  },
 ]
 
 const route = useRoute()

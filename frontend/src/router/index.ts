@@ -6,6 +6,7 @@ import Sync from "@/views/pages/Sync.vue"
 import Keys from "@/views/pages/Keys.vue"
 import NexusTest from "@/views/pages/NexusTest.vue"
 import LdapServers from "@/views/pages/LdapServers.vue"
+import Users from "@/views/pages/Users.vue"
 import Errors from "@/views/layouts/Errors.vue"
 
 const router = createRouter({
@@ -30,6 +31,11 @@ const router = createRouter({
       path: "/ldap",
       name: "ldap",
       component: LdapServers,
+    },
+    {
+      path: "/users",
+      name: "users",
+      component: Users,
     },
     {
       path: "/keys",

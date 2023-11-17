@@ -10,11 +10,11 @@ import type { IData } from "@/models/Data"
 
 const emitter = useEmitter()
 const store = useNexusStore()
-const loading = ref(false)
+const loading = ref(true)
 const selected = ref("Choose package")
 
 store.fetchRepositories("", "").then(() => {
-  console.log(store.getRepositories)
+  loading.value = false
 })
 
 const columns = reactive([

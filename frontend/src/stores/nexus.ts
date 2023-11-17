@@ -38,7 +38,6 @@ export const useNexusStore = defineStore({
     },
     async fetchBlobstores() {
       return http.get(`service/rest/v1/blobstores/`).then((res) => {
-        console.log(res)
         if (res.status == 200) {
           this.blobStores = res.data.map((element: any) => {
             return { label: element.name, key: element.name }
@@ -75,7 +74,6 @@ export const useNexusStore = defineStore({
           data: JSON.stringify(config.value),
         })
         .then((res) => {
-          console.log(res.data)
           if (res.status == 200) {
             this.fetchRepositories("", "")
           } else {
@@ -89,7 +87,6 @@ export const useNexusStore = defineStore({
     },
     async deleteRepository(name: string) {
       return http.delete(`service/rest/v1/repositories/${name}`).then((res) => {
-        console.log(res.data)
         if (res.status == 200) {
           this.fetchRepositories("", "")
         } else {
