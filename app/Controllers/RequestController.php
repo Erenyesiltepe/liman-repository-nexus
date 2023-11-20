@@ -43,7 +43,6 @@ class RequestController
             "data" => "json"
         ]);
         $endpoint = request("endpoint");
-       // dd(request("data"));
         $data = json_decode(request("data") ? request("data") : "[]", true);
         $type = request("type");
         $request = getResponse(

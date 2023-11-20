@@ -67,8 +67,6 @@ export const useLdapServerStore = defineStore({
       })
     },
     async createServer(data: any) {
-      console.log("in test")
-      console.log(data)
       return http
         .post(`service/rest/v1/security/ldap`, {
           data: JSON.stringify(data),
@@ -86,8 +84,6 @@ export const useLdapServerStore = defineStore({
         })
     },
     async updateServer(data: any) {
-      console.log("in test")
-      console.log(data)
       return http
         .put(`service/rest/v1/security/ldap/${data.name}`, {
           data: JSON.stringify(data),

@@ -16,7 +16,6 @@ export const useUserRoleStore = defineStore({
   actions: {
     async fetchUsers() {
       return http.get(`service/rest/v1/security/users`).then((res) => {
-        console.log(res.data)
         if (res.status == 200) {
           this.users = res.data
         } else {
@@ -30,11 +29,12 @@ export const useUserRoleStore = defineStore({
     },
     async updateUsers(user: any) {
       return http
-        .get(`service/rest/v1/security/users/${user.userId}`, {
+        .put(`service/rest/v1/security/users/${user.userId}`, {
           data: JSON.stringify(user),
         })
         .then((res) => {
           if (res.status == 200) {
+            this.fetchUsers()
             window.$notification.success({
               duration: 7000,
               title: "We made it yeayyyyy",
@@ -49,15 +49,10 @@ export const useUserRoleStore = defineStore({
           }
         })
     },
-    /*    async getRoles() {
-      return http.delete(`service/rest/v1/repositories/${name}`).then((res) => {
-        console.log(res.data)
+    async fetchRoles() {
+      return http.get(`service/rest/v1/security/roles`).then((res) => {
         if (res.status == 200) {
-          window.$notification.success({
-            duration: 7000,
-            title: "kalan roller bizimdir",
-            content: "roles are fetched",
-          })
+          this.roles = res.data.filter((element: any) => element.readOnly)
         } else {
           window.$notification.error({
             duration: 7000,
@@ -66,6 +61,6 @@ export const useUserRoleStore = defineStore({
           })
         }
       })
-    }, */
+    },
   },
 })

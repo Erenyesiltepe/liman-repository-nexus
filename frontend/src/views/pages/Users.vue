@@ -11,11 +11,9 @@ const store = useUserRoleStore()
 
 const loading = ref(true)
 
-const data = ref()
 onMounted(() => {
   store.fetchUsers().then(() => {
     loading.value = false
-    data.value = store.getUsers
   })
 })
 
@@ -42,7 +40,7 @@ const columns = ref([
             emitter.emit("openRoleEdit", row)
           },
         },
-        ["edit"]
+        [h("i", { class: "fa-regular fa-pen-to-square" })]
       )
     },
   },
@@ -51,12 +49,12 @@ const columns = ref([
 <template>
   <RoleEdit />
   <n-card>
-    <Table :columns="columns" :loading="loading" :data="data">
-      <template #buttons>
+    <Table :columns="columns" :loading="loading" :data="store.getUsers">
+      <!--  <template #buttons>
         <n-button @click="emitter.emit('showLdapServerModal')"
           ><i class="fas fa-plus"
         /></n-button>
-      </template>
+      </template> -->
     </Table>
   </n-card>
 </template>
