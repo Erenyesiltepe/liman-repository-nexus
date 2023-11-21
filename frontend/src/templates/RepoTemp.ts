@@ -80,9 +80,8 @@ const dockerhosted = {
   ...hosted,
   docker: {
     v1Enabled: true,
-    forceBasicAuth: true,
+    forceBasicAuth: false,
     httpPort: 8082,
-    httpsPort: 8083,
     subdomain: "docker-a",
   },
 }
@@ -96,7 +95,7 @@ const dockerproxy = {
   },
   docker: {
     v1Enabled: true,
-    forceBasicAuth: true,
+    forceBasicAuth: false,
     httpPort: 8082,
     subdomain: "docker-a",
   },

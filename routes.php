@@ -12,6 +12,4 @@ return [
     // Report routes
     "downloadReport" => "ReportController@downloadReport",
     "importReportTemplate" => "ReportController@importReportTemplate",
-
-    "createRepo"=>"NexusController@createRepo"
 ];

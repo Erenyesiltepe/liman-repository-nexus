@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useNexusStore } from "@/stores/nexus"
 import { ref, h, reactive } from "vue"
-import { NButton } from "naive-ui"
+import { NButton, NSpace } from "naive-ui"
 import Table from "@/components/Table.vue"
 import Nexus from "@/views/modals/Nexus.vue"
 import useEmitter from "@/utils/emitter"
@@ -46,25 +46,34 @@ const columns = reactive([
   {
     title: "Operations",
     render(row: IData) {
-      return h(
-        NButton,
-        {
-          onClick: () => {
-            window.$dialog.warning({
-              title: "Confirm",
-              content: "Are you sure?",
-              positiveText: "Delete",
-              negativeText: "Cancel",
-              onPositiveClick: () => {
-                store.deleteRepository(row.name).then(() => {
-                  window.$message.success("Repo is deleted")
-                })
-              },
-            })
+      return h(NSpace, [
+        h(
+          NButton,
+          {
+            onClick: () => {
+              window.$dialog.warning({
+                title: "Confirm",
+                content: "Are you sure?",
+                positiveText: "Delete",
+                negativeText: "Cancel",
+                onPositiveClick: () => {
+                  store.deleteRepository(row.name)
+                },
+              })
+            },
           },
-        },
-        [h("i", { class: "fa-solid fa-trash" })]
-      )
+          [h("i", { class: "fa-solid fa-trash" })]
+        ),
+        h(
+          NButton,
+          {
+            onClick: () => {
+              emitter.emit("showNexusModal", { itype: "edit", ndata: row })
+            },
+          },
+          [h("i", { class: "fa-regular fa-pen-to-square" })]
+        ),
+      ])
     },
   },
 ])
@@ -119,7 +128,7 @@ const options = ref([
         <n-dropdown trigger="click" :options="options" @select="select">
           <n-button>{{ selected }}</n-button>
         </n-dropdown>
-        <n-button @click="emitter.emit('showNexusModal')"
+        <n-button @click="emitter.emit('showNexusModal', { itype: 'create' })"
           ><i class="fas fa-plus"
         /></n-button>
       </template>
