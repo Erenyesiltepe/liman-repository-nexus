@@ -10,8 +10,8 @@ export const useUserRoleStore = defineStore({
     users: [] as any[],
   }),
   getters: {
-    getRoles: (state) => state.roles, //get
-    getUsers: (state) => state.users, //get update
+    getRoles: (state) => state.roles,
+    getUsers: (state) => state.users,
   },
   actions: {
     async fetchUsers() {
@@ -52,7 +52,9 @@ export const useUserRoleStore = defineStore({
     async fetchRoles() {
       return http.get(`service/rest/v1/security/roles`).then((res) => {
         if (res.status == 200) {
-          this.roles = res.data.filter((element: any) => element.readOnly)
+          this.roles = res.data.filter(
+            (element: any) => !(element.source == "LDAP")
+          )
         } else {
           window.$notification.error({
             duration: 7000,

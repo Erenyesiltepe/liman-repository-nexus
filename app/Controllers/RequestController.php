@@ -57,7 +57,7 @@ class RequestController
             [
                 'auth' => [
                     'admin',
-                    'password...'
+                    '1'
                 ],
             ]
         );

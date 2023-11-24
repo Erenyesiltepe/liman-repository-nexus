@@ -5,7 +5,7 @@ import { useLdapServerStore } from "@/stores/ldapServer"
 import type { FormRules } from "naive-ui"
 import { defaultLdap } from "@/templates/LdapTemp"
 
-const rules: FormRules = {
+/* const rules: FormRules = {
   name: [
     {
       required: true,
@@ -30,7 +30,7 @@ const rules: FormRules = {
   base: [
     {
       required: true,
-      trigger: "input",
+      trigger: ["input", "blur"],
       message: "Base is required",
     },
   ],
@@ -48,7 +48,7 @@ const rules: FormRules = {
       message: "Password is required",
     },
   ],
-}
+} */
 
 const store = useLdapServerStore()
 const emitter = useEmitter()
@@ -86,9 +86,12 @@ function submit() {
     <n-drawer-content
       :title="op_type == 'create' ? 'Create Server' : 'Edit Server'"
     >
-      <n-form :rules="rules" :model="data">
+      <n-form>
         <n-form-item label="Name" path="name">
-          <n-input v-model:value="data.name" />
+          <n-input
+            v-model:value="data.name"
+            :disabled="!(op_type == 'create')"
+          />
         </n-form-item>
         <n-form-item label="Host" path="host">
           <n-input v-model:value="data.host" />

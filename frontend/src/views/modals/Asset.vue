@@ -1,30 +1,56 @@
 <script setup lang="ts">
 import { useNexusStore } from "@/stores/nexus"
-import { ref } from "vue"
-import { useLoadingBar } from "naive-ui"
+import MyCopyClipboard from "./MyCopyClipboard.vue"
+import Table from "@/components/Table.vue"
+import { ref, h } from "vue"
 
-const props = defineProps(["name"])
-const loadingBar = useLoadingBar()
+const props = defineProps(["data"])
 const store = useNexusStore()
-const asset = ref()
-const loaded = ref(false)
+const loaded = ref(true)
+const asset = ref([{ garb: "" }])
 
-store.fetchAsset(props.name).then(() => {
-  loaded.value = true
-  asset.value = store.getAsset
+store.fetchAsset(props.data.name).then(() => {
+  asset.value = formatData(store.getAsset)
+  loaded.value = false
 })
+
+const columns = ref([
+  {
+    title: "Asset Name",
+    key: "name",
+  },
+  {
+    title: "Url",
+    key: "url",
+  },
+  {
+    title: "Pull Url",
+    render: (row: any) => {
+      return h(MyCopyClipboard, {
+        toCopy: row.pullUrl,
+      })
+    },
+  },
+  {
+    title: "File Size",
+    key: "fileSize",
+  },
+])
+
+function formatData(list: any) {
+  return list.map((item: any) => {
+    const url = item.downloadUrl
+    const splittedUrl = url.split("/")
+
+    return {
+      name: splittedUrl[6],
+      url: url,
+      pullUrl: props.data.pushUrl + ":" + splittedUrl[8],
+      fileSize: item.fileSize,
+    }
+  })
+}
 </script>
 <template>
-  <n-table v-if="loaded">
-    <tr>
-      <th>Asset Name</th>
-      <th>Download Url</th>
-      <th>Filesize</th>
-    </tr>
-    <tr v-for="comp in asset.items" :key="comp.id">
-      <td>{{ comp.downloadUrl.split("/")[6] }}</td>
-      <td>{{ comp.downloadUrl }}</td>
-      <td>{{ comp.fileSize }}</td>
-    </tr>
-  </n-table>
+  <Table :columns="columns" :data="asset" :loading="loaded"> </Table>
 </template>

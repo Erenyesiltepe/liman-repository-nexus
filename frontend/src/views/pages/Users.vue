@@ -31,13 +31,17 @@ const columns = ref([
     key: "lastName",
   },
   {
+    title: "Source",
+    key: "source",
+  },
+  {
     title: "#",
     render: (row: any) => {
       return h(
         NButton,
         {
           onClick: () => {
-            emitter.emit("openRoleEdit", row)
+            emitter.emit("openRoleEdit", { ...row })
           },
         },
         [h("i", { class: "fa-regular fa-pen-to-square" })]
@@ -50,11 +54,6 @@ const columns = ref([
   <RoleEdit />
   <n-card>
     <Table :columns="columns" :loading="loading" :data="store.getUsers">
-      <!--  <template #buttons>
-        <n-button @click="emitter.emit('showLdapServerModal')"
-          ><i class="fas fa-plus"
-        /></n-button>
-      </template> -->
     </Table>
   </n-card>
 </template>

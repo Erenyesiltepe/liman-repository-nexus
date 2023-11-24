@@ -10,41 +10,12 @@ const type = ref("create")
 
 const data = ref()
 const selected = ref("apt/hosted")
-const options = ref([
-  {
-    label: "apt hosted",
-    key: "apt/hosted",
-  },
-  {
-    label: "yum hosted",
-    key: "yum/hosted",
-  },
-  {
-    label: "apt proxy",
-    key: "apt/proxy",
-  },
-  {
-    label: "yum proxy",
-    key: "yum/proxy",
-  },
-  {
-    label: "docker proxy",
-    key: "docker/proxy",
-  },
-  {
-    label: "docker hosted",
-    key: "docker/hosted",
-  },
-])
 
 const blobs = ref([{ label: "default", key: "default" }])
 store.fetchBlobstores().then(() => {
   blobs.value = store.getBlobstores
 })
 
-const select = (key: string) => {
-  selected.value = key
-}
 const selectblob = (key: string) => {
   data.value.blobStoreName = key
 }
@@ -68,10 +39,8 @@ emitter.on("showNexusModal", (obj: any) => {
         proxy_url: "",
         port: 0,
         enableAnonymus: true,
-      },
-      selected.value="apt/hosted"
-      )
-    : ((data.value = {
+      })
+    : (data.value = {
         name: obj.ndata.name,
         blobStoreName: obj.ndata.storage.blobStoreName,
         proxy_url: obj.ndata.type == "proxy" ? obj.ndata.url : "",
@@ -80,8 +49,8 @@ emitter.on("showNexusModal", (obj: any) => {
           obj.ndata.format == "docker"
             ? !obj.ndata.docker.forceBasicAuth
             : false,
-      }),
-      (selected.value = obj.ndata.format + "/" + obj.ndata.type))
+      })
+  selected.value = obj.activeTab
 })
 </script>
 <template>
@@ -90,16 +59,11 @@ emitter.on("showNexusModal", (obj: any) => {
       :title="type == 'create' ? 'Install package' : 'Update Package'"
     >
       <n-form>
-        <n-form-item label="Enter package type">
-          <n-dropdown trigger="click" :options="options" @select="select">
-            <n-button
-              ><i class="fa-solid fa-caret-down" style="color: #005eff"></i>
-              {{ selected }}</n-button
-            >
-          </n-dropdown>
+        <n-form-item label="Package Type">
+          <div>{{ selected.split("/")[0] + " " + selected.split("/")[1] }}</div>
         </n-form-item>
         <n-form-item label="Name">
-          <n-input v-model:value="data.name" />
+          <n-input v-model:value="data.name" :disabled="!(type == 'create')" />
         </n-form-item>
         <n-form-item label="Blobstore Name">
           <n-dropdown trigger="click" :options="blobs" @select="selectblob">

@@ -84,6 +84,9 @@ function apply() {
       return elem.role
     })
     userData.value.lastName == null ? (userData.value.lastName = "a") : null
+    userData.value.emailAddress == null
+      ? (userData.value.emailAddress = "a@example.com")
+      : null
     store.updateUsers(userData.value).then(() => {
       show.value = false
     })
@@ -93,7 +96,7 @@ function apply() {
 <template>
   <n-modal v-model:show="show">
     <n-card
-      style="width: 600px"
+      style="width: fit-content"
       title="Edit User Roles"
       :bordered="true"
       size="huge"
@@ -102,18 +105,20 @@ function apply() {
     >
       <n-space>
         <n-card class="card available" :bordered="true" title="Available Roles">
-          <table>
-            <tr
-              v-for="role in availableRoles"
-              :key="role.role"
-              :class="{ active: role.active }"
-              @click="click(role)"
-            >
-              {{
-                role.role
-              }}
-            </tr>
-          </table>
+          <n-scrollbar style="max-height: 170px">
+            <table>
+              <tr
+                v-for="role in availableRoles"
+                :key="role.role"
+                :class="{ active: role.active }"
+                @click="click(role)"
+              >
+                {{
+                  role.role
+                }}
+              </tr>
+            </table>
+          </n-scrollbar>
         </n-card>
         <div class="mybtns">
           <n-space vertical align="center" justfy="center">
@@ -122,19 +127,21 @@ function apply() {
           </n-space>
         </div>
         <n-card class="card actives" :bordered="true" title="Active Roles">
-          <table>
-            <tr
-              v-for="role in activeRoles"
-              :key="role.role"
-              :class="{ active: role.active }"
-              @click="click(role)"
-            >
-              {{
-                role.role
-              }}
-            </tr>
-          </table></n-card
-        >
+          <n-scrollbar style="max-height: 170px">
+            <table>
+              <tr
+                v-for="role in activeRoles"
+                :key="role.role"
+                :class="{ active: role.active }"
+                @click="click(role)"
+              >
+                {{
+                  role.role
+                }}
+              </tr>
+            </table>
+          </n-scrollbar>
+        </n-card>
       </n-space>
       <n-button type="info" @click="apply">Apply</n-button>
     </n-card>
@@ -143,8 +150,8 @@ function apply() {
 
 <style>
 .card {
-  width: 150px;
-  height: 200px;
+  width: 350px;
+  height: 250px;
 }
 .mybtns {
   display: flex;

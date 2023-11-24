@@ -42,12 +42,24 @@ export const useNexusStore = defineStore({
     async fetchRepositories(format: string, type: string) {
       return http.get(`service/rest/v1/repositorySettings/`).then((res) => {
         if (res.status == 200) {
-          this.repositories =
-            format == ""
-              ? res.data
-              : res.data.filter((item: { type: string; format: string }) => {
-                  return item.type == type && item.format == format
-                })
+          this.repositories = []
+          for (const item of res.data) {
+            if (item.type === type && item.format === format) {
+              const newItem = { ...item }
+              if (item.format === "docker") {
+                newItem.enableAnonymus = item.docker.forceBasicAuth
+                  ? "false"
+                  : "true"
+                newItem.pushUrl =
+                  item.url.split("/")[2].split(":")[0] +
+                  ":" +
+                  item.docker.httpPort +
+                  "/" +
+                  item.name
+              }
+              this.repositories.push(newItem)
+            }
+          }
         } else {
           window.$notification.error({
             duration: 7000,
@@ -77,7 +89,7 @@ export const useNexusStore = defineStore({
         .get(`service/rest/v1/search/assets?repository=${name}`)
         .then((res) => {
           if (res.status == 200) {
-            this.asset = res.data
+            this.asset = res.data.items
           } else {
             window.$notification.error({
               duration: 7000,
@@ -95,7 +107,8 @@ export const useNexusStore = defineStore({
         })
         .then((res) => {
           if (res.status == 200) {
-            this.fetchRepositories("", "")
+            const filter = type.split("/")
+            this.fetchRepositories(filter[0], filter[1])
             window.$notification.success({
               duration: 7000,
               title: "repository successfully created",
@@ -118,7 +131,8 @@ export const useNexusStore = defineStore({
         })
         .then((res) => {
           if (res.status == 200) {
-            this.fetchRepositories("", "")
+            const filter = type.split("/")
+            this.fetchRepositories(filter[0], filter[1])
             window.$notification.success({
               duration: 7000,
               title: "repository successfully updated",
@@ -133,10 +147,11 @@ export const useNexusStore = defineStore({
           }
         })
     },
-    async deleteRepository(name: string) {
+    async deleteRepository(name: string, type: string) {
       return http.delete(`service/rest/v1/repositories/${name}`).then((res) => {
         if (res.status == 200) {
-          this.fetchRepositories("", "")
+          const filter = type.split("/")
+          this.fetchRepositories(filter[0], filter[1])
           window.$notification.success({
             duration: 7000,
             title: "repository successfully removed",
