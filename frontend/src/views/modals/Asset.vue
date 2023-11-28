@@ -32,7 +32,7 @@ const columns = ref([
     },
   },
   {
-    title: "File Size",
+    title: "File Size (Byte)",
     key: "fileSize",
   },
 ])

@@ -143,7 +143,7 @@ function apply() {
           </n-scrollbar>
         </n-card>
       </n-space>
-      <n-button type="info" @click="apply">Apply</n-button>
+      <n-button @click="apply">Apply</n-button>
     </n-card>
   </n-modal>
 </template>

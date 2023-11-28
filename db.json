@@ -36,5 +36,31 @@
   "vite": true,
   "skeleton": true,
   "preload": true,
-  "verification": "verify"
+  "verification": "verify",
+  "menus": [
+    {
+      "name": "Depolar",
+      "url": "#/repositories"
+    },
+    {
+      "name": "Sync",
+      "url": "#/sync"
+    },
+    {
+      "name": "Keys",
+      "url": "#/keys"
+    },
+    {
+      "name": "Nexus",
+      "url": "#/nexus"
+    },
+    {
+      "name": "Ldap",
+      "url": "#/ldap"
+    },
+    {
+      "name": "Users",
+      "url": "#/users"
+    }
+  ]
 }

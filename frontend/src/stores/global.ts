@@ -1,9 +1,9 @@
-import { defineStore } from "pinia"
+/* import { defineStore } from "pinia"
 
 export const useGlobalStore = defineStore({
   id: "global",
   state: () => ({
-    fullscreen: false,
+    fullscreen: true,
   }),
   getters: {
     getFullscreen: (state) => state.fullscreen,
@@ -14,3 +14,4 @@ export const useGlobalStore = defineStore({
     },
   },
 })
+ */

@@ -19,14 +19,22 @@ const interval = ref()
 
 function timerSet() {
   interval.value = setInterval(() => {
-    const enableRefresh = store.get.records.find(({ latest_sync_status }) => !latest_sync_status)
+    const enableRefresh = store.get.records.find(
+      ({ latest_sync_status }) => !latest_sync_status
+    )
     enableRefresh != undefined ? store.fetch({}) : clearInterval(interval.value)
   }, 10000)
 }
 
-emitter.on("triggerTimer", () => { timerSet() })
-onMounted(() => { timerSet() })
-onUnmounted(() => { clearInterval(interval.value) })
+emitter.on("triggerTimer", () => {
+  timerSet()
+})
+onMounted(() => {
+  timerSet()
+})
+onUnmounted(() => {
+  clearInterval(interval.value)
+})
 
 const columns = ref<any>([
   {
@@ -97,8 +105,8 @@ const columns = ref<any>([
               row.latest_sync_status == "success"
                 ? "fa-check text-success"
                 : row.latest_sync_status == "fail"
-                  ? "fa-triangle-exclamation text-danger"
-                  : "",
+                ? "fa-triangle-exclamation text-danger"
+                : "",
             ],
           }),
           `${row.latest_sync_status} ${row.latest_error_message}`,
@@ -119,11 +127,11 @@ const columns = ref<any>([
 
       return row.latest_sync_status !== "fail"
         ? (row.latest_sync_start_time
-          ? formatDate(row.latest_sync_start_time)
-          : "") +
-        (row.latest_sync_status && formatTimeObject(duration)
-          ? ` (${formatTimeObject(duration)})`
-          : "")
+            ? formatDate(row.latest_sync_start_time)
+            : "") +
+            (row.latest_sync_status && formatTimeObject(duration)
+              ? ` (${formatTimeObject(duration)})`
+              : "")
         : formatDate(row.latest_error_sync)
     },
   },
@@ -176,7 +184,9 @@ const columns = ref<any>([
   <n-card>
     <AsyncStore :dispatcher="store.fetch" :data="store.get" :columns="columns">
       <template #buttons>
-        <n-button @click="emitter.emit('showSyncModal')"><i class="fas fa-plus" /></n-button>
+        <n-button @click="emitter.emit('showSyncModal')"
+          ><i class="fas fa-plus"
+        /></n-button>
       </template>
     </AsyncStore>
   </n-card>
