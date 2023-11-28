@@ -39,6 +39,9 @@ emitter.on("showNexusModal", (obj: any) => {
         proxy_url: "",
         port: 0,
         enableAnonymus: true,
+        keypair: "",
+        passphrase: "",
+        distribution: "",
       })
     : (data.value = {
         name: obj.ndata.name,
@@ -49,6 +52,7 @@ emitter.on("showNexusModal", (obj: any) => {
           obj.ndata.format == "docker"
             ? !obj.ndata.docker.forceBasicAuth
             : false,
+        keypair: obj.activeTab == "apt/hosted" || obj.activeTab == "yum/proxy",
       })
   selected.value = obj.activeTab
 })
@@ -86,7 +90,7 @@ emitter.on("showNexusModal", (obj: any) => {
         </n-form-item>
       </n-form>
       <template #footer>
-        <n-button type="info" @click="create">{{
+        <n-button @click="create">{{
           type == "create" ? "Create" : "Edit"
         }}</n-button>
       </template>

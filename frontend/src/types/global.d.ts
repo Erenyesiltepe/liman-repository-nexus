@@ -12,8 +12,11 @@ declare global {
     $notification: import("naive-ui").NotificationApi
     $loadingBar: import("naive-ui").LoadingBarApi
     customRequestData: ICustomRequestData
+    $can: any
+    $getVersion: any
     $: JQueryStatic
-    $user_status: any
     upload: any
+    start: any
+    getServerIp: any
   }
 }

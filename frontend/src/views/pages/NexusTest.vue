@@ -23,7 +23,7 @@ const columns = ref([
   {
     title: "#",
     type: "expand",
-    expandable: (row: any) => row.format == "docker",
+    //expandable: (row: any) => row.format == "docker",
     renderExpand: (row: IData) => {
       return h(Asset, { data: row })
     },

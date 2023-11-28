@@ -1,6 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 
-// Imports
 import Repositories from "@/views/pages/Repositories.vue"
 import Sync from "@/views/pages/Sync.vue"
 import Keys from "@/views/pages/Keys.vue"
@@ -13,7 +12,7 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
+      path: "/repositories",
       name: "repositories",
       component: Repositories,
     },
@@ -49,7 +48,7 @@ const router = createRouter({
     },
     {
       path: "/:pathMatch(.*)*",
-      redirect: "/",
+      redirect: "/repositories",
     },
   ],
 })
