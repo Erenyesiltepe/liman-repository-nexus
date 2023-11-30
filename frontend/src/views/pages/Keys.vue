@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, ref } from "vue"
+import { h, ref, onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 import { useKeyStore } from "@/stores/key"
 import AsyncStore from "@/components/Table/AsyncStore.vue"
@@ -14,6 +14,10 @@ const { t } = useI18n()
 const store = useKeyStore()
 const emitter = useEmitter()
 const show = ref(false)
+const active = ref(false)
+onMounted(() => {
+  active.value = true
+})
 
 const columns = ref<any>([
   {
@@ -70,7 +74,12 @@ const columns = ref<any>([
 
 <template>
   <n-card>
-    <AsyncStore :dispatcher="store.fetch" :data="store.get" :columns="columns">
+    <AsyncStore
+      v-if="active"
+      :dispatcher="store.fetch"
+      :data="store.get"
+      :columns="columns"
+    >
       <template #buttons>
         <n-button @click="emitter.emit('showKeyModal')"
           ><i class="fas fa-plus"

@@ -39,16 +39,8 @@
   "verification": "verify",
   "menus": [
     {
-      "name": "Depolar",
-      "url": "#/repositories"
-    },
-    {
-      "name": "Sync",
-      "url": "#/sync"
-    },
-    {
-      "name": "Keys",
-      "url": "#/keys"
+      "name": "Welcome",
+      "url": "#/welcome"
     },
     {
       "name": "Nexus",

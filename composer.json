@@ -8,7 +8,6 @@
       "email": "alibugra@liman.dev"
     }
   ],
-  "require": {},
   "autoload": {
     "files": [
       "app/Helpers/Helpers.php"
@@ -19,5 +18,11 @@
     "classmap": [
       "app"
     ]
+  },
+  "require": {
+    "illuminate/database": "9.52",
+    "illuminate/events": "^9.52",
+    "illuminate/pagination": "^9.52",
+    "ramsey/uuid": "^4.7"
   }
 }

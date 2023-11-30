@@ -47,8 +47,8 @@ const apthosted = {
     flat: false,
   },
   aptSigning: {
-    keypair: "string",
-    passphrase: "string",
+    keypair: "",
+    passphrase: "",
   },
 }
 
@@ -71,8 +71,8 @@ const yumhosted = {
 const yumproxy = {
   ...proxy,
   yumSigning: {
-    keypair: "string",
-    passphrase: "string",
+    keypair: "",
+    passphrase: "",
   },
 }
 
@@ -81,7 +81,7 @@ const dockerhosted = {
   docker: {
     v1Enabled: true,
     forceBasicAuth: false,
-    httpPort: 8082,
+    httpPort: null,
     subdomain: "docker-a",
   },
 }
@@ -96,7 +96,7 @@ const dockerproxy = {
   docker: {
     v1Enabled: true,
     forceBasicAuth: false,
-    httpPort: 8082,
+    httpPort: null,
     subdomain: "docker-a",
   },
   dockerProxy: {

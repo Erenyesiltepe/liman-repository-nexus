@@ -1,30 +1,8 @@
 import { HttpClient } from "@/utils/http-common"
 import { i18n } from "@/utils/i18n"
 import { defineStore } from "pinia"
-import { ref } from "vue"
-import { optionTypes } from "@/templates/RepoTemp"
 
 const http = new HttpClient("nexusProxy")
-
-function getConfig(data: any, type: string) {
-  const config = ref()
-  if (type == "apt/hosted") config.value = optionTypes["apthosted"]
-  else if (type == "apt/proxy") config.value = optionTypes["aptproxy"]
-  else if (type == "yum/hosted") config.value = optionTypes["yumhosted"]
-  else if (type == "yum/proxy") config.value = optionTypes["yumproxy"]
-  else if (type == "docker/hosted") config.value = optionTypes["dockerhosted"]
-  else config.value = optionTypes["dockerproxy"]
-
-  config.value.name = data.name
-  config.value.storage.blobStoreName = data.blobStoreName
-  if (type.split("/")[1] == "proxy")
-    config.value.proxy.remoteUrl = data.proxy_url
-  if (type.split("/")[0] == "docker") {
-    config.value.docker.httpPort = data.port
-    config.value.docker.forceBasicAuth = !data.enableAnonymus
-  }
-  return config.value
-}
 
 export const useNexusStore = defineStore({
   id: "nexus",
@@ -47,9 +25,10 @@ export const useNexusStore = defineStore({
             if (item.type === type && item.format === format) {
               const newItem = { ...item }
               if (item.format === "docker") {
-                newItem.enableAnonymus = item.docker.forceBasicAuth
+                newItem.enableAnonstr = item.docker.forceBasicAuth
                   ? "false"
                   : "true"
+                newItem.docker.forceBasicAuth = !item.docker.forceBasicAuth
                 newItem.pushUrl =
                   item.url.split("/")[2].split(":")[0] +
                   ":" +
@@ -100,10 +79,10 @@ export const useNexusStore = defineStore({
         })
     },
     async createRepository(data: any, type: string) {
-      const config = getConfig(data, type)
+      //const config = getConfig(data, type)
       return http
         .post(`service/rest/v1/repositories/${type}`, {
-          data: JSON.stringify(config),
+          data: JSON.stringify(data),
         })
         .then((res) => {
           if (res.status == 200) {
@@ -124,10 +103,10 @@ export const useNexusStore = defineStore({
         })
     },
     async updateRepository(data: any, type: string) {
-      const config = getConfig(data, type)
+      //const config = getConfig(data, type)
       return http
         .put(`service/rest/v1/repositories/${type}/${data.name}`, {
-          data: JSON.stringify(config),
+          data: JSON.stringify(data),
         })
         .then((res) => {
           if (res.status == 200) {

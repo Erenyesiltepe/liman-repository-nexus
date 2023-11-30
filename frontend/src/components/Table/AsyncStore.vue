@@ -19,6 +19,7 @@ export interface Props {
   filter?: any
   showTimePicker?: boolean
   selected?: any[]
+  active?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {

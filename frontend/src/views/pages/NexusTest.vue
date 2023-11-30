@@ -23,7 +23,6 @@ const columns = ref([
   {
     title: "#",
     type: "expand",
-    //expandable: (row: any) => row.format == "docker",
     renderExpand: (row: IData) => {
       return h(Asset, { data: row })
     },
@@ -49,6 +48,7 @@ const columns = ref([
   },
   {
     title: "Operations",
+    width: 100,
     render(row: IData) {
       return h(NSpace, [
         h(
@@ -72,10 +72,10 @@ const columns = ref([
           NButton,
           {
             onClick: () => {
-              emitter.emit("showNexusModal", {
+              const dt = { ...row }
+              emitter.emit("show" + row.format + row.type, {
                 itype: "edit",
-                ndata: row,
-                activeTab: activeTab.value,
+                ndata: dt,
               })
             },
           },
@@ -99,7 +99,7 @@ function update(key: string) {
   activeTab.value = key
   const docker_column = {
     title: "Enable Anonymous Pull",
-    key: "enableAnonymus",
+    key: "enableAnonstr",
   }
   const push_link = {
     title: "Push Url",
@@ -171,14 +171,17 @@ const options = ref([
           :columns="columns"
           :data="store.getRepositories"
           :loading="loading"
+          row-key="name"
         >
           <template #buttons>
             <n-button
               @click="
-                emitter.emit('showNexusModal', {
-                  itype: 'create',
-                  activeTab: activeTab,
-                })
+                emitter.emit(
+                  'show' + activeTab.split('/')[0] + activeTab.split('/')[1],
+                  {
+                    itype: 'create',
+                  }
+                )
               "
               ><i class="fas fa-plus"
             /></n-button>

@@ -24,12 +24,12 @@ http.get("version").then((res) => {
   version.value = res.data.version
 })
 
-function getCamelName() {
-  const st = route.name as string
-  return st.replace(/([A-Z])/g, " $1").replace(/^./, function (str: string) {
-    return str.toUpperCase()
+/* const str = route.name as string
+function camelize() {
+  return str.replace(/\W+(.)/g, function (match, chr) {
+    return chr.toUpperCase()
   })
-}
+} */
 
 const goBackToMainPage = () => {
   router.push({
@@ -50,9 +50,9 @@ const goBackToMainPage = () => {
           <n-breadcrumb-item
             ><i class="fa-solid fa-home"></i
           ></n-breadcrumb-item>
-          <n-breadcrumb-item> {{ getCamelName() }} </n-breadcrumb-item>
+          <n-breadcrumb-item> {{ route.name }} </n-breadcrumb-item>
         </n-breadcrumb>
-        <n-h2 class="m-0"> {{ getCamelName() }}</n-h2>
+        <n-h2 class="m-0"> {{ route.name }}</n-h2>
       </n-space>
     </n-config-provider>
   </div>

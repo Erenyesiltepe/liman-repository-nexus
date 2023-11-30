@@ -71,6 +71,16 @@ export class HttpClient {
     })
   }
 
+  async insert(url: string, data?: IData) {
+    window.$loadingBar.start()
+
+    return this.axiosClient.post("", {
+      type: "insert",
+      endpoint: url,
+      ...data,
+    })
+  }
+
   async downloadFile(url: string, endpoint: string, data?: IData) {
     window.$loadingBar.start()
 
