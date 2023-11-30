@@ -19,6 +19,22 @@
       "required": true,
       "global": true,
       "writable": true
+    },
+    {
+      "variable": "nexus_username",
+      "type": "text",
+      "name": "Nexus Kullanıcı Adı",
+      "required": true,
+      "global": true,
+      "writable": true
+    },
+    {
+      "variable": "nexus_password",
+      "type": "password",
+      "name": "Nexus Password",
+      "required": true,
+      "global": true,
+      "writable": true
     }
   ],
   "widgets": [],
