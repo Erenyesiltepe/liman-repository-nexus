@@ -79,7 +79,6 @@ export const useNexusStore = defineStore({
         })
     },
     async createRepository(data: any, type: string) {
-      //const config = getConfig(data, type)
       return http
         .post(`service/rest/v1/repositories/${type}`, {
           data: JSON.stringify(data),
@@ -103,7 +102,6 @@ export const useNexusStore = defineStore({
         })
     },
     async updateRepository(data: any, type: string) {
-      //const config = getConfig(data, type)
       return http
         .put(`service/rest/v1/repositories/${type}/${data.name}`, {
           data: JSON.stringify(data),
