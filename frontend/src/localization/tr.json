@@ -1,6 +1,7 @@
 {
   "repo": "Depo Yönetimi",
   "common": {
+    "confirm": "Onayla",
     "success": "Başarılı",
     "error": "Hata",
     "warning": "Uyarı",
@@ -205,5 +206,72 @@
         "error": "Anahtar silinirken bir hata oluştu."
       }
     }
+  },
+  "drawers": {
+    "install": "Paket Yükle",
+    "update": "Paketi Güncelle",
+    "create_server": "Server Oluştur",
+    "edit_server": "Serveri Güncelle",
+    "package_type": "Paket Tipi",
+    "name": "Ad",
+    "blob_name": "Blobtore Adı",
+    "distribution": "Dağıtım",
+    "signing_key": "İmza Anahtarı",
+    "passphrase": "Parola",
+    "proxy_url": "Proxy Linki",
+    "create": "Oluştur",
+    "edit": "Değiştir"
+  },
+  "nexus": {
+    "test": {
+      "columns": {
+        "name": "Depo Adı",
+        "format": "Format",
+        "type": "Depo Tipi",
+        "operations": "Operasyonlar",
+        "enable_anon_pull": "Docker Anonim Çekme",
+        "push_url": "Push Url"
+      }
+    }
+  },
+  "ldap_server": {
+    "protocol": "Protokol",
+    "host": "Ana Makina",
+    "ldap_on": "Ldap açık",
+    "ldap_off": "Ldap kapalı",
+    "dn": "Arama Tabanı",
+    "auth_uname": "Giriş Kullanıcı Adı",
+    "password": "Parola"
+  },
+  "users": {
+    "columns": {
+      "id": "Kullanıcı Kimliği",
+      "first_name": "Ad",
+      "last_name": "Soyad",
+      "source": "Kaynak"
+    },
+    "roleedit": {
+      "error": "En az bir rol seçilmeli",
+      "errorr": "Yoda:Seçilmeli en az bir rol",
+      "available_roles": "Alınabilir Roller",
+      "active_roles": "Aktif Roller",
+      "apply": "Uygula"
+    }
+  },
+  "welcome": "Repository Manager a hoşgeldiniz",
+  "asset": {
+    "name": "Dosya Adı",
+    "pull_url": "Docker Çekme Linki",
+    "file_size": "Dosya Boyutu (Byte)"
+  },
+  "setting": {
+    "attribute": "Birim",
+    "value": "Değer"
+  },
+  "pages": {
+    "welcome": "Hoşgeldiniz",
+    "nexus": "Nexus",
+    "ldap": "Ldap",
+    "users": "Kullanıcılar"
   }
 }

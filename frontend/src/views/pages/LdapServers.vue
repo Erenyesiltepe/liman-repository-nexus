@@ -5,7 +5,9 @@ import { useLdapServerStore } from "@/stores/ldapServer"
 import useEmitter from "@/utils/emitter"
 import LdapServer from "@/views/modals/LdapServer.vue"
 import { NButton } from "naive-ui"
+import { useI18n } from "vue-i18n"
 
+const { t } = useI18n()
 const emitter = useEmitter()
 const store = useLdapServerStore()
 
@@ -31,19 +33,19 @@ onMounted(() => {
 
 const columns = ref([
   {
-    title: "Name",
+    title: t("nexus.test.columns.name"),
     key: "name",
   },
   {
-    title: "Protocol",
+    title: t("ldap_server.protocol"),
     key: "protocol",
   },
   {
-    title: "Host",
+    title: t("ldap_server.host"),
     key: "host",
   },
   {
-    title: "Port",
+    title: t("ldap_server.port"),
     key: "port",
   },
   {
@@ -75,8 +77,8 @@ const columns = ref([
         @update:value="handleupdate"
         :loading="loadActive"
       >
-        <template #checked> LDAP is on </template>
-        <template #unchecked> LDAP is off </template>
+        <template #checked> {{ t("ldap_server.ldap_on") }} </template>
+        <template #unchecked> {{ t("ldap_server.ldap_on") }} </template>
       </n-switch></n-card
     >
     <n-card>

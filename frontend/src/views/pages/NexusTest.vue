@@ -8,13 +8,16 @@ import useEmitter from "@/utils/emitter"
 import Asset from "@/views/modals/Asset.vue"
 import Setting from "@/views/modals/Setting.vue"
 import type { IData } from "@/models/Data"
+import { useI18n } from "vue-i18n"
 
+const { t } = useI18n()
 const emitter = useEmitter()
 const store = useNexusStore()
 const loading = ref(true)
 const selected = ref("Choose package")
 const activeTab = ref("apt/hosted")
 
+store.fetchBlobstores()
 store.fetchRepositories("apt", "hosted").then(() => {
   loading.value = false
 })
@@ -28,17 +31,17 @@ const columns = ref([
     },
   },
   {
-    title: "Name",
+    title: t("nexus.test.columns.name"),
     key: "name",
     sorter: "default",
     filterable: true,
   },
   {
-    title: "Format",
+    title: t("nexus.test.columns.format"),
     key: "format",
   },
   {
-    title: "Type",
+    title: t("nexus.test.columns.type"),
     key: "type",
     show: false,
   },
@@ -47,7 +50,7 @@ const columns = ref([
     key: "url",
   },
   {
-    title: "Operations",
+    title: t("nexus.test.columns.operations"),
     width: 100,
     render(row: IData) {
       return h(NSpace, [
@@ -56,10 +59,10 @@ const columns = ref([
           {
             onClick: () => {
               window.$dialog.warning({
-                title: "Confirm",
-                content: "Are you sure?",
-                positiveText: "Delete",
-                negativeText: "Cancel",
+                title: t("common.confirm"),
+                content: t("common.are_you_sure"),
+                positiveText: t("common.yes"),
+                negativeText: t("common.no"),
                 onPositiveClick: () => {
                   store.deleteRepository(row.name, activeTab.value)
                 },
@@ -76,6 +79,7 @@ const columns = ref([
               emitter.emit("show" + row.format + row.type, {
                 itype: "edit",
                 ndata: dt,
+                blobs: store.getBlobstores,
               })
             },
           },
@@ -98,15 +102,15 @@ const columns = ref([
 function update(key: string) {
   activeTab.value = key
   const docker_column = {
-    title: "Enable Anonymous Pull",
+    title: t("nexus.test.columns.enable_anon_pull"),
     key: "enableAnonstr",
   }
   const push_link = {
-    title: "Push Url",
+    title: t("nexus.test.columns.push_url"),
     key: "pushUrl",
   }
 
-  const ifexists = columns.value.find((o) => o.key === "enableAnonymus")
+  const ifexists = columns.value.find((o) => o.key === "enableAnonstr")
   const filter = key.split("/")
   filter[0] == "docker"
     ? ifexists == undefined
@@ -123,27 +127,27 @@ function update(key: string) {
 
 const options = ref([
   {
-    label: "apt hosted",
+    label: "APT Hosted",
     key: "apt/hosted",
   },
   {
-    label: "yum hosted",
+    label: "YUM Hosted",
     key: "yum/hosted",
   },
   {
-    label: "apt proxy",
+    label: "APT Proxy",
     key: "apt/proxy",
   },
   {
-    label: "yum proxy",
+    label: "YUM Proxy",
     key: "yum/proxy",
   },
   {
-    label: "docker proxy",
+    label: "Docker Proxy",
     key: "docker/proxy",
   },
   {
-    label: "docker hosted",
+    label: "Docker Hosted",
     key: "docker/hosted",
   },
 ])
@@ -180,6 +184,7 @@ const options = ref([
                   'show' + activeTab.split('/')[0] + activeTab.split('/')[1],
                   {
                     itype: 'create',
+                    blobs: store.getBlobstores,
                   }
                 )
               "

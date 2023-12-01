@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { useI18n } from "vue-i18n"
+const { t } = useI18n()
+</script>
 <template>
-  <n-card> Welcome to repository manager </n-card>
+  <n-card> {{ t("welcome") }} </n-card>
 </template>

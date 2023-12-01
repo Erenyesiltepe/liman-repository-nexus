@@ -5,10 +5,11 @@ import { useUserRoleStore } from "@/stores/user_role"
 import useEmitter from "@/utils/emitter"
 import RoleEdit from "../modals/RoleEdit.vue"
 import { NButton } from "naive-ui"
+import { useI18n } from "vue-i18n"
 
 const emitter = useEmitter()
 const store = useUserRoleStore()
-
+const { t } = useI18n()
 const loading = ref(true)
 
 onMounted(() => {
@@ -19,19 +20,19 @@ onMounted(() => {
 
 const columns = ref([
   {
-    title: "User ID",
+    title: t("users.columns.id"),
     key: "userId",
   },
   {
-    title: "First Name",
+    title: t("users.columns.first_name"),
     key: "firstName",
   },
   {
-    title: "Last Name",
+    title: t("users.columns.last_name"),
     key: "lastName",
   },
   {
-    title: "Source",
+    title: t("users.columns.source"),
     key: "source",
   },
   {

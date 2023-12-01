@@ -1,6 +1,7 @@
 {
   "repo": "Repository Management",
   "common": {
+    "confirm": "Confirm",
     "success": "Successful",
     "error": "Error",
     "warning": "Warning",
@@ -205,5 +206,74 @@
         "error": "An error occurred while deleting the key."
       }
     }
+  },
+  "drawers": {
+    "install": "Install Package",
+    "update": "Update Package",
+    "create_server": "Create Server",
+    "edit_server": "Edit Server",
+    "package_type": "Package Type",
+    "name": "Name",
+    "blob_name": "Blobtore Name",
+    "distribution": "Distribution",
+    "signing_key": "Signing Key",
+    "passphrase": "Passphrase",
+    "proxy_url": "Proxy URl",
+    "create": "Create",
+    "edit": "Edit"
+  },
+  "nexus": {
+    "test": {
+      "columns": {
+        "name": "Name",
+        "format": "Format",
+        "type": "Type",
+        "operations": "Operations",
+        "enable_anon_pull": "Enable Anonymous Pull",
+        "push_url": "Push Url",
+        "allow_anon_docker_pull": "Allow Anonymus Docker Pull"
+      }
+    }
+  },
+  "ldap_server": {
+    "protocol": "Protocol",
+    "host": "Host",
+    "port": "Port",
+    "ldap_on": "Ldap is on",
+    "ldap_off": "Ldap is off",
+    "dn": "Search Base",
+    "auth_uname": "Auth Username",
+    "password": "Password"
+  },
+  "users": {
+    "columns": {
+      "id": "User ID",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "source": "Source"
+    },
+    "roleedit": {
+      "error": "En az bir rol seçilmeli",
+      "errorr": "Yoda:Seçilmeli en az bir rol",
+      "available_roles": "Available Roles",
+      "active_roles": "Active Roles",
+      "apply": "Apply"
+    }
+  },
+  "welcome": "Welcome to repository manager",
+  "asset": {
+    "name": "Asset Name",
+    "pull_url": "Pull Url",
+    "file_size": "File Size (Byte)"
+  },
+  "setting": {
+    "attribute": "Attribute",
+    "value": "Value"
+  },
+  "pages": {
+    "welcome": "Welcome",
+    "nexus": "Nexus",
+    "ldap": "Ldap",
+    "users": "Users"
   }
 }

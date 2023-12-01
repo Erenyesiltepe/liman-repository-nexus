@@ -3,7 +3,9 @@ import { ref } from "vue"
 import useEmitter from "@/utils/emitter"
 import { useNexusStore } from "@/stores/nexus"
 import { optionTypes } from "@/templates/RepoTemp"
+import { useI18n } from "vue-i18n"
 
+const { t } = useI18n()
 const store = useNexusStore()
 const emitter = useEmitter()
 const show = ref()
@@ -11,9 +13,6 @@ const type = ref("create")
 const data = ref()
 
 const blobs = ref([{ label: "default", key: "default" }])
-store.fetchBlobstores().then(() => {
-  blobs.value = store.getBlobstores
-})
 
 const selectblob = (key: string) => {
   data.value.storage.blobStoreName = key
@@ -31,6 +30,7 @@ const create = () => {
 emitter.on("showyumproxy", (obj: any) => {
   show.value = true
   type.value = obj.itype
+  blobs.value = obj.blobs
   obj.itype == "create"
     ? (data.value = optionTypes["yumproxy"])
     : ((obj.ndata = {
@@ -47,16 +47,16 @@ emitter.on("showyumproxy", (obj: any) => {
 <template>
   <n-drawer v-model:show="show">
     <n-drawer-content
-      :title="type == 'create' ? 'Install package' : 'Update Package'"
+      :title="type == 'create' ? t('drawers.install') : t('drawers.update')"
     >
       <n-form>
-        <n-form-item label="Package Type">
+        <n-form-item :label="t('drawers.package_type')">
           <div>Yum Proxy</div>
         </n-form-item>
-        <n-form-item label="Name">
+        <n-form-item :label="t('drawers.name')">
           <n-input v-model:value="data.name" :disabled="!(type == 'create')" />
         </n-form-item>
-        <n-form-item label="Blobstore Name">
+        <n-form-item :label="t('drawers.blob_name')">
           <n-dropdown trigger="click" :options="blobs" @select="selectblob">
             <n-button
               ><i class="fa-solid fa-caret-down" style="color: #005eff"></i>
@@ -64,19 +64,19 @@ emitter.on("showyumproxy", (obj: any) => {
             >
           </n-dropdown>
         </n-form-item>
-        <n-form-item label="Proxy URL">
+        <n-form-item :label="t('drawers.proxy_url')">
           <n-input v-model:value="data.proxy.remoteUrl" />
         </n-form-item>
-        <n-form-item label="Signing Key">
+        <n-form-item :label="t('drawers.signing_key')">
           <n-input v-model:value="data.yumSigning.keypair" />
         </n-form-item>
-        <n-form-item label="Passphrase">
+        <n-form-item :label="t('drawers.passphrase')">
           <n-input v-model:value="data.yumSigning.passphrase" />
         </n-form-item>
       </n-form>
       <template #footer>
         <n-button @click="create" type="success">{{
-          type == "create" ? "Create" : "Edit"
+          type == "create" ? t("drawers.create") : t("drawers.edit")
         }}</n-button>
       </template>
     </n-drawer-content>
