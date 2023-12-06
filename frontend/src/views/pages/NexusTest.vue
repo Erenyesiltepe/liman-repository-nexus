@@ -9,13 +9,17 @@ import Asset from "@/views/modals/Asset.vue"
 import Setting from "@/views/modals/Setting.vue"
 import type { IData } from "@/models/Data"
 import { useI18n } from "vue-i18n"
+import { useRoute, useRouter } from "vue-router"
 
+const route = useRoute()
+const router = useRouter()
 const { t } = useI18n()
 const emitter = useEmitter()
 const store = useNexusStore()
 const loading = ref(true)
 const selected = ref("Choose package")
-const activeTab = ref("apt/hosted")
+
+console.log(route.params.tab)
 
 store.fetchBlobstores()
 store.fetchRepositories("apt", "hosted").then(() => {
@@ -64,7 +68,7 @@ const columns = ref([
                 positiveText: t("common.yes"),
                 negativeText: t("common.no"),
                 onPositiveClick: () => {
-                  store.deleteRepository(row.name, activeTab.value)
+                  store.deleteRepository(row.name, route.params.tab as string)
                 },
               })
             },
@@ -100,7 +104,7 @@ const columns = ref([
 ])
 
 function update(key: string) {
-  activeTab.value = key
+  router.push({ name: "nexus", params: { tab: key } })
   const docker_column = {
     title: t("nexus.test.columns.enable_anon_pull"),
     key: "enableAnonstr",
@@ -131,24 +135,24 @@ const options = ref([
     key: "apt/hosted",
   },
   {
-    label: "YUM Hosted",
-    key: "yum/hosted",
-  },
-  {
     label: "APT Proxy",
     key: "apt/proxy",
+  },
+  {
+    label: "YUM Hosted",
+    key: "yum/hosted",
   },
   {
     label: "YUM Proxy",
     key: "yum/proxy",
   },
   {
-    label: "Docker Proxy",
-    key: "docker/proxy",
-  },
-  {
     label: "Docker Hosted",
     key: "docker/hosted",
+  },
+  {
+    label: "Docker Proxy",
+    key: "docker/proxy",
   },
 ])
 </script>
@@ -158,12 +162,12 @@ const options = ref([
     <Setting />
     <n-tabs
       class="card-tabs"
-      default-value="apt/hosted"
       size="large"
       animated
       pane-wrapper-style="margin: 0 -4px"
       pane-style="padding-left: 4px; padding-right: 4px;"
       :on-update:value="update"
+      :value="route.params.tab"
     >
       <n-tab-pane
         v-for="op in options"
@@ -181,7 +185,9 @@ const options = ref([
             <n-button
               @click="
                 emitter.emit(
-                  'show' + activeTab.split('/')[0] + activeTab.split('/')[1],
+                  'show' +
+                    (route.params.tab as string).split('/')[0] +
+                    (route.params.tab as string).split('/')[1],
                   {
                     itype: 'create',
                     blobs: store.getBlobstores,

@@ -28,7 +28,7 @@ http.get("version").then((res) => {
 
 const goBackToMainPage = () => {
   router.push({
-    name: "Nexus",
+    name: "nexus",
   })
 }
 </script>

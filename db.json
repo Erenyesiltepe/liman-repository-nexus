@@ -60,7 +60,33 @@
     },
     {
       "name": "Nexus",
-      "url": "#/nexus"
+      "url": "#/nexus/apt%2Fhosted",
+      "children": [
+        {
+          "name": "Apt Hosted",
+          "url": "#/nexus/apt%2Fhosted"
+        },
+        {
+          "name": "Apt Proxy",
+          "url": "#/nexus/apt%2Fproxy"
+        },
+        {
+          "name": "Yum Hosted",
+          "url": "#/nexus/yum%2Fhosted"
+        },
+        {
+          "name": "Yum Proxy",
+          "url": "#/nexus/yum%2Fproxy"
+        },
+        {
+          "name": "Docker Hosted",
+          "url": "#/nexus/docker%2Fhosted"
+        },
+        {
+          "name": "Docker Proxy",
+          "url": "#/nexus/docker%2Fproxy"
+        }
+      ]
     },
     {
       "name": "Ldap",

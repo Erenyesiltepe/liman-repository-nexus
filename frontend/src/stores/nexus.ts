@@ -10,13 +10,49 @@ export const useNexusStore = defineStore({
     repositories: [] as any[],
     blobStores: [] as any[],
     asset: {} as any,
+    distribution: {} as any,
   }),
   getters: {
     getRepositories: (state) => state.repositories,
     getBlobstores: (state) => state.blobStores,
     getAsset: (state) => state.asset,
+    getDistribution: (state) => state.distribution,
   },
   actions: {
+    async fetchDistribution() {
+      return http.get(`service/rest/v1/repositories/`).then((res) => {
+        if (res.status == 200) {
+          const accepted = [
+            "apthosted",
+            "aptproxy",
+            "yumhosted",
+            "yumproxy",
+            "dockerhosted",
+            "dockerproxy",
+          ]
+          this.distribution = {
+            apthosted: 0,
+            aptproxy: 0,
+            yumhosted: 0,
+            yumproxy: 0,
+            dockerhosted: 0,
+            dockerproxy: 0,
+          }
+          res.data.forEach((element: any) => {
+            const key: string = element.format + element.type
+            if (accepted.includes(key)) {
+              this.distribution[key]++
+            }
+          })
+        } else {
+          window.$notification.error({
+            duration: 7000,
+            title: i18n.t("common.error"),
+            content: i18n.t("repository.get.messages.error"),
+          })
+        }
+      })
+    },
     async fetchRepositories(format: string, type: string) {
       return http.get(`service/rest/v1/repositorySettings/`).then((res) => {
         if (res.status == 200) {
