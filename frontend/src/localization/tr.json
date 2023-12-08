@@ -1,5 +1,5 @@
 {
-  "repo": "Depo Yönetimi",
+  "repo": "Nexus Depo Yönetimi",
   "common": {
     "confirm": "Onayla",
     "success": "Başarılı",
@@ -40,171 +40,6 @@
     },
     "search": {
       "placeholder": "Arama..."
-    }
-  },
-  "navigation": {
-    "repositories": "Depolar",
-    "sync": "Senkronizasyonlar",
-    "keys": "Anahtarlar"
-  },
-  "repository": {
-    "table": {
-      "name": "Depo Adı",
-      "path": "Path",
-      "distribution": "Dağıtım",
-      "component": "Bileşen",
-      "type": "Tip",
-      "format": "Format",
-      "status": "Durum",
-      "online": "Aktif",
-      "offline": "Pasif",
-      "package_count": "Paket Sayısı",
-      "size": "Boyut",
-      "updated_at": "Güncelleme Tarihi",
-      "client_url": "Client URL",
-      "sync": "Senkronize Et",
-      "url": "URL",
-      "key": "Anahtar"
-    },
-    "details": "Detaylar",
-    "get": {
-      "messages": {
-        "error": "Depo listesi getirilirken bir hata oluştu."
-      }
-    },
-    "create": {
-      "title": "Depo Oluştur",
-      "helpers": {
-        "name": "depo-focal",
-        "path": "/storage/blob-focal",
-        "url": "http://archive.ubuntu.com/ubuntu",
-        "distribution": "bionic, focal, vb.",
-        "component": "main, restricted, universe, multiverse vb."
-      },
-      "messages": {
-        "success": "Depo başarıyla oluşturuldu.",
-        "error": "Depo oluşturulurken bir hata oluştu."
-      }
-    },
-    "delete": {
-      "messages": {
-        "success": "Depo başarıyla silindi.",
-        "error": "Depo silinirken bir hata oluştu."
-      }
-    },
-    "update": {
-      "title": "Depoyu Düzenle",
-      "messages": {
-        "success": "Depo başarıyla güncellendi.",
-        "error": "Depo güncellenirken bir hata oluştu."
-      }
-    },
-    "get_client_url": {
-      "messages": {
-        "error": "Depo URL'i getirilirken bir hata oluştu."
-      }
-    },
-    "get_packages": {
-      "messages": {
-        "error": "Depo paketleri getirilirken bir hata oluştu."
-      }
-    },
-    "select": {
-      "helper": "Depo seçiniz"
-    }
-  },
-  "package": {
-    "table": {
-      "title": "Paketler",
-      "name": "Paket Adı",
-      "size": "Boyut"
-    }
-  },
-  "sync": {
-    "table": {
-      "repository_name": "Depo Adı",
-      "interval": "Sıklık",
-      "run_time": "Çalışma Zamanı",
-      "is_active": "Aktif",
-      "is_one_time": "Tek Seferlik",
-      "latest_sync_status": "Son Senkronizasyon Durumu",
-      "latest_sync_start_time": "Son Senkronizasyon Zamanı"
-    },
-    "create": {
-      "title": "Senkronizasyon Oluştur",
-      "messages": {
-        "success": "Senkronizasyon başarıyla oluşturuldu.",
-        "error": "Senkronizasyon oluşturulurken bir hata oluştu."
-      }
-    },
-    "get": {
-      "messages": {
-        "error": "Senkronizasyon listesi getirilirken bir hata oluştu."
-      }
-    },
-    "manual": {
-      "messages": {
-        "success": "Senkronizasyon başarıyla başlatıldı.",
-        "error": "Senkronizasyon başlatılırken bir hata oluştu."
-      }
-    },
-    "update": {
-      "title": "Senkronizasyonu Düzenle",
-      "messages": {
-        "success": "Senkronizasyon başarıyla güncellendi.",
-        "error": "Senkronizasyon güncellenirken bir hata oluştu."
-      }
-    },
-    "delete": {
-      "messages": {
-        "success": "Senkronizasyon başarıyla silindi.",
-        "error": "Senkronizasyon silinirken bir hata oluştu."
-      }
-    },
-    "stop": {
-      "messages": {
-        "success": "Senkronizasyon başarıyla durduruldu."
-      }
-    }
-  },
-  "key": {
-    "select": {
-      "helper": "Bir anahtar seçiniz."
-    },
-    "table": {
-      "name": "Anahtar Adı",
-      "content": "Anahtar İçeriği",
-      "view_content": "İçeriği Görüntüle"
-    },
-    "create": {
-      "title": "Anahtar Oluştur",
-      "messages": {
-        "success": "Anahtar başarıyla oluşturuldu.",
-        "error": "Anahtar oluşturulurken bir hata oluştu."
-      }
-    },
-    "get": {
-      "messages": {
-        "error": "Anahtarlar getirilirken bir hata oluştu."
-      }
-    },
-    "get_content": {
-      "messages": {
-        "error": "Anahtar içerği getirilirken bir hata oluştu."
-      }
-    },
-    "update": {
-      "title": "Anahtarı Düzenle",
-      "messages": {
-        "success": "Anahtar başarıyla güncellendi.",
-        "error": "Anahtar güncellenirken bir hata oluştu."
-      }
-    },
-    "delete": {
-      "messages": {
-        "success": "Anahtar başarıyla silindi.",
-        "error": "Anahtar silinirken bir hata oluştu."
-      }
     }
   },
   "drawers": {
@@ -255,7 +90,8 @@
       "errorr": "Yoda:Seçilmeli en az bir rol",
       "available_roles": "Alınabilir Roller",
       "active_roles": "Aktif Roller",
-      "apply": "Uygula"
+      "apply": "Uygula",
+      "edit_roles_heading": "Rolleri Düzenle"
     }
   },
   "welcome": "Repository Manager a hoşgeldiniz",
@@ -273,5 +109,17 @@
     "nexus": "Nexus",
     "ldap": "Ldap",
     "users": "Kullanıcılar"
+  },
+  "repo_type": "Depo Tipi",
+  "repo_count": "Depo Sayısı",
+  "tips": {
+    "delete_repo": "Depoyu sil",
+    "update_repo": "Depoyu güncelle",
+    "show_repo_settings": "Depo ayarlarını göster",
+    "create_repo": "Depo Oluştur",
+    "ldap_create": "Ldap sunucusu ekle",
+    "ldap_edit": "Ldap sunucusunu düzenle",
+    "users_edit_role": "Kullanıcı izinlerini düzenle",
+    "go_to": "Gitmek için tıklayın: "
   }
 }

@@ -1,4 +1,5 @@
 import { HttpClient } from "@/utils/http-common"
+import { i18n } from "@/utils/i18n"
 import { defineStore } from "pinia"
 
 const http = new HttpClient("nexusProxy")
@@ -21,8 +22,8 @@ export const useUserRoleStore = defineStore({
         } else {
           window.$notification.error({
             duration: 7000,
-            title: "user fetch error",
-            content: "user fetch error",
+            title: i18n.t("common.error"),
+            content: i18n.t("users.info.user_fetch_error"),
           })
         }
       })
@@ -37,14 +38,14 @@ export const useUserRoleStore = defineStore({
             this.fetchUsers()
             window.$notification.success({
               duration: 7000,
-              title: "We made it yeayyyyy",
-              content: "Meaning: User updated",
+              title: i18n.t("commmon.success"),
+              content: i18n.t("users.info.user_update_success"),
             })
           } else {
-            window.$notification.error({
+            window.$notification.success({
               duration: 7000,
-              title: "Upsss",
-              content: "User update error",
+              title: i18n.t("commmon.success"),
+              content: i18n.t("users.info.user_update_error"),
             })
           }
         })
@@ -56,10 +57,10 @@ export const useUserRoleStore = defineStore({
             (element: any) => !(element.source == "LDAP")
           )
         } else {
-          window.$notification.error({
+          window.$notification.success({
             duration: 7000,
-            title: "roller yolda ölmüş",
-            content: "couldnt fetched",
+            title: i18n.t("commmon.success"),
+            content: i18n.t("users.info.role_fetch_error"),
           })
         }
       })

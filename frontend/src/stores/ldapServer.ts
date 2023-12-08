@@ -1,6 +1,7 @@
 import { HttpClient } from "@/utils/http-common"
 import { defineStore } from "pinia"
 import { ref } from "vue"
+import { i18n } from "@/utils/i18n"
 
 const http = new HttpClient("nexusProxy")
 
@@ -11,8 +12,8 @@ export const useLdapServerStore = defineStore({
     servers: [] as any[],
   }),
   getters: {
-    getLdapOn: (state) => state.ldapOn, //get update
-    getServers: (state) => state.servers, //get create update
+    getLdapOn: (state) => state.ldapOn,
+    getServers: (state) => state.servers,
   },
   actions: {
     async fetchLdapOn() {
@@ -47,8 +48,8 @@ export const useLdapServerStore = defineStore({
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "ldap on set error",
-              content: "ldap on set error",
+              title: i18n.t("common.error"),
+              content: i18n.t("ldap_server.errors.fetch_active"),
             })
           }
         })
@@ -60,8 +61,8 @@ export const useLdapServerStore = defineStore({
         } else {
           window.$notification.error({
             duration: 7000,
-            title: "server fetch error",
-            content: "server fetch error",
+            title: i18n.t("common.error"),
+            content: i18n.t("ldap_server.errors.fetch_servers"),
           })
         }
       })
@@ -77,8 +78,8 @@ export const useLdapServerStore = defineStore({
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "server crate error",
-              content: "server create error",
+              title: i18n.t("common.error"),
+              content: i18n.t("ldap_server.errors.server_create"),
             })
           }
         })
@@ -94,8 +95,8 @@ export const useLdapServerStore = defineStore({
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "server update error",
-              content: "server update error",
+              title: i18n.t("common.error"),
+              content: i18n.t("ldap_server.errors.server_update"),
             })
           }
         })

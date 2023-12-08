@@ -6,6 +6,7 @@ import useEmitter from "@/utils/emitter"
 import RoleEdit from "../modals/RoleEdit.vue"
 import { NButton } from "naive-ui"
 import { useI18n } from "vue-i18n"
+import TooltipBtn from "@/components/TooltipBtn.vue"
 
 const emitter = useEmitter()
 const store = useUserRoleStore()
@@ -39,13 +40,21 @@ const columns = ref([
     title: "#",
     render: (row: any) => {
       return h(
-        NButton,
+        TooltipBtn,
         {
-          onClick: () => {
-            emitter.emit("openRoleEdit", { ...row })
-          },
+          desc: t("tips.users_edit_role"),
         },
-        [h("i", { class: "fa-regular fa-pen-to-square" })]
+        [
+          h(
+            NButton,
+            {
+              onClick: () => {
+                emitter.emit("openRoleEdit", { ...row })
+              },
+            },
+            [h("i", { class: "fa-regular fa-pen-to-square" })]
+          ),
+        ]
       )
     },
   },

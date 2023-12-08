@@ -3,6 +3,7 @@ import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 import { useNexusStore } from "@/stores/nexus"
 import { ref } from "vue"
+import TooltipBtn from "@/components/TooltipBtn.vue"
 
 const store = useNexusStore()
 const router = useRouter()
@@ -41,25 +42,22 @@ const list = ref([
     key: "docker/hosted",
   },
 ])
-
-/* function gonexus() {
-  emitter.emit("goNexus", "apt/proxy")
-  router.push({ name: "nexus", params: { tab: "apt/proxy" } })
-} */
 </script>
 <template>
   <n-card> {{ t("welcome") }} </n-card>
   <n-table>
     <tr>
-      <th>Repository Type</th>
-      <th>Repository Count</th>
+      <th>{{ t("repo_type") }}</th>
+      <th>{{ t("repo_count") }}</th>
     </tr>
     <tr v-for="repo in list" :key="repo.key">
       <td>
-        <n-button
-          @click="router.push({ name: 'nexus', params: { tab: repo.key } })"
-          >{{ repo.label }}</n-button
-        >
+        <TooltipBtn :desc="t('tips.go_to') + repo.label">
+          <n-button
+            @click="router.push({ name: 'nexus', params: { tab: repo.key } })"
+            >{{ repo.label }}</n-button
+          >
+        </TooltipBtn>
       </td>
       <td v-if="showdist">{{ distribution[repo.key.replace("/", "")] }}</td>
     </tr>

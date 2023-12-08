@@ -59,7 +59,7 @@ emitter.on("showyumhosted", (obj: any) => {
       </n-form>
       <template #footer>
         <n-button @click="create" type="success">{{
-          type == "create" ? "Create" : "Edit"
+          type == "create" ? t("drawers.create") : t("drawers.edit")
         }}</n-button>
       </template>
     </n-drawer-content>

@@ -10,6 +10,7 @@ import Setting from "@/views/modals/Setting.vue"
 import type { IData } from "@/models/Data"
 import { useI18n } from "vue-i18n"
 import { useRoute, useRouter } from "vue-router"
+import TooltipBtn from "@/components/TooltipBtn.vue"
 
 const route = useRoute()
 const router = useRouter()
@@ -59,44 +60,71 @@ const columns = ref([
     render(row: IData) {
       return h(NSpace, [
         h(
-          NButton,
+          TooltipBtn,
           {
-            onClick: () => {
-              window.$dialog.warning({
-                title: t("common.confirm"),
-                content: t("common.are_you_sure"),
-                positiveText: t("common.yes"),
-                negativeText: t("common.no"),
-                onPositiveClick: () => {
-                  store.deleteRepository(row.name, route.params.tab as string)
+            desc: t("tips.delete_repo"),
+          },
+          [
+            h(
+              NButton,
+              {
+                onClick: () => {
+                  window.$dialog.warning({
+                    title: t("common.confirm"),
+                    content: t("common.are_you_sure"),
+                    positiveText: t("common.yes"),
+                    negativeText: t("common.no"),
+                    onPositiveClick: () => {
+                      store.deleteRepository(
+                        row.name,
+                        route.params.tab as string
+                      )
+                    },
+                  })
                 },
-              })
-            },
-          },
-          [h("i", { class: "fa-solid fa-trash" })]
+              },
+              [h("i", { class: "fa-solid fa-trash" })]
+            ),
+          ]
         ),
         h(
-          NButton,
+          TooltipBtn,
           {
-            onClick: () => {
-              const dt = { ...row }
-              emitter.emit("show" + row.format + row.type, {
-                itype: "edit",
-                ndata: dt,
-                blobs: store.getBlobstores,
-              })
-            },
+            desc: t("tips.update_repo"),
           },
-          [h("i", { class: "fa-regular fa-pen-to-square" })]
+          [
+            h(
+              NButton,
+              {
+                onClick: () => {
+                  const dt = { ...row }
+                  emitter.emit("show" + row.format + row.type, {
+                    itype: "edit",
+                    ndata: dt,
+                    blobs: store.getBlobstores,
+                  })
+                },
+              },
+              [h("i", { class: "fa-regular fa-pen-to-square" })]
+            ),
+          ]
         ),
         h(
-          NButton,
+          TooltipBtn,
           {
-            onClick: () => {
-              emitter.emit("showSettingModal", row)
-            },
+            desc: t("tips.show_repo_settings"),
           },
-          [h("i", { class: "fa-solid fa-gear" })]
+          [
+            h(
+              NButton,
+              {
+                onClick: () => {
+                  emitter.emit("showSettingModal", row)
+                },
+              },
+              [h("i", { class: "fa-solid fa-gear" })]
+            ),
+          ]
         ),
       ])
     },
@@ -182,20 +210,22 @@ const options = ref([
           row-key="name"
         >
           <template #buttons>
-            <n-button
-              @click="
-                emitter.emit(
-                  'show' +
-                    (route.params.tab as string).split('/')[0] +
-                    (route.params.tab as string).split('/')[1],
-                  {
-                    itype: 'create',
-                    blobs: store.getBlobstores,
-                  }
-                )
-              "
-              ><i class="fas fa-plus"
-            /></n-button>
+            <TooltipBtn :desc="t('tips.create_repo')">
+              <n-button
+                @click="
+                  emitter.emit(
+                    'show' +
+                      (route.params.tab as string).split('/')[0] +
+                      (route.params.tab as string).split('/')[1],
+                    {
+                      itype: 'create',
+                      blobs: store.getBlobstores,
+                    }
+                  )
+                "
+                ><i class="fas fa-plus"
+              /></n-button>
+            </TooltipBtn>
           </template>
         </Table>
       </n-tab-pane>

@@ -48,7 +48,7 @@ export const useNexusStore = defineStore({
           window.$notification.error({
             duration: 7000,
             title: i18n.t("common.error"),
-            content: i18n.t("repository.get.messages.error"),
+            content: i18n.t("nexus.errors.distribution_fetch"),
           })
         }
       })
@@ -79,7 +79,7 @@ export const useNexusStore = defineStore({
           window.$notification.error({
             duration: 7000,
             title: i18n.t("common.error"),
-            content: i18n.t("repository.get.messages.error"),
+            content: i18n.t("nexus.errors.repo_fetch"),
           })
         }
       })
@@ -93,8 +93,8 @@ export const useNexusStore = defineStore({
         } else {
           window.$notification.error({
             duration: 7000,
-            title: "blob fetch error",
-            content: "blob fetch error",
+            title: i18n.t("common.error"),
+            content: i18n.t("nexus.errors.blob_fetch"),
           })
         }
       })
@@ -108,8 +108,8 @@ export const useNexusStore = defineStore({
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "repository coult not be removed",
-              content: "repo could not be removed",
+              title: i18n.t("common.error"),
+              content: i18n.t("nexus.errors.asset_fetch"),
             })
           }
         })
@@ -125,14 +125,14 @@ export const useNexusStore = defineStore({
             this.fetchRepositories(filter[0], filter[1])
             window.$notification.success({
               duration: 7000,
-              title: "repository successfully created",
-              content: "repo successfully created",
+              title: i18n.t("common.success"),
+              content: i18n.t("nexus.errors.repo_create_success"),
             })
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "repository coult not be created",
-              content: "repo could not be created",
+              title: i18n.t("common.error"),
+              content: i18n.t(""),
             })
           }
         })
@@ -148,14 +148,14 @@ export const useNexusStore = defineStore({
             this.fetchRepositories(filter[0], filter[1])
             window.$notification.success({
               duration: 7000,
-              title: "repository successfully updated",
-              content: "repo successfully updated",
+              title: i18n.t("common.success"),
+              content: i18n.t("nexus.errors.repo_update_success"),
             })
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "repository coult not be updated",
-              content: "repo could not be updated",
+              title: i18n.t("common.error"),
+              content: i18n.t("nexus.errors.repo_update_fail"),
             })
           }
         })
@@ -167,14 +167,14 @@ export const useNexusStore = defineStore({
           this.fetchRepositories(filter[0], filter[1])
           window.$notification.success({
             duration: 7000,
-            title: "repository successfully removed",
-            content: "repo successfully removed",
+            title: i18n.t("common.success"),
+            content: i18n.t("nexus.errors.repo_delete"),
           })
         } else {
           window.$notification.error({
             duration: 7000,
-            title: "repository coult not be removed",
-            content: "repo could not be removed",
+            title: i18n.t("common.error"),
+            content: i18n.t("nexus.errors.repo_delete_fail"),
           })
         }
       })

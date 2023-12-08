@@ -1,5 +1,5 @@
 {
-  "repo": "Repository Management",
+  "repo": "Nexus Repository Management",
   "common": {
     "confirm": "Confirm",
     "success": "Successful",
@@ -42,171 +42,6 @@
       "placeholder": "Call..."
     }
   },
-  "navigation": {
-    "repositories": "Repositories",
-    "sync": "Synchronizations",
-    "keys": "Keys"
-  },
-  "repository": {
-    "table": {
-      "name": "Name",
-      "path": "Path",
-      "distribution": "Distribution",
-      "component": "Component",
-      "type": "Type",
-      "format": "Format",
-      "status": "Status",
-      "online": "Active",
-      "offline": "Inactive",
-      "package_count": "Package Count",
-      "size": "Size",
-      "client_url": "Client URL",
-      "sync": "Synchronize",
-      "updated_at": "Updated At",
-      "url": "URL",
-      "key": "Key"
-    },
-    "details": "Details",
-    "get": {
-      "messages": {
-        "error": "An error occurred while retrieving repository information."
-      }
-    },
-    "create": {
-      "title": "Create Repository",
-      "helpers": {
-        "name": "repository-focal",
-        "path": "/storage/blob-focal",
-        "url": "http://archive.ubuntu.com/ubuntu",
-        "distribution": "bionic, focal, etc.",
-        "component": "main, restricted, universe, multiverse, etc."
-      },
-      "messages": {
-        "success": "Repository created successfully.",
-        "error": "An error occurred while creating the repository."
-      }
-    },
-    "update": {
-      "title": "Edit Repository",
-      "messages": {
-        "success": "Repository updated successfully.",
-        "error": "An error occurred while updating the repository."
-      }
-    },
-    "delete": {
-      "messages": {
-        "success": "Repository deleted successfully.",
-        "error": "An error occurred while deleting the repository."
-      }
-    },
-    "get_client_url": {
-      "messages": {
-        "error": "An error occurred while retrieving repository client URL."
-      }
-    },
-    "get_packages": {
-      "messages": {
-        "error": "An error occurred while fetching repository packages."
-      }
-    },
-    "select": {
-      "helper": "Select a repository"
-    }
-  },
-  "package": {
-    "table": {
-      "title": "Packages",
-      "name": "Package Name",
-      "size": "Size"
-    }
-  },
-  "sync": {
-    "table": {
-      "repository_name": "Repository Name",
-      "interval": "Interval",
-      "run_time": "Run Time",
-      "is_active": "Active",
-      "is_one_time": "One-Time",
-      "latest_sync_status": "Latest Sync Status",
-      "latest_sync_start_time": "Latest Sync Time"
-    },
-    "create": {
-      "title": "Create Sync",
-      "messages": {
-        "success": "Sync created successfully.",
-        "error": "An error occurred while creating the sync."
-      }
-    },
-    "get": {
-      "messages": {
-        "error": "An error occurred while fetching the sync list."
-      }
-    },
-    "manual": {
-      "messages": {
-        "success": "Sync started successfully.",
-        "error": "An error occurred while starting the sync."
-      }
-    },
-    "update": {
-      "title": "Edit Synchronization",
-      "messages": {
-        "success": "Synchronization updated successfully.",
-        "error": "An error occurred while updating the synchronization."
-      }
-    },
-    "delete": {
-      "messages": {
-        "success": "Sync deleted successfully.",
-        "error": "An error occurred while deleting the sync."
-      }
-    },
-    "stop": {
-      "messages": {
-        "success": "Sync stopped successfully."
-      }
-    }
-  },
-  "key": {
-    "select": {
-      "helper": "Please select a key."
-    },
-    "table": {
-      "name": "Key Name",
-      "content": "Key Content",
-      "view_content": "View Content"
-    },
-    "create": {
-      "title": "Create Key",
-      "messages": {
-        "success": "Key created successfully.",
-        "error": "An error occurred while creating the key."
-      }
-    },
-    "get": {
-      "messages": {
-        "error": "An error occurred while fetching keys."
-      }
-    },
-    "get_content": {
-      "messages": {
-        "error": "An error occurred while fetching key content."
-      }
-    },
-    "update": {
-      "title": "Edit Key",
-      "messages": {
-        "success": "Key updated successfully.",
-        "error": "An error occurred while updating the key."
-      }
-    },
-    "delete": {
-      "messages": {
-        "success": "Key deleted successfully.",
-        "error": "An error occurred while deleting the key."
-      }
-    }
-  },
   "drawers": {
     "install": "Install Package",
     "update": "Update Package",
@@ -233,6 +68,18 @@
         "push_url": "Push Url",
         "allow_anon_docker_pull": "Allow Anonymus Docker Pull"
       }
+    },
+    "errors": {
+      "repo_fetch": "Repository could not be fetched successfully",
+      "blob_fetch": "Blob stores could not be fetched successfully",
+      "distribution_fetch": "Repository distribution could not be fetched successfully",
+      "asset_fetch": "Assets could not be fetched successfully",
+      "repo_create_success": "Repository successfully created",
+      "repo_create_fail": "Repository could not be created",
+      "repo_update_success": "Repository successfully updated",
+      "repo_update_fail": "Repository could not be updated",
+      "repo_delete_success": "Repository successfully removed",
+      "repo_delete_fail": "Repository could not be removed"
     }
   },
   "ldap_server": {
@@ -243,7 +90,13 @@
     "ldap_off": "Ldap is off",
     "dn": "Search Base",
     "auth_uname": "Auth Username",
-    "password": "Password"
+    "password": "Password",
+    "errors": {
+      "fetch_servers": "Servers could not be fetched successfully",
+      "fetch_active": "Ldap on set info coult not be fetched successfully",
+      "server_update": "Ldap server could not be updated successfully",
+      "server_create": "Ldap server could not be added successfully"
+    }
   },
   "users": {
     "columns": {
@@ -253,11 +106,18 @@
       "source": "Source"
     },
     "roleedit": {
-      "error": "En az bir rol seçilmeli",
-      "errorr": "Yoda:Seçilmeli en az bir rol",
+      "error": "At least one role should be chosen",
+      "errorr": "Yoda: Chosen, at least one role should be.",
       "available_roles": "Available Roles",
       "active_roles": "Active Roles",
-      "apply": "Apply"
+      "apply": "Apply",
+      "edit_roles_heading": "Edit User Roles"
+    },
+    "info": {
+      "user_fetch_error": "User info could not be loaded",
+      "user_update_success": "User updated successfully",
+      "user_update_error": "User could not be updated",
+      "role_fetch_error": "Roles could not be fetched"
     }
   },
   "welcome": "Welcome to repository manager",
@@ -275,5 +135,17 @@
     "nexus": "Nexus",
     "ldap": "Ldap",
     "users": "Users"
+  },
+  "repo_type": "Repository Type",
+  "repo_count": "Repository Count",
+  "tips": {
+    "delete_repo": "Delete repository",
+    "update_repo": "Update repository",
+    "show_repo_settings": "Show repository settings",
+    "create_repo": "Create Repository",
+    "ldap_create": "Add Ldap server",
+    "ldap_edit": "Edit Ldap server",
+    "users_edit_role": "Edit user roles",
+    "go_to": "Click to go: "
   }
 }

@@ -62,7 +62,7 @@ emitter.on("showdockerproxy", (obj: any) => {
         <n-form-item label="Port">
           <n-input-number v-model:value="data.docker.httpPort" clearable />
         </n-form-item>
-        <n-form-item :label="t('remote url')">
+        <n-form-item :label="t('drawers.proxy_url')">
           <n-input v-model:value="data.name" :disabled="!(type == 'create')" />
         </n-form-item>
         <n-form-item>

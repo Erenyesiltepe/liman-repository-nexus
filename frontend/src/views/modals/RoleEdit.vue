@@ -100,7 +100,7 @@ function apply() {
   <n-modal v-model:show="show">
     <n-card
       style="width: fit-content"
-      title="Edit User Roles"
+      :title="t('users.roleedit.edit_roles_heading')"
       :bordered="true"
       size="huge"
       role="dialog"

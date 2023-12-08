@@ -6,6 +6,7 @@ import useEmitter from "@/utils/emitter"
 import LdapServer from "@/views/modals/LdapServer.vue"
 import { NButton } from "naive-ui"
 import { useI18n } from "vue-i18n"
+import TooltipBtn from "@/components/TooltipBtn.vue"
 
 const { t } = useI18n()
 const emitter = useEmitter()
@@ -52,17 +53,25 @@ const columns = ref([
     title: "#",
     render: (row: any) => {
       return h(
-        NButton,
+        TooltipBtn,
         {
-          onClick: () => {
-            const { order, ...rest } = row
-            emitter.emit("showLdapServerModal", {
-              type: "edit",
-              data: rest,
-            })
-          },
+          desc: t("tips.ldap_edit"),
         },
-        [h("i", { class: "fa-regular fa-pen-to-square" })]
+        [
+          h(
+            NButton,
+            {
+              onClick: () => {
+                const { order, ...rest } = row
+                emitter.emit("showLdapServerModal", {
+                  type: "edit",
+                  data: rest,
+                })
+              },
+            },
+            [h("i", { class: "fa-regular fa-pen-to-square" })]
+          ),
+        ]
       )
     },
   },
@@ -78,16 +87,18 @@ const columns = ref([
         :loading="loadActive"
       >
         <template #checked> {{ t("ldap_server.ldap_on") }} </template>
-        <template #unchecked> {{ t("ldap_server.ldap_on") }} </template>
+        <template #unchecked> {{ t("ldap_server.ldap_off") }} </template>
       </n-switch></n-card
     >
     <n-card>
       <Table :columns="columns" :loading="loading" :data="store.getServers">
         <template #buttons>
-          <n-button
-            @click="emitter.emit('showLdapServerModal', { type: 'create' })"
-            ><i class="fas fa-plus"
-          /></n-button>
+          <TooltipBtn :desc="t('tips.ldap_create')">
+            <n-button
+              @click="emitter.emit('showLdapServerModal', { type: 'create' })"
+              ><i class="fas fa-plus"
+            /></n-button>
+          </TooltipBtn>
         </template>
       </Table>
     </n-card>
