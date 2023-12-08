@@ -8,13 +8,21 @@ import useEmitter from "@/utils/emitter"
 import Asset from "@/views/modals/Asset.vue"
 import Setting from "@/views/modals/Setting.vue"
 import type { IData } from "@/models/Data"
+import { useI18n } from "vue-i18n"
+import { useRoute, useRouter } from "vue-router"
+import TooltipBtn from "@/components/TooltipBtn.vue"
 
+const route = useRoute()
+const router = useRouter()
+const { t } = useI18n()
 const emitter = useEmitter()
 const store = useNexusStore()
 const loading = ref(true)
 const selected = ref("Choose package")
-const activeTab = ref("apt/hosted")
 
+console.log(route.params.tab)
+
+store.fetchBlobstores()
 store.fetchRepositories("apt", "hosted").then(() => {
   loading.value = false
 })
@@ -23,23 +31,22 @@ const columns = ref([
   {
     title: "#",
     type: "expand",
-    //expandable: (row: any) => row.format == "docker",
     renderExpand: (row: IData) => {
       return h(Asset, { data: row })
     },
   },
   {
-    title: "Name",
+    title: t("nexus.test.columns.name"),
     key: "name",
     sorter: "default",
     filterable: true,
   },
   {
-    title: "Format",
+    title: t("nexus.test.columns.format"),
     key: "format",
   },
   {
-    title: "Type",
+    title: t("nexus.test.columns.type"),
     key: "type",
     show: false,
   },
@@ -48,47 +55,76 @@ const columns = ref([
     key: "url",
   },
   {
-    title: "Operations",
+    title: t("nexus.test.columns.operations"),
+    width: 100,
     render(row: IData) {
       return h(NSpace, [
         h(
-          NButton,
+          TooltipBtn,
           {
-            onClick: () => {
-              window.$dialog.warning({
-                title: "Confirm",
-                content: "Are you sure?",
-                positiveText: "Delete",
-                negativeText: "Cancel",
-                onPositiveClick: () => {
-                  store.deleteRepository(row.name, activeTab.value)
+            desc: t("tips.delete_repo"),
+          },
+          [
+            h(
+              NButton,
+              {
+                onClick: () => {
+                  window.$dialog.warning({
+                    title: t("common.confirm"),
+                    content: t("common.are_you_sure"),
+                    positiveText: t("common.yes"),
+                    negativeText: t("common.no"),
+                    onPositiveClick: () => {
+                      store.deleteRepository(
+                        row.name,
+                        route.params.tab as string
+                      )
+                    },
+                  })
                 },
-              })
-            },
-          },
-          [h("i", { class: "fa-solid fa-trash" })]
+              },
+              [h("i", { class: "fa-solid fa-trash" })]
+            ),
+          ]
         ),
         h(
-          NButton,
+          TooltipBtn,
           {
-            onClick: () => {
-              emitter.emit("showNexusModal", {
-                itype: "edit",
-                ndata: row,
-                activeTab: activeTab.value,
-              })
-            },
+            desc: t("tips.update_repo"),
           },
-          [h("i", { class: "fa-regular fa-pen-to-square" })]
+          [
+            h(
+              NButton,
+              {
+                onClick: () => {
+                  const dt = { ...row }
+                  emitter.emit("show" + row.format + row.type, {
+                    itype: "edit",
+                    ndata: dt,
+                    blobs: store.getBlobstores,
+                  })
+                },
+              },
+              [h("i", { class: "fa-regular fa-pen-to-square" })]
+            ),
+          ]
         ),
         h(
-          NButton,
+          TooltipBtn,
           {
-            onClick: () => {
-              emitter.emit("showSettingModal", row)
-            },
+            desc: t("tips.show_repo_settings"),
           },
-          [h("i", { class: "fa-solid fa-gear" })]
+          [
+            h(
+              NButton,
+              {
+                onClick: () => {
+                  emitter.emit("showSettingModal", row)
+                },
+              },
+              [h("i", { class: "fa-solid fa-gear" })]
+            ),
+          ]
         ),
       ])
     },
@@ -96,17 +132,17 @@ const columns = ref([
 ])
 
 function update(key: string) {
-  activeTab.value = key
+  router.push({ name: "nexus", params: { tab: key } })
   const docker_column = {
-    title: "Enable Anonymous Pull",
-    key: "enableAnonymus",
+    title: t("nexus.test.columns.enable_anon_pull"),
+    key: "enableAnonstr",
   }
   const push_link = {
-    title: "Push Url",
+    title: t("nexus.test.columns.push_url"),
     key: "pushUrl",
   }
 
-  const ifexists = columns.value.find((o) => o.key === "enableAnonymus")
+  const ifexists = columns.value.find((o) => o.key === "enableAnonstr")
   const filter = key.split("/")
   filter[0] == "docker"
     ? ifexists == undefined
@@ -123,28 +159,28 @@ function update(key: string) {
 
 const options = ref([
   {
-    label: "apt hosted",
+    label: "APT Hosted",
     key: "apt/hosted",
   },
   {
-    label: "yum hosted",
-    key: "yum/hosted",
-  },
-  {
-    label: "apt proxy",
+    label: "APT Proxy",
     key: "apt/proxy",
   },
   {
-    label: "yum proxy",
+    label: "YUM Hosted",
+    key: "yum/hosted",
+  },
+  {
+    label: "YUM Proxy",
     key: "yum/proxy",
   },
   {
-    label: "docker proxy",
-    key: "docker/proxy",
+    label: "Docker Hosted",
+    key: "docker/hosted",
   },
   {
-    label: "docker hosted",
-    key: "docker/hosted",
+    label: "Docker Proxy",
+    key: "docker/proxy",
   },
 ])
 </script>
@@ -154,12 +190,12 @@ const options = ref([
     <Setting />
     <n-tabs
       class="card-tabs"
-      default-value="apt/hosted"
       size="large"
       animated
       pane-wrapper-style="margin: 0 -4px"
       pane-style="padding-left: 4px; padding-right: 4px;"
       :on-update:value="update"
+      :value="route.params.tab"
     >
       <n-tab-pane
         v-for="op in options"
@@ -171,17 +207,25 @@ const options = ref([
           :columns="columns"
           :data="store.getRepositories"
           :loading="loading"
+          row-key="name"
         >
           <template #buttons>
-            <n-button
-              @click="
-                emitter.emit('showNexusModal', {
-                  itype: 'create',
-                  activeTab: activeTab,
-                })
-              "
-              ><i class="fas fa-plus"
-            /></n-button>
+            <TooltipBtn :desc="t('tips.create_repo')">
+              <n-button
+                @click="
+                  emitter.emit(
+                    'show' +
+                      (route.params.tab as string).split('/')[0] +
+                      (route.params.tab as string).split('/')[1],
+                    {
+                      itype: 'create',
+                      blobs: store.getBlobstores,
+                    }
+                  )
+                "
+                ><i class="fas fa-plus"
+              /></n-button>
+            </TooltipBtn>
           </template>
         </Table>
       </n-tab-pane>

@@ -3,6 +3,7 @@ import { ref, watch } from "vue"
 import { useDialog, useLoadingBar, useMessage, useNotification } from "naive-ui"
 import http from "@/utils/http-common"
 import { useRoute, useRouter } from "vue-router"
+import { useI18n } from "vue-i18n"
 
 window.$loadingBar = useLoadingBar()
 window.$notification = useNotification()
@@ -13,6 +14,7 @@ const route = useRoute()
 const router = useRouter()
 const activeKey = ref("")
 const version = ref()
+const { t } = useI18n()
 
 watch(
   () => route.name,
@@ -24,16 +26,9 @@ http.get("version").then((res) => {
   version.value = res.data.version
 })
 
-function getCamelName() {
-  const st = route.name as string
-  return st.replace(/([A-Z])/g, " $1").replace(/^./, function (str: string) {
-    return str.toUpperCase()
-  })
-}
-
 const goBackToMainPage = () => {
   router.push({
-    name: "repositories",
+    name: "nexus",
   })
 }
 </script>
@@ -50,9 +45,11 @@ const goBackToMainPage = () => {
           <n-breadcrumb-item
             ><i class="fa-solid fa-home"></i
           ></n-breadcrumb-item>
-          <n-breadcrumb-item> {{ getCamelName() }} </n-breadcrumb-item>
+          <n-breadcrumb-item>
+            {{ t("pages." + route.name?.toString()) }}
+          </n-breadcrumb-item>
         </n-breadcrumb>
-        <n-h2 class="m-0"> {{ getCamelName() }}</n-h2>
+        <n-h2 class="m-0"> {{ t("pages." + route.name?.toString()) }}</n-h2>
       </n-space>
     </n-config-provider>
   </div>

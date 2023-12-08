@@ -2,7 +2,9 @@
 import { ref } from "vue"
 import useEmitter from "@/utils/emitter"
 import { useUserRoleStore } from "@/stores/user_role"
+import { useI18n } from "vue-i18n"
 
+const { t } = useI18n()
 const store = useUserRoleStore()
 const emitter = useEmitter()
 const show = ref()

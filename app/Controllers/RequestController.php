@@ -2,8 +2,13 @@
 
 namespace App\Controllers;
 use GuzzleHttp\Client;
+use App\Helpers\DB;
 class RequestController
 {
+    const DSN = "mysql:host=localhost;dbname=ahbapol;port=3306;charset=utf8mb4" ;
+    const USER = "root" ; 
+    const PASSWORD = "" ;
+
     public function request($endpoint, $data, $type)
     {
         $request = getResponse(function ($client) use ($type, $endpoint, $data) {
@@ -56,8 +61,8 @@ class RequestController
             },
             [
                 'auth' => [
-                    'admin',
-                    '1'
+                    extensionDb("nexus_username"),
+                    extensionDb("nexus_password")
                 ],
             ]
         );

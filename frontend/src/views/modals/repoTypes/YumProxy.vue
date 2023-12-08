@@ -19,25 +19,28 @@ const selectblob = (key: string) => {
 }
 const create = () => {
   type.value == "create"
-    ? store.createRepository(data.value, "apt/hosted").then(() => {
+    ? store.createRepository(data.value, "yum/hosted").then(() => {
         show.value = false
       })
-    : store.updateRepository(data.value, "apt/hosted").then(() => {
+    : store.updateRepository(data.value, "yum/proxy").then(() => {
         show.value = false
       })
 }
 
-emitter.on("showapthosted", (obj: any) => {
+emitter.on("showyumproxy", (obj: any) => {
   show.value = true
   type.value = obj.itype
   blobs.value = obj.blobs
   obj.itype == "create"
-    ? (data.value = optionTypes["apthosted"])
-    : ((data.value = obj.ndata),
-      (data.value.aptSigning = {
-        keypair: "",
-        passphrase: "",
-      }))
+    ? (data.value = optionTypes["yumproxy"])
+    : ((obj.ndata = {
+        ...obj.ndata,
+        yumSigning: {
+          keypair: "",
+          passphrase: "",
+        },
+      }),
+      (data.value = obj.ndata))
   console.log(data.value)
 })
 </script>
@@ -48,7 +51,7 @@ emitter.on("showapthosted", (obj: any) => {
     >
       <n-form>
         <n-form-item :label="t('drawers.package_type')">
-          <div>APT Hosted</div>
+          <div>Yum Proxy</div>
         </n-form-item>
         <n-form-item :label="t('drawers.name')">
           <n-input v-model:value="data.name" :disabled="!(type == 'create')" />
@@ -61,14 +64,14 @@ emitter.on("showapthosted", (obj: any) => {
             >
           </n-dropdown>
         </n-form-item>
-        <n-form-item :label="t('drawers.distribution')">
-          <n-input v-model:value="data.apt.distribution" />
+        <n-form-item :label="t('drawers.proxy_url')">
+          <n-input v-model:value="data.proxy.remoteUrl" />
         </n-form-item>
         <n-form-item :label="t('drawers.signing_key')">
-          <n-input v-model:value="data.aptSigning.keypair" />
+          <n-input v-model:value="data.yumSigning.keypair" />
         </n-form-item>
         <n-form-item :label="t('drawers.passphrase')">
-          <n-input v-model:value="data.aptSigning.passphrase" />
+          <n-input v-model:value="data.yumSigning.passphrase" />
         </n-form-item>
       </n-form>
       <template #footer>

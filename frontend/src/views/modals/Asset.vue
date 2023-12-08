@@ -3,7 +3,10 @@ import { useNexusStore } from "@/stores/nexus"
 import MyCopyClipboard from "./MyCopyClipboard.vue"
 import Table from "@/components/Table.vue"
 import { ref, h } from "vue"
+import type { IData } from "@/models/Data"
+import { useI18n } from "vue-i18n"
 
+const { t } = useI18n()
 const props = defineProps(["data"])
 const store = useNexusStore()
 const loaded = ref(true)
@@ -14,9 +17,9 @@ store.fetchAsset(props.data.name).then(() => {
   loaded.value = false
 })
 
-const columns = ref([
+const columns2 = ref([
   {
-    title: "Asset Name",
+    title: t("asset.name"),
     key: "name",
   },
   {
@@ -24,15 +27,29 @@ const columns = ref([
     key: "url",
   },
   {
-    title: "Pull Url",
-    render: (row: any) => {
+    title: t("asset.file_size"),
+    key: "fileSize",
+  },
+])
+const columns1 = ref([
+  {
+    title: t("asset.name"),
+    key: "name",
+  },
+  {
+    title: "Url",
+    key: "url",
+  },
+  {
+    title: t("asset.pull_url"),
+    render: (row: IData) => {
       return h(MyCopyClipboard, {
         toCopy: row.pullUrl,
       })
     },
   },
   {
-    title: "File Size (Byte)",
+    title: t("asset.file_size"),
     key: "fileSize",
   },
 ])
@@ -52,5 +69,10 @@ function formatData(list: any) {
 }
 </script>
 <template>
-  <Table :columns="columns" :data="asset" :loading="loaded"> </Table>
+  <Table
+    :columns="props.data.format == 'docker' ? columns1 : columns2"
+    :data="asset"
+    :loading="loaded"
+  >
+  </Table>
 </template>

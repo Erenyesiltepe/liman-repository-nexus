@@ -2,6 +2,9 @@
 import { ref } from "vue"
 import useEmitter from "@/utils/emitter"
 import { useUserRoleStore } from "@/stores/user_role"
+import { useI18n } from "vue-i18n"
+
+const { t } = useI18n()
 
 interface IRole {
   description: string
@@ -76,8 +79,8 @@ function apply() {
   if (activeRoles.value.length == 0) {
     window.$notification.error({
       duration: 7000,
-      title: "En az bir rol seçilmeli",
-      content: "Yoda:Seçilmeli en az bir rol",
+      title: t("users.roleedit.error"),
+      content: t("users.roleedit.errorr"),
     })
   } else {
     userData.value.roles = activeRoles.value.map((elem: IRoleRow) => {
@@ -97,14 +100,18 @@ function apply() {
   <n-modal v-model:show="show">
     <n-card
       style="width: fit-content"
-      title="Edit User Roles"
+      :title="t('users.roleedit.edit_roles_heading')"
       :bordered="true"
       size="huge"
       role="dialog"
       aria-modal="true"
     >
       <n-space>
-        <n-card class="card available" :bordered="true" title="Available Roles">
+        <n-card
+          class="card available"
+          :bordered="true"
+          :title="t('users.roleedit.available_roles')"
+        >
           <n-scrollbar style="max-height: 170px">
             <table>
               <tr
@@ -126,7 +133,11 @@ function apply() {
             <n-button @click="shift('l')">&lt;</n-button>
           </n-space>
         </div>
-        <n-card class="card actives" :bordered="true" title="Active Roles">
+        <n-card
+          class="card actives"
+          :bordered="true"
+          :title="t('users.roleedit.active_roles')"
+        >
           <n-scrollbar style="max-height: 170px">
             <table>
               <tr
@@ -143,7 +154,7 @@ function apply() {
           </n-scrollbar>
         </n-card>
       </n-space>
-      <n-button @click="apply">Apply</n-button>
+      <n-button @click="apply">{{ t("users.roleedit.apply") }}</n-button>
     </n-card>
   </n-modal>
 </template>

@@ -1,30 +1,8 @@
 import { HttpClient } from "@/utils/http-common"
 import { i18n } from "@/utils/i18n"
 import { defineStore } from "pinia"
-import { ref } from "vue"
-import { optionTypes } from "@/templates/RepoTemp"
 
 const http = new HttpClient("nexusProxy")
-
-function getConfig(data: any, type: string) {
-  const config = ref()
-  if (type == "apt/hosted") config.value = optionTypes["apthosted"]
-  else if (type == "apt/proxy") config.value = optionTypes["aptproxy"]
-  else if (type == "yum/hosted") config.value = optionTypes["yumhosted"]
-  else if (type == "yum/proxy") config.value = optionTypes["yumproxy"]
-  else if (type == "docker/hosted") config.value = optionTypes["dockerhosted"]
-  else config.value = optionTypes["dockerproxy"]
-
-  config.value.name = data.name
-  config.value.storage.blobStoreName = data.blobStoreName
-  if (type.split("/")[1] == "proxy")
-    config.value.proxy.remoteUrl = data.proxy_url
-  if (type.split("/")[0] == "docker") {
-    config.value.docker.httpPort = data.port
-    config.value.docker.forceBasicAuth = !data.enableAnonymus
-  }
-  return config.value
-}
 
 export const useNexusStore = defineStore({
   id: "nexus",
@@ -32,13 +10,49 @@ export const useNexusStore = defineStore({
     repositories: [] as any[],
     blobStores: [] as any[],
     asset: {} as any,
+    distribution: {} as any,
   }),
   getters: {
     getRepositories: (state) => state.repositories,
     getBlobstores: (state) => state.blobStores,
     getAsset: (state) => state.asset,
+    getDistribution: (state) => state.distribution,
   },
   actions: {
+    async fetchDistribution() {
+      return http.get(`service/rest/v1/repositories/`).then((res) => {
+        if (res.status == 200) {
+          const accepted = [
+            "apthosted",
+            "aptproxy",
+            "yumhosted",
+            "yumproxy",
+            "dockerhosted",
+            "dockerproxy",
+          ]
+          this.distribution = {
+            apthosted: 0,
+            aptproxy: 0,
+            yumhosted: 0,
+            yumproxy: 0,
+            dockerhosted: 0,
+            dockerproxy: 0,
+          }
+          res.data.forEach((element: any) => {
+            const key: string = element.format + element.type
+            if (accepted.includes(key)) {
+              this.distribution[key]++
+            }
+          })
+        } else {
+          window.$notification.error({
+            duration: 7000,
+            title: i18n.t("common.error"),
+            content: i18n.t("nexus.errors.distribution_fetch"),
+          })
+        }
+      })
+    },
     async fetchRepositories(format: string, type: string) {
       return http.get(`service/rest/v1/repositorySettings/`).then((res) => {
         if (res.status == 200) {
@@ -47,9 +61,10 @@ export const useNexusStore = defineStore({
             if (item.type === type && item.format === format) {
               const newItem = { ...item }
               if (item.format === "docker") {
-                newItem.enableAnonymus = item.docker.forceBasicAuth
+                newItem.enableAnonstr = item.docker.forceBasicAuth
                   ? "false"
                   : "true"
+                newItem.docker.forceBasicAuth = !item.docker.forceBasicAuth
                 newItem.pushUrl =
                   item.url.split("/")[2].split(":")[0] +
                   ":" +
@@ -64,7 +79,7 @@ export const useNexusStore = defineStore({
           window.$notification.error({
             duration: 7000,
             title: i18n.t("common.error"),
-            content: i18n.t("repository.get.messages.error"),
+            content: i18n.t("nexus.errors.repo_fetch"),
           })
         }
       })
@@ -78,8 +93,8 @@ export const useNexusStore = defineStore({
         } else {
           window.$notification.error({
             duration: 7000,
-            title: "blob fetch error",
-            content: "blob fetch error",
+            title: i18n.t("common.error"),
+            content: i18n.t("nexus.errors.blob_fetch"),
           })
         }
       })
@@ -93,17 +108,16 @@ export const useNexusStore = defineStore({
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "repository coult not be removed",
-              content: "repo could not be removed",
+              title: i18n.t("common.error"),
+              content: i18n.t("nexus.errors.asset_fetch"),
             })
           }
         })
     },
     async createRepository(data: any, type: string) {
-      const config = getConfig(data, type)
       return http
         .post(`service/rest/v1/repositories/${type}`, {
-          data: JSON.stringify(config),
+          data: JSON.stringify(data),
         })
         .then((res) => {
           if (res.status == 200) {
@@ -111,23 +125,22 @@ export const useNexusStore = defineStore({
             this.fetchRepositories(filter[0], filter[1])
             window.$notification.success({
               duration: 7000,
-              title: "repository successfully created",
-              content: "repo successfully created",
+              title: i18n.t("common.success"),
+              content: i18n.t("nexus.errors.repo_create_success"),
             })
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "repository coult not be created",
-              content: "repo could not be created",
+              title: i18n.t("common.error"),
+              content: i18n.t(""),
             })
           }
         })
     },
     async updateRepository(data: any, type: string) {
-      const config = getConfig(data, type)
       return http
         .put(`service/rest/v1/repositories/${type}/${data.name}`, {
-          data: JSON.stringify(config),
+          data: JSON.stringify(data),
         })
         .then((res) => {
           if (res.status == 200) {
@@ -135,14 +148,14 @@ export const useNexusStore = defineStore({
             this.fetchRepositories(filter[0], filter[1])
             window.$notification.success({
               duration: 7000,
-              title: "repository successfully updated",
-              content: "repo successfully updated",
+              title: i18n.t("common.success"),
+              content: i18n.t("nexus.errors.repo_update_success"),
             })
           } else {
             window.$notification.error({
               duration: 7000,
-              title: "repository coult not be updated",
-              content: "repo could not be updated",
+              title: i18n.t("common.error"),
+              content: i18n.t("nexus.errors.repo_update_fail"),
             })
           }
         })
@@ -154,14 +167,14 @@ export const useNexusStore = defineStore({
           this.fetchRepositories(filter[0], filter[1])
           window.$notification.success({
             duration: 7000,
-            title: "repository successfully removed",
-            content: "repo successfully removed",
+            title: i18n.t("common.success"),
+            content: i18n.t("nexus.errors.repo_delete"),
           })
         } else {
           window.$notification.error({
             duration: 7000,
-            title: "repository coult not be removed",
-            content: "repo could not be removed",
+            title: i18n.t("common.error"),
+            content: i18n.t("nexus.errors.repo_delete_fail"),
           })
         }
       })

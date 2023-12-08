@@ -18,27 +18,25 @@ const selectblob = (key: string) => {
   data.value.storage.blobStoreName = key
 }
 const create = () => {
+  data.value.docker.forceBasicAuth = !data.value.docker.forceBasicAuth
   type.value == "create"
-    ? store.createRepository(data.value, "apt/hosted").then(() => {
+    ? store.createRepository(data.value, "docker/proxy").then(() => {
         show.value = false
       })
-    : store.updateRepository(data.value, "apt/hosted").then(() => {
+    : store.updateRepository(data.value, "docker/proxy").then(() => {
         show.value = false
       })
 }
 
-emitter.on("showapthosted", (obj: any) => {
+emitter.on("showdockerproxy", (obj: any) => {
+  console.log("in")
   show.value = true
   type.value = obj.itype
   blobs.value = obj.blobs
   obj.itype == "create"
-    ? (data.value = optionTypes["apthosted"])
-    : ((data.value = obj.ndata),
-      (data.value.aptSigning = {
-        keypair: "",
-        passphrase: "",
-      }))
-  console.log(data.value)
+    ? (data.value = optionTypes["dockerproxy"])
+    : (data.value = obj.ndata)
+  console.log(obj.ndata)
 })
 </script>
 <template>
@@ -48,7 +46,7 @@ emitter.on("showapthosted", (obj: any) => {
     >
       <n-form>
         <n-form-item :label="t('drawers.package_type')">
-          <div>APT Hosted</div>
+          <div>Docker Proxy</div>
         </n-form-item>
         <n-form-item :label="t('drawers.name')">
           <n-input v-model:value="data.name" :disabled="!(type == 'create')" />
@@ -61,14 +59,16 @@ emitter.on("showapthosted", (obj: any) => {
             >
           </n-dropdown>
         </n-form-item>
-        <n-form-item :label="t('drawers.distribution')">
-          <n-input v-model:value="data.apt.distribution" />
+        <n-form-item label="Port">
+          <n-input-number v-model:value="data.docker.httpPort" clearable />
         </n-form-item>
-        <n-form-item :label="t('drawers.signing_key')">
-          <n-input v-model:value="data.aptSigning.keypair" />
+        <n-form-item :label="t('drawers.proxy_url')">
+          <n-input v-model:value="data.name" :disabled="!(type == 'create')" />
         </n-form-item>
-        <n-form-item :label="t('drawers.passphrase')">
-          <n-input v-model:value="data.aptSigning.passphrase" />
+        <n-form-item>
+          <n-checkbox v-model:checked="data.docker.forceBasicAuth">
+            {{ t("nexus.test.columns.allow_anon_docker_pull") }}
+          </n-checkbox>
         </n-form-item>
       </n-form>
       <template #footer>

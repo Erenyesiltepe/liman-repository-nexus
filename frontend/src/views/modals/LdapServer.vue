@@ -4,6 +4,9 @@ import useEmitter from "@/utils/emitter"
 import { useLdapServerStore } from "@/stores/ldapServer"
 import type { FormRules } from "naive-ui"
 import { defaultLdap } from "@/templates/LdapTemp"
+import { useI18n } from "vue-i18n"
+
+const { t } = useI18n()
 
 /* const rules: FormRules = {
   name: [
@@ -84,34 +87,38 @@ function submit() {
 <template>
   <n-drawer v-model:show="show">
     <n-drawer-content
-      :title="op_type == 'create' ? 'Create Server' : 'Edit Server'"
+      :title="
+        op_type == 'create'
+          ? t('drawers.create_server')
+          : t('drawers.edit_server')
+      "
     >
       <n-form>
-        <n-form-item label="Name" path="name">
+        <n-form-item :label="t('drawers.name')">
           <n-input
             v-model:value="data.name"
             :disabled="!(op_type == 'create')"
           />
         </n-form-item>
-        <n-form-item label="Host" path="host">
+        <n-form-item :label="t('ldap_server.host')" path="host">
           <n-input v-model:value="data.host" />
         </n-form-item>
-        <n-form-item label="Port" path="port">
+        <n-form-item :label="t('ldap_server.port')" path="port">
           <n-input-number v-model:value="data.port" clearable />
         </n-form-item>
-        <n-form-item label="Search Base" path="base">
+        <n-form-item :label="t('ldap_server.dn')" path="base">
           <n-input v-model:value="data.searchBase" />
         </n-form-item>
-        <n-form-item label="Auth Username" path="username">
+        <n-form-item :label="t('ldap_server.auth_uname')" path="username">
           <n-input v-model:value="data.authUsername" />
         </n-form-item>
-        <n-form-item label="Password" path="password">
+        <n-form-item :label="t('ldap_server.password')" path="password">
           <n-input v-model:value="data.authPassword" type="password" />
         </n-form-item>
       </n-form>
       <template #footer>
         <n-button type="info" @click="submit">{{
-          op_type == "create" ? "Create" : "Edit"
+          op_type == "create" ? t("drawers.create") : t("drawers.edit")
         }}</n-button>
       </template>
     </n-drawer-content>

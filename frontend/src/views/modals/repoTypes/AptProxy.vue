@@ -19,26 +19,21 @@ const selectblob = (key: string) => {
 }
 const create = () => {
   type.value == "create"
-    ? store.createRepository(data.value, "apt/hosted").then(() => {
+    ? store.createRepository(data.value, "apt/proxy").then(() => {
         show.value = false
       })
-    : store.updateRepository(data.value, "apt/hosted").then(() => {
+    : store.updateRepository(data.value, "apt/proxy").then(() => {
         show.value = false
       })
 }
 
-emitter.on("showapthosted", (obj: any) => {
+emitter.on("showaptproxy", (obj: any) => {
   show.value = true
   type.value = obj.itype
   blobs.value = obj.blobs
   obj.itype == "create"
-    ? (data.value = optionTypes["apthosted"])
-    : ((data.value = obj.ndata),
-      (data.value.aptSigning = {
-        keypair: "",
-        passphrase: "",
-      }))
-  console.log(data.value)
+    ? (data.value = optionTypes["aptproxy"])
+    : (data.value = obj.ndata)
 })
 </script>
 <template>
@@ -48,8 +43,8 @@ emitter.on("showapthosted", (obj: any) => {
     >
       <n-form>
         <n-form-item :label="t('drawers.package_type')">
-          <div>APT Hosted</div>
-        </n-form-item>
+          <div>APT Proxy</div></n-form-item
+        >
         <n-form-item :label="t('drawers.name')">
           <n-input v-model:value="data.name" :disabled="!(type == 'create')" />
         </n-form-item>
@@ -64,13 +59,10 @@ emitter.on("showapthosted", (obj: any) => {
         <n-form-item :label="t('drawers.distribution')">
           <n-input v-model:value="data.apt.distribution" />
         </n-form-item>
-        <n-form-item :label="t('drawers.signing_key')">
-          <n-input v-model:value="data.aptSigning.keypair" />
-        </n-form-item>
-        <n-form-item :label="t('drawers.passphrase')">
-          <n-input v-model:value="data.aptSigning.passphrase" />
-        </n-form-item>
       </n-form>
+      <n-form-item :label="t('drawers.proxy_url')">
+        <n-input v-model:value="data.proxy.remoteUrl" />
+      </n-form-item>
       <template #footer>
         <n-button @click="create" type="success">{{
           type == "create" ? t("drawers.create") : t("drawers.edit")
