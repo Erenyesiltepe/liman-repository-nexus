@@ -66,6 +66,18 @@
         "operations": "Operasyonlar",
         "enable_anon_pull": "Docker Anonim Çekme",
         "push_url": "Push Url"
+      },
+      "errors": {
+        "repo_fetch": "Depo yüklenirken hata oluştu",
+        "blob_fetch": "Blob store yüklenirken hata oluştu",
+        "distribution_fetch": "Depo dağılımları yüklenirken hata oluştu",
+        "asset_fetch": "Asset'ler yüklenirken hata oluştu",
+        "repo_create_success": "Depo başarıyla oluşturuldu",
+        "repo_create_fail": "Depo oluştulamadı",
+        "repo_update_success": "Depo başarıyla güncellendi",
+        "repo_update_fail": "Depo güncellenemedi",
+        "repo_delete_success": "Depo başarıyla silindi",
+        "repo_delete_fail": "Depo silinemedi"
       }
     }
   },
@@ -76,7 +88,13 @@
     "ldap_off": "Ldap kapalı",
     "dn": "Arama Tabanı",
     "auth_uname": "Giriş Kullanıcı Adı",
-    "password": "Parola"
+    "password": "Parola",
+    "errors": {
+      "fetch_servers": "Sunucular yüklenirken hata oluştu",
+      "fetch_active": "Ldap bilgili yüklenirken hata oluştu",
+      "server_update": "Ldap sunucu bilgileri güncellenirken hata oluştu",
+      "server_create": "Ldap sunucusu eklenirken hata oluştu"
+    }
   },
   "users": {
     "columns": {
@@ -92,6 +110,12 @@
       "active_roles": "Aktif Roller",
       "apply": "Uygula",
       "edit_roles_heading": "Rolleri Düzenle"
+    },
+    "info": {
+      "user_fetch_error": "Kullanıcı bilgileri yüklenemedi",
+      "user_update_success": "Kullanıcı bilgileri başarıyla güncellendi",
+      "user_update_error": "Kullanıcı bilgileri güncellenemedi",
+      "role_fetch_error": "Rol bilgileri yüklenirken hata oluştu"
     }
   },
   "welcome": "Repository Manager a hoşgeldiniz",

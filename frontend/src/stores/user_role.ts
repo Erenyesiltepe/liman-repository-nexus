@@ -38,13 +38,13 @@ export const useUserRoleStore = defineStore({
             this.fetchUsers()
             window.$notification.success({
               duration: 7000,
-              title: i18n.t("commmon.success"),
+              title: i18n.t("common.success"),
               content: i18n.t("users.info.user_update_success"),
             })
           } else {
             window.$notification.success({
               duration: 7000,
-              title: i18n.t("commmon.success"),
+              title: i18n.t("common.success"),
               content: i18n.t("users.info.user_update_error"),
             })
           }
@@ -59,7 +59,7 @@ export const useUserRoleStore = defineStore({
         } else {
           window.$notification.success({
             duration: 7000,
-            title: i18n.t("commmon.success"),
+            title: i18n.t("common.success"),
             content: i18n.t("users.info.role_fetch_error"),
           })
         }

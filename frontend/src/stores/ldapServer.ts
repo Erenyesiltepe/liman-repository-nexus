@@ -29,8 +29,8 @@ export const useLdapServerStore = defineStore({
         } else {
           window.$notification.error({
             duration: 7000,
-            title: "ldap on fetch error",
-            content: "ldap on fetch error",
+            title: i18n.t("common.error"),
+            content: i18n.t("ldap_server.errors.fetch_active"),
           })
         }
       })
